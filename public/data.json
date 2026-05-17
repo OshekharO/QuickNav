@@ -35,6 +35,14 @@
     },
     {
       "id": "3",
+      "title": "NodeSeek",
+      "desc": "Popular Chinese VPS, hosting, and infrastructure discussion forum.",
+      "url": "https://www.nodeseek.com",
+      "category": "forums",
+      "icon": "server"
+    },
+    {
+      "id": "4",
       "title": "1Panel.cn",
       "desc": "Modern Chinese open-source Linux panel with containerized deployment and operations management.",
       "url": "https://1panel.cn",
@@ -42,7 +50,39 @@
       "icon": "server"
     },
     {
-      "id": "4",
+      "id": "5",
+      "title": "HacksNation",
+      "desc": "Cybersecurity and ethical hacking community forum.",
+      "url": "https://hacksnation.com",
+      "category": "security",
+      "icon": "shield"
+    },
+    {
+      "id": "6",
+      "title": "OneHack",
+      "desc": "Forum focused on cybersecurity discussions and digital tools.",
+      "url": "https://onehack.st",
+      "category": "security",
+      "icon": "terminal"
+    },
+    {
+      "id": "7",
+      "title": "LeakForum",
+      "desc": "Discussion forum related to cybersecurity and leaked database awareness.",
+      "url": "https://leakforum.io",
+      "category": "security",
+      "icon": "database"
+    },
+    {
+      "id": "8",
+      "title": "Xreactor",
+      "desc": "Technology and underground discussion community.",
+      "url": "https://xreactor.org",
+      "category": "forums",
+      "icon": "cpu"
+    },
+    {
+      "id": "9",
       "title": "Appicon-forge",
       "desc": "Online generator for iOS, Android, and Web app icons.",
       "url": "https://appicon-forge.com",
@@ -50,13 +90,53 @@
       "icon": "image"
     },
     {
-      "id": "5",
+      "id": "10",
       "title": "Bluesky",
       "desc": "Decentralized social network gathering developers and tech enthusiasts.",
       "url": "https://bsky.app",
       "category": "common",
       "icon": "cloud",
       "rightIcon": "send"
+    },
+    {
+      "id": "11",
+      "title": "LowEndTalk",
+      "desc": "Hosting, VPS, and self-hosting community forum.",
+      "url": "https://lowendtalk.com",
+      "category": "servers",
+      "icon": "hard-drive"
+    },
+    {
+      "id": "12",
+      "title": "Linux.do",
+      "desc": "Chinese Linux and open-source technology discussion community.",
+      "url": "https://linux.do",
+      "category": "forums",
+      "icon": "terminal"
+    },
+    {
+      "id": "13",
+      "title": "V2EX",
+      "desc": "Chinese community for programmers, startups, and creative professionals.",
+      "url": "https://v2ex.com",
+      "category": "forums",
+      "icon": "users"
+    },
+    {
+      "id": "14",
+      "title": "GitHub",
+      "desc": "Platform for hosting and collaborating on software projects.",
+      "url": "https://github.com",
+      "category": "development",
+      "icon": "github"
+    },
+    {
+      "id": "15",
+      "title": "Stack Overflow",
+      "desc": "Developer Q&A platform for programming and technical troubleshooting.",
+      "url": "https://stackoverflow.com",
+      "category": "development",
+      "icon": "code"
     }
   ]
 }
