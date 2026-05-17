@@ -336,9 +336,9 @@
     },
     {
       "id": "37",
-      "title": "Blackbox AI",
+      "title": "Arena AI",
       "desc": "AI coding assistant and developer productivity platform.",
-      "url": "https://app.blackbox.ai/",
+      "url": "https://arena.ai/",
       "category": "ai",
       "icon": "code-2"
     },
@@ -405,6 +405,22 @@
       "url": "https://uncoder.eu.org",
       "category": "resources",
       "icon": "code-xml"
+    },
+    {
+      "id": "46",
+      "title": "SVGOwl",
+      "desc": "Searchable collection of open-source icon libraries for developers and designers.",
+      "url": "https://svgowl.com",
+      "category": "resources",
+      "icon": "file-image"
+    },
+    {
+      "id": "47",
+      "title": "Icones",
+      "desc": "Searchable collection of open-source icon libraries for developers and designers.",
+      "url": "https://icones.js.org",
+      "category": "resources",
+      "icon": "shape"
     }
   ]
 }
