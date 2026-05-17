@@ -1,20 +1,69 @@
 {
   "searchEngines": [
-    { "id": "bing", "name": "Bing", "shortName": "Bing", "url": "https://www.bing.com/search?q=", "icon": "bing" },
-    { "id": "google", "name": "Google", "shortName": "Google", "url": "https://www.google.com/search?q=", "icon": "google" },
-    { "id": "baidu", "name": "Baidu", "shortName": "Baidu", "url": "https://www.baidu.com/s?wd=", "icon": "baidu" }
+    {
+      "id": "bing",
+      "name": "Bing",
+      "shortName": "Bing",
+      "url": "https://www.bing.com/search?q=",
+      "icon": "bing"
+    },
+    {
+      "id": "google",
+      "name": "Google",
+      "shortName": "Google",
+      "url": "https://www.google.com/search?q=",
+      "icon": "google"
+    },
+    {
+      "id": "baidu",
+      "name": "Baidu",
+      "shortName": "Baidu",
+      "url": "https://www.baidu.com/s?wd=",
+      "icon": "baidu"
+    }
   ],
   "categories": [
-    { "id": "all", "name": "All" },
-    { "id": "common", "name": "Common", "icon": "star" },
-    { "id": "resources", "name": "#Resources" },
-    { "id": "forums", "name": "#Forums" },
-    { "id": "tech", "name": "#Technology" },
-    { "id": "servers", "name": "#Servers" },
-    { "id": "proxies", "name": "#Proxies" },
-    { "id": "domains", "name": "#Domains" },
-    { "id": "email", "name": "#Email" },
-    { "id": "cloud", "name": "#Cloud Storage" }
+    {
+      "id": "all",
+      "name": "All"
+    },
+    {
+      "id": "common",
+      "name": "Common",
+      "icon": "star"
+    },
+    {
+      "id": "resources",
+      "name": "#Resources"
+    },
+    {
+      "id": "forums",
+      "name": "#Forums"
+    },
+    {
+      "id": "tech",
+      "name": "#Technology"
+    },
+    {
+      "id": "servers",
+      "name": "#Servers"
+    },
+    {
+      "id": "proxies",
+      "name": "#Proxies"
+    },
+    {
+      "id": "domains",
+      "name": "#Domains"
+    },
+    {
+      "id": "email",
+      "name": "#Email"
+    },
+    {
+      "id": "cloud",
+      "name": "#Cloud Storage"
+    }
   ],
   "sites": [
     {
@@ -57,6 +106,14 @@
       "category": "common",
       "icon": "cloud",
       "rightIcon": "send"
+    },
+    {
+      "id": "6",
+      "title": "BiliBili",
+      "url": "https://bilibili.in",
+      "desc": "Chinese video, tutorial, and technology content platform.",
+      "category": "common",
+      "icon": "tv"
     }
   ]
 }
