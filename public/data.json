@@ -40,7 +40,7 @@
     { "id": "forums", "name": "#Forums" },
     { "id": "tech", "name": "#Technology" },
     { "id": "servers", "name": "#Servers" },
-    { "id": "proxies", "name": "#Proxies" },
+    { "id": "ai", "name": "#Ai" },
     { "id": "domains", "name": "#Domains" },
     { "id": "email", "name": "#Email" },
     { "id": "cloud", "name": "#Cloud Storage" }
