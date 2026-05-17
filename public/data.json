@@ -110,11 +110,11 @@
     },
     {
       "id": "9",
-      "title": "Appicon-forge",
-      "desc": "Online generator for iOS, Android, and Web app icons.",
-      "url": "https://appicon-forge.com",
+      "title": "Brian's Job Search",
+      "desc": "Job discovery platform that searches ATS systems and recently posted openings.",
+      "url": "https://briansjobsearch.com",
       "category": "resources",
-      "icon": "image"
+      "icon": "briefcase"
     },
     {
       "id": "10",
@@ -397,6 +397,14 @@
       "url": "https://hacker-arsenal.tools/",
       "category": "resources",
       "icon": "wrench"
+    },
+    {
+      "id": "45",
+      "title": "Uncoder",
+      "desc": "Developer-focused platform with coding, utilities, and technical resources.",
+      "url": "https://uncoder.eu.org",
+      "category": "resources",
+      "icon": "code-xml"
     }
   ]
 }
