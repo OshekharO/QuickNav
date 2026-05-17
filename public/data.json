@@ -365,6 +365,38 @@
       "url": "https://www.designarena.ai/",
       "category": "ai",
       "icon": "palette"
+    },
+    {
+      "id": "41",
+      "title": "FMHY",
+      "desc": "Large collection of free internet tools, resources, and self-hosting links.",
+      "url": "https://fmhy.net/",
+      "category": "resources",
+      "icon": "library"
+    },
+    {
+      "id": "42",
+      "title": "Prompts Chat",
+      "desc": "Collection of AI prompts and prompt engineering resources.",
+      "url": "https://prompts.chat/",
+      "category": "resources",
+      "icon": "messages-square"
+    },
+    {
+      "id": "43",
+      "title": "DorkSearch",
+      "desc": "Search engine for advanced Google dork queries and indexing tools.",
+      "url": "https://dorksearch.com/",
+      "category": "resources",
+      "icon": "search"
+    },
+    {
+      "id": "44",
+      "title": "Hacker Arsenal",
+      "desc": "Collection of cybersecurity and penetration testing tools.",
+      "url": "https://hacker-arsenal.tools/",
+      "category": "resources",
+      "icon": "wrench"
     }
   ]
 }
