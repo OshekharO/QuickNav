@@ -1,0 +1,17 @@
+# QuickNav
+
+QuickNav is an open-source, fast, and customizable navigation directory. It allows users to easily manage, search, and categorize their favorite websites and resources.
+
+## Features
+- Search engine integration (Google, Bing, Baidu, etc.)
+- Categorized site listings
+- Drag and drop reordering
+- Light/Dark mode support
+- Local caching for fast load times
+- Open-source and easily deployable via GitHub Pages
+
+## Data Structure
+The site uses a simple `public/data.json` file for configuration. Anyone can suggest adding a new site by opening an issue on the GitHub repository.
+
+## GitHub Repository
+[https://github.com/OshekharO/QuickNav](https://github.com/OshekharO/QuickNav)
