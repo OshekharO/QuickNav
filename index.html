@@ -107,49 +107,55 @@ loadRrweb();
 <body class="min-h-screen flex justify-center pb-12 bg-[#eef1f6] text-gray-800 dark:bg-dark-bg dark:text-dark-text">
     
     <!-- Main App Container -->
-    <div id="app" class="w-full max-w-[460px] p-4 flex flex-col gap-5 pt-8">
+    <div id="app" class="w-full max-w-4xl px-4 sm:px-6 lg:px-8 flex flex-col gap-6 pt-8 md:pt-12 transition-all duration-300">
         
-        <!-- Top Actions -->
-        <div class="flex justify-end gap-3 mb-1">
-            <button id="themeToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border">
-                <i data-lucide="moon" class="w-[20px] h-[20px] hidden dark:block"></i>
-                <i data-lucide="sun" class="w-[20px] h-[20px] block dark:hidden"></i>
-            </button>
-            <button id="editToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border">
-                <i data-lucide="pencil" class="w-[18px] h-[18px]"></i>
-            </button>
-            <button class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border">
-                <i data-lucide="sliders-horizontal" class="w-[18px] h-[18px]"></i>
-            </button>
-        </div>
-
-        <!-- Search Bar -->
-        <div class="bg-white dark:bg-dark-card rounded-[16px] shadow-[0_2px_12px_rgba(0,0,0,0.04)] p-1.5 flex items-center gap-2 h-[56px] relative z-20 border border-transparent dark:border-dark-border">
-            <button id="searchEngineToggle" class="flex items-center gap-1.5 px-3 py-2 rounded-[12px] hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors h-full outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900">
-                <!-- Injected via JS -->
-            </button>
+        <!-- Header Section (Actions + Search) -->
+        <div class="flex flex-col md:flex-row-reverse gap-4 items-center w-full max-w-[600px] mx-auto md:max-w-none justify-between">
             
-            <!-- Search Engine Dropdown -->
-            <div id="searchEngineDropdown" class="hidden absolute top-[64px] left-0 bg-white dark:bg-dark-card rounded-[14px] shadow-xl border border-gray-100 dark:border-dark-border p-1.5 w-36 z-50 transform origin-top-left transition-all">
-                <!-- Injected via JS -->
+            <!-- Top Actions -->
+            <div class="flex justify-end gap-3 w-full md:w-auto shrink-0">
+                <button id="themeToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border">
+                    <i data-lucide="moon" class="w-[20px] h-[20px] hidden dark:block"></i>
+                    <i data-lucide="sun" class="w-[20px] h-[20px] block dark:hidden"></i>
+                </button>
+                <button id="editToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border">
+                    <i data-lucide="pencil" class="w-[18px] h-[18px]"></i>
+                </button>
+                <button class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border">
+                    <i data-lucide="sliders-horizontal" class="w-[18px] h-[18px]"></i>
+                </button>
             </div>
-            
-            <div class="w-[1px] h-5 bg-gray-200 dark:bg-gray-700"></div>
-            
-            <input type="text" id="searchInput" placeholder="搜索或输入网址..." class="flex-1 bg-transparent outline-none text-[#374151] dark:text-dark-text placeholder-gray-400 dark:placeholder-gray-500 text-[15px] px-2 h-full w-full">
-            
-            <button id="searchBtn" class="w-[44px] h-[44px] bg-[#82a4ea] rounded-[12px] flex items-center justify-center text-white shrink-0 hover:bg-[#6c92df] transition-colors shadow-sm focus:ring-2 focus:ring-blue-300 focus:ring-offset-1">
-                <i data-lucide="search" class="w-[20px] h-[20px]"></i>
-            </button>
+
+            <!-- Search Bar -->
+            <div class="bg-white dark:bg-dark-card rounded-[16px] shadow-[0_2px_12px_rgba(0,0,0,0.04)] p-1.5 flex items-center gap-2 h-[56px] relative z-20 border border-transparent dark:border-dark-border w-full max-w-[600px]">
+                <button id="searchEngineToggle" class="flex items-center gap-1.5 px-3 py-2 rounded-[12px] hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors h-full outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 shrink-0">
+                    <!-- Injected via JS -->
+                </button>
+                
+                <!-- Search Engine Dropdown -->
+                <div id="searchEngineDropdown" class="hidden absolute top-[64px] left-0 bg-white dark:bg-dark-card rounded-[14px] shadow-xl border border-gray-100 dark:border-dark-border p-1.5 w-36 z-50 transform origin-top-left transition-all">
+                    <!-- Injected via JS -->
+                </div>
+                
+                <div class="w-[1px] h-5 bg-gray-200 dark:bg-gray-700 shrink-0"></div>
+                
+                <input type="text" id="searchInput" placeholder="搜索或输入网址..." class="flex-1 bg-transparent outline-none text-[#374151] dark:text-dark-text placeholder-gray-400 dark:placeholder-gray-500 text-[15px] px-2 h-full w-full min-w-0">
+                
+                <button id="searchBtn" class="w-[44px] h-[44px] bg-[#82a4ea] rounded-[12px] flex items-center justify-center text-white shrink-0 hover:bg-[#6c92df] transition-colors shadow-sm focus:ring-2 focus:ring-blue-300 focus:ring-offset-1">
+                    <i data-lucide="search" class="w-[20px] h-[20px]"></i>
+                </button>
+            </div>
         </div>
 
         <!-- Categories (Redesigned to 2-row horizontal scroll) -->
-        <div id="categoriesContainer" class="category-grid gap-2.5 px-1 mt-1 pb-2 hide-scrollbar">
-            <!-- Injected via JS -->
+        <div class="w-full max-w-[600px] md:max-w-none mx-auto">
+            <div id="categoriesContainer" class="category-grid gap-2.5 px-1 pb-2 hide-scrollbar md:flex md:flex-wrap md:justify-center md:items-center">
+                <!-- Injected via JS -->
+            </div>
         </div>
 
-        <!-- Site List -->
-        <div id="sitesContainer" class="flex flex-col gap-3.5 mt-2">
+        <!-- Site List Grid -->
+        <div id="sitesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2 max-w-[600px] md:max-w-none mx-auto w-full">
             <!-- Injected via JS -->
         </div>
         
@@ -157,7 +163,7 @@ loadRrweb();
 
     <!-- Manage Sites Modal -->
     <div id="manageModal" class="hidden fixed inset-0 bg-black/40 dark:bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm transition-opacity">
-        <div class="bg-white dark:bg-dark-card rounded-[20px] w-full max-w-md max-h-[85vh] flex flex-col shadow-2xl transform transition-transform border border-transparent dark:border-dark-border">
+        <div class="bg-white dark:bg-dark-card rounded-[20px] w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl transform transition-transform border border-transparent dark:border-dark-border">
             <div class="p-5 border-b border-gray-100 dark:border-dark-border flex justify-between items-center">
                 <h2 class="font-semibold text-[18px] text-gray-800 dark:text-dark-text">Manage Sites</h2>
                 <button id="closeManageModal" class="text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
@@ -168,7 +174,7 @@ loadRrweb();
                 <!-- Injected via JS -->
             </div>
             <div class="p-5 border-t border-gray-100 dark:border-dark-border bg-white dark:bg-dark-card rounded-b-[20px]">
-                <button id="addNewSiteBtn" class="w-full py-3 bg-[#82a4ea] text-white rounded-[14px] font-medium hover:bg-[#6c92df] transition-colors shadow-sm flex items-center justify-center gap-2">
+                <button id="addNewSiteBtn" class="w-full py-3 bg-[#82a4ea] text-white rounded-[14px] font-medium hover:bg-[#6c92df] transition-colors shadow-sm flex items-center justify-center gap-2 max-w-md mx-auto">
                     <i data-lucide="plus" class="w-4 h-4"></i> Add New Site
                 </button>
             </div>
@@ -247,16 +253,28 @@ loadRrweb();
             }
         });
 
+        // SVG Icons dictionary for hardcoded brands not in Lucide
+        const customBrandIcons = {
+            bing: `<svg viewBox="0 0 24 24" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bingGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#38c5fc"/><stop offset="100%" stop-color="#006bea"/></linearGradient></defs><path d="M10.1 2.1c-.5-.2-1.1-.1-1.4.3L4.2 3.6c-.4.3-.6.8-.6 1.3v14.1c0 .4.3.8.7.9l5.2 1.9c.4.1.8 0 1-.4.1-.1.1-.2.1-.3l1.6-6.4h0l3.7 1.9c.3.2.8.1 1.1-.1l3.4-2.8c.3-.2.4-.6.3-.9l-2.6-7.5c-.1-.3-.4-.5-.7-.5H12.9L10.1 2.1z" fill="url(#bingGrad)"/></svg>`,
+            google: `<svg viewBox="0 0 24 24" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>`,
+            baidu: `<svg viewBox="0 0 24 24" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"><path d="M13.2 2.3c-1.3.1-2.5 1.1-2.8 2.4-.2 1.4.5 2.8 1.8 3.3 1.3.5 2.9-.1 3.5-1.4.6-1.2.2-2.8-1-3.6-.4-.3-.9-.6-1.5-.7zM8.8 3.2c-1.3-.1-2.5 1-2.6 2.3-.1 1.3 1 2.5 2.3 2.6 1.3.1 2.5-1 2.6-2.3.1-1.3-1-2.5-2.3-2.6zM20 6.6c-1.2-.1-2.3.8-2.5 2-.2 1.2.6 2.4 1.8 2.6 1.2.2 2.4-.6 2.6-1.8.2-1.2-.6-2.4-1.8-2.6-.1 0-.1-.2-.1-.2zM4.7 6.8c-1.1-.3-2.3.4-2.6 1.5-.3 1.1.4 2.3 1.5 2.6 1.1.3 2.3-.4 2.6-1.5.3-1.1-.4-2.3-1.5-2.6zM12.1 9.8c-3.1.2-5.7 2.3-6.6 5.3-.9 3 .3 6.3 2.9 8.1 2.6 1.8 6.1 1.8 8.7.1 2.6-1.7 3.9-5 3.1-8-1-3.2-4.1-5.6-7.4-5.5h-.7z" fill="#2932E1"/></svg>`
+        };
+
         // Robust Icon Resolution Logic
         function resolveIcon(site, sizeClass = 'w-6 h-6') {
-            // 1. Explicitly defined Lucide icon in JSON
+            // 1. Explicitly defined custom brand SVG (bing, google, baidu)
+            if (site.icon && customBrandIcons[site.icon]) {
+                return `<div class="${sizeClass}">${customBrandIcons[site.icon]}</div>`;
+            }
+
+            // 2. Explicitly defined Lucide icon in JSON (if it's not a custom brand)
             if (site.icon) {
                 return `<i data-lucide="${site.icon}" class="${sizeClass} text-gray-700 dark:text-gray-300"></i>`;
             }
 
-            // 2. Automatic domain/name matching for popular services
+            // 3. Automatic domain/name matching for popular services
             try {
-                const domain = new URL(site.url).hostname.toLowerCase();
+                const domain = site.url ? new URL(site.url).hostname.toLowerCase() : '';
                 const name = site.title ? site.title.toLowerCase() : '';
                 
                 const iconMap = {
@@ -264,7 +282,7 @@ loadRrweb();
                     'linkedin': 'linkedin', 'facebook': 'facebook', 'instagram': 'instagram',
                     'figma': 'figma', 'codepen': 'codepen', 'discord': 'discord',
                     'slack': 'slack', 'trello': 'trello', 'twitch': 'twitch',
-                    'bilibili': 'tv', 'bluesky': 'cloud', 'bing': 'search', 'google': 'chrome', 'baidu': 'compass'
+                    'bilibili': 'tv', 'bluesky': 'cloud'
                 };
                 
                 for (const [key, icon] of Object.entries(iconMap)) {
@@ -273,12 +291,16 @@ loadRrweb();
                     }
                 }
                 
-                // 3. Graceful degradation: Fetch real site favicon (Google S2 API)
-                return `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" class="${sizeClass} rounded-md object-contain" alt="${site.title}" onerror="this.outerHTML='<i data-lucide=\\'globe\\' class=\\'${sizeClass} text-gray-400\\'></i>'"/>`;
+                // 4. Graceful degradation: Fetch real site favicon (Google S2 API)
+                if (domain) {
+                    return `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" class="${sizeClass} rounded-md object-contain" alt="${site.title}" onerror="this.outerHTML='<i data-lucide=\\'globe\\' class=\\'${sizeClass} text-gray-400\\'></i>'"/>`;
+                }
             } catch(e) {
-                // 4. Ultimate fallback: Globe icon for invalid URLs or complete failures
-                return `<i data-lucide="globe" class="${sizeClass} text-gray-400 dark:text-gray-500"></i>`;
+                // Fall through to ultimate fallback
             }
+            
+            // 5. Ultimate fallback: Globe icon
+            return `<i data-lucide="globe" class="${sizeClass} text-gray-400 dark:text-gray-500"></i>`;
         }
 
         // Initialize App
@@ -313,7 +335,7 @@ loadRrweb();
                 
                 let classes = 'px-4 py-2.5 rounded-[12px] text-[14px] font-medium transition-all duration-200 flex items-center gap-1.5 border whitespace-nowrap ';
                 if (isSelected) {
-                    classes += 'bg-[#e3ecfa] dark:bg-blue-900/30 text-[#3e598b] dark:text-blue-400 border-transparent scale-[1.02]';
+                    classes += 'bg-[#e3ecfa] dark:bg-blue-900/30 text-[#3e598b] dark:text-blue-400 border-transparent scale-[1.02] shadow-sm';
                 } else {
                     classes += 'bg-white dark:bg-dark-card shadow-[0_2px_8px_rgba(0,0,0,0.03)] text-[#5e6673] dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 border-white dark:border-dark-border hover:border-gray-100 dark:hover:border-gray-700';
                 }
@@ -346,9 +368,9 @@ loadRrweb();
             
             if (filtered.length === 0) {
                 container.innerHTML = `
-                    <div class="text-center py-10 text-gray-400 dark:text-gray-500 flex flex-col items-center gap-2">
-                        <i data-lucide="inbox" class="w-8 h-8 opacity-50"></i>
-                        <p class="text-[14px]">No sites in this category.</p>
+                    <div class="col-span-full text-center py-16 text-gray-400 dark:text-gray-500 flex flex-col items-center gap-3">
+                        <i data-lucide="inbox" class="w-10 h-10 opacity-50"></i>
+                        <p class="text-[15px]">No sites in this category.</p>
                     </div>
                 `;
                 lucide.createIcons();
@@ -359,16 +381,16 @@ loadRrweb();
                 const a = document.createElement('a');
                 a.href = site.url;
                 a.target = '_blank';
-                a.className = 'bg-white dark:bg-dark-card rounded-[16px] p-4 flex items-center gap-4 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-300 group hover:-translate-y-[1px] border border-transparent dark:border-dark-border hover:border-gray-50 dark:hover:border-gray-700 cursor-pointer';
+                a.className = 'bg-white dark:bg-dark-card rounded-[16px] p-4 flex items-center gap-4 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-300 group hover:-translate-y-[2px] border border-transparent dark:border-dark-border hover:border-gray-100 dark:hover:border-gray-700 cursor-pointer h-full';
                 a.draggable = true;
                 
                 a.innerHTML = `
-                    <div class="w-[48px] h-[48px] rounded-[14px] bg-[#f8fafd] dark:bg-gray-800 flex items-center justify-center shrink-0 border border-gray-50/50 dark:border-gray-700 group-hover:scale-105 transition-transform duration-300">
+                    <div class="w-[48px] h-[48px] rounded-[14px] bg-[#f8fafd] dark:bg-gray-800 flex items-center justify-center shrink-0 border border-gray-50/50 dark:border-gray-700 group-hover:scale-105 transition-transform duration-300 shadow-sm">
                         ${resolveIcon(site, 'w-6 h-6')}
                     </div>
                     <div class="flex-1 min-w-0">
-                        <h3 class="text-[15.5px] font-semibold text-[#1f2329] dark:text-gray-100 mb-0.5 group-hover:text-[#82a4ea] dark:group-hover:text-blue-400 transition-colors">${site.title}</h3>
-                        <p class="text-[13px] text-[#8f959e] dark:text-gray-400 truncate">${site.desc}</p>
+                        <h3 class="text-[15.5px] font-semibold text-[#1f2329] dark:text-gray-100 mb-1 group-hover:text-[#82a4ea] dark:group-hover:text-blue-400 transition-colors truncate">${site.title}</h3>
+                        <p class="text-[13px] text-[#8f959e] dark:text-gray-400 line-clamp-2 leading-snug">${site.desc}</p>
                     </div>
                     ${site.rightIcon ? `<div class="shrink-0 text-gray-300 dark:text-gray-600 group-hover:text-[#82a4ea] dark:group-hover:text-blue-400 transition-colors group-hover:translate-x-1 duration-300"><i data-lucide="${site.rightIcon}" class="w-5 h-5"></i></div>` : ''}
                 `;
@@ -413,12 +435,11 @@ loadRrweb();
             const engine = data.searchEngines.find(e => e.id === currentSearchEngine);
             if (!engine) return;
             
-            // Re-use resolveIcon but format search engine object to match site schema
-            const iconHtml = resolveIcon({ title: engine.name, url: engine.url, icon: engine.icon }, 'w-4 h-4');
+            const iconHtml = resolveIcon({ title: engine.name, url: engine.url, icon: engine.icon }, 'w-[18px] h-[18px]');
             
             document.getElementById('searchEngineToggle').innerHTML = `
                 ${iconHtml}
-                <span class="text-[14px] font-medium text-[#374151] dark:text-gray-300">${engine.shortName}</span>
+                <span class="text-[14px] font-medium text-[#374151] dark:text-gray-300 ml-0.5">${engine.shortName}</span>
                 <i data-lucide="chevron-down" class="w-[14px] h-[14px] text-gray-400 dark:text-gray-500"></i>
             `;
             lucide.createIcons();
@@ -507,7 +528,6 @@ loadRrweb();
             
             let body = `### Action\n${action}\n\n`;
             
-            // Only send Original ID if we are editing or deleting an existing site
             if (action !== 'add' && site.id) {
                 body += `### Original ID\n${site.id}\n\n`;
             }
@@ -534,15 +554,15 @@ loadRrweb();
             list.innerHTML = '';
             
             if (sitesData.length === 0) {
-                list.innerHTML = '<p class="text-center text-gray-500 text-sm py-4">No sites configured.</p>';
+                list.innerHTML = '<p class="text-center text-gray-500 text-sm py-8">No sites configured.</p>';
                 return;
             }
 
             sitesData.forEach(site => {
                 const div = document.createElement('div');
-                div.className = 'flex items-center justify-between p-3.5 bg-white dark:bg-dark-card rounded-[14px] border border-gray-100 dark:border-dark-border shadow-sm';
+                div.className = 'flex items-center justify-between p-4 bg-white dark:bg-dark-card rounded-[14px] border border-gray-100 dark:border-dark-border shadow-sm';
                 div.innerHTML = `
-                    <div class="flex items-center gap-3.5 min-w-0">
+                    <div class="flex items-center gap-4 min-w-0">
                         <div class="w-10 h-10 rounded-[10px] bg-[#f8fafd] dark:bg-gray-800 flex items-center justify-center shrink-0 border border-gray-50 dark:border-gray-700">
                             ${resolveIcon(site, 'w-5 h-5')}
                         </div>
@@ -551,7 +571,7 @@ loadRrweb();
                             <span class="text-[12px] text-gray-500 dark:text-gray-400 truncate">${site.url}</span>
                         </div>
                     </div>
-                    <div class="flex gap-1.5 shrink-0 ml-2">
+                    <div class="flex gap-2 shrink-0 ml-4">
                         <button class="p-2 text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-[10px] transition-colors edit-btn" title="Edit">
                             <i data-lucide="pencil" class="w-4 h-4"></i>
                         </button>
@@ -577,7 +597,6 @@ loadRrweb();
         function openModal(id) {
             const modal = document.getElementById(id);
             modal.classList.remove('hidden');
-            // small delay to allow display:block to apply before opacity transition
             requestAnimationFrame(() => {
                 modal.firstElementChild.classList.add('scale-100', 'opacity-100');
                 modal.firstElementChild.classList.remove('scale-95', 'opacity-0');
@@ -624,7 +643,6 @@ loadRrweb();
 
         document.getElementById('siteForm').onsubmit = (e) => {
             e.preventDefault();
-            // id will be an empty string for new additions
             const id = document.getElementById('formSiteId').value;
             const site = {
                 id,
@@ -638,13 +656,11 @@ loadRrweb();
             submitToGitHub(id ? 'edit' : 'add', site);
         };
 
-        // Close modals on outside click
         window.onclick = (e) => {
             if (e.target.id === 'manageModal') closeModal('manageModal');
             if (e.target.id === 'formModal') closeModal('formModal');
         };
 
-        // Run Init
         init();
     </script>
 </body>
