@@ -476,20 +476,19 @@ loadRrweb();
             showToast('Redirecting to GitHub...', true);
             
             const repoUrl = 'https://github.com/OshekharO/QuickNav';
-            let title = '';
-            let body = '';
+            const title = `[${action.toUpperCase()}] ${site.title}`;
             
-            // Format the issue body to match what the GitHub Actions parser expects
-            if (action === 'add') {
-                title = `Add Site: ${site.title}`;
-                body = `### Site Name\n${site.title}\n\n### Site URL\n${site.url}\n\n### Description\n${site.desc}\n\n### Category\n${site.category}`;
-            } else if (action === 'edit') {
-                title = `Edit Site: ${site.title}`;
-                body = `Please update the site with the following details:\n\n### Site Name\n${site.title}\n\n### Site URL\n${site.url}\n\n### Description\n${site.desc}\n\n### Category\n${site.category}\n\n**Original ID:** ${site.id}`;
-            } else if (action === 'delete') {
-                title = `Delete Site: ${site.title}`;
-                body = `Please remove this site from the directory.\n\n### Site Name\n${site.title}\n\n### Site URL\n${site.url}\n\n**Original ID:** ${site.id}`;
+            // Generate clean markdown using headers for every field so the workflow regex parses it cleanly
+            let body = `### Action\n${action}\n\n`;
+            
+            if (action !== 'add') {
+                body += `### Original ID\n${site.id}\n\n`;
             }
+            
+            body += `### Site Name\n${site.title}\n\n`;
+            body += `### Site URL\n${site.url}\n\n`;
+            body += `### Description\n${site.desc}\n\n`;
+            body += `### Category\n${site.category}\n`;
 
             const issueUrl = `${repoUrl}/issues/new?title=${encodeURIComponent(title)}&labels=site-suggestion&body=${encodeURIComponent(body)}`;
             
