@@ -287,6 +287,86 @@
       "url": "https://cobalt.canine.tools/",
       "category": "common",
       "icon": "arrow-down-to-line"
+    },
+    {
+      "id": "31",
+      "title": "ChatGPT",
+      "desc": "AI assistant for coding, writing, research, and productivity.",
+      "url": "https://chatgpt.com/",
+      "category": "ai",
+      "icon": "bot"
+    },
+    {
+      "id": "32",
+      "title": "Microsoft Copilot",
+      "desc": "AI-powered assistant integrated with Microsoft services.",
+      "url": "https://copilot.microsoft.com/",
+      "category": "ai",
+      "icon": "sparkles"
+    },
+    {
+      "id": "33",
+      "title": "DeepSeek",
+      "desc": "AI chat and reasoning platform focused on coding and analysis.",
+      "url": "https://chat.deepseek.com/",
+      "category": "ai",
+      "icon": "brain"
+    },
+    {
+      "id": "34",
+      "title": "Gemini",
+      "desc": "Google AI assistant for search, writing, and multimodal tasks.",
+      "url": "https://gemini.google.com/",
+      "category": "ai",
+      "icon": "stars"
+    },
+    {
+      "id": "35",
+      "title": "Z.ai",
+      "desc": "AI chat platform with multilingual assistant capabilities.",
+      "url": "https://chat.z.ai/",
+      "category": "ai",
+      "icon": "messages-square"
+    },
+    {
+      "id": "36",
+      "title": "OAIChat",
+      "desc": "Third-party AI chat aggregation platform.",
+      "url": "https://chat.oaichat.cc/",
+      "category": "ai",
+      "icon": "message-circle"
+    },
+    {
+      "id": "37",
+      "title": "Blackbox AI",
+      "desc": "AI coding assistant and developer productivity platform.",
+      "url": "https://app.blackbox.ai/",
+      "category": "ai",
+      "icon": "code-2"
+    },
+    {
+      "id": "38",
+      "title": "Mistral Chat",
+      "desc": "AI assistant by Mistral focused on fast and open AI models.",
+      "url": "https://chat.mistral.ai/chat",
+      "category": "ai",
+      "icon": "wind"
+    },
+    {
+      "id": "39",
+      "title": "Metaso",
+      "desc": "AI-powered Chinese search and knowledge assistant.",
+      "url": "https://metaso.cn/",
+      "category": "ai",
+      "icon": "search-code"
+    },
+    {
+      "id": "40",
+      "title": "DesignArena AI",
+      "desc": "AI tools platform for design, creativity, and content generation.",
+      "url": "https://www.designarena.ai/",
+      "category": "ai",
+      "icon": "palette"
     }
   ]
 }
