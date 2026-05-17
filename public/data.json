@@ -1,13 +1,37 @@
 {
   "searchEngines": [
-    { "id": "bing", "name": "Bing", "shortName": "Bing", "url": "https://www.bing.com/search?q="},
+    {
+      "id": "bing",
+      "name": "Bing",
+      "shortName": "Bing",
+      "url": "https://www.bing.com/search?q="
+    },
     {
       "id": "google",
       "name": "Google",
       "shortName": "Google",
       "url": "https://www.google.com/search?q="
     },
-    { "id": "baidu", "name": "Baidu", "shortName": "Baidu", "url": "https://www.baidu.com/s?wd="}
+    {
+      "id": "baidu",
+      "name": "Baidu",
+      "shortName": "Baidu",
+      "url": "https://www.baidu.com/s?wd="
+    },
+    {
+      "id": "sogou",
+      "name": "Sogou",
+      "shortName": "Sogou",
+      "url": "https://www.sogou.com/web?query=",
+      "icon": "search"
+    },
+    {
+      "id": "brave",
+      "name": "Brave",
+      "shortName": "Brave",
+      "url": "https://search.brave.com/search?q=",
+      "icon": "shield"
+    }
   ],
   "categories": [
     { "id": "all", "name": "All" },
