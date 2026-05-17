@@ -1,14 +1,13 @@
 {
   "searchEngines": [
-    { "id": "bing", "name": "Bing", "shortName": "Bing", "url": "https://www.bing.com/search?q=", "icon": "search" },
+    { "id": "bing", "name": "Bing", "shortName": "Bing", "url": "https://www.bing.com/search?q="},
     {
       "id": "google",
       "name": "Google",
       "shortName": "Google",
-      "url": "https://www.google.com/search?q=",
-      "icon": "search"
+      "url": "https://www.google.com/search?q="
     },
-    { "id": "baidu", "name": "Baidu", "shortName": "Baidu", "url": "https://www.baidu.com/s?wd=", "icon": "search" }
+    { "id": "baidu", "name": "Baidu", "shortName": "Baidu", "url": "https://www.baidu.com/s?wd="}
   ],
   "categories": [
     { "id": "all", "name": "All" },
