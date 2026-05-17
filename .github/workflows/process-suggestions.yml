@@ -1,0 +1,143 @@
+name: Process Site Suggestions
+
+on:
+  issues:
+    types: [labeled]
+  workflow_dispatch:
+
+jobs:
+  check-trigger:
+    runs-on: ubuntu-latest
+    outputs:
+      should_process: ${{ steps.check.outputs.should_process }}
+    steps:
+      - name: Check if we should process
+        id: check
+        run: |
+          echo "Checking trigger conditions..."
+          if [ "${{ github.event.label.name }}" != "approved" ]; then
+            echo "❌ Triggered by label '${{ github.event.label.name }}', not 'approved'"
+            echo "should_process=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          LABEL_NAMES=$(echo '${{ toJson(github.event.issue.labels) }}' | jq -r '.[].name' | tr '[:upper:]' '[:lower:]' | tr '\n' ' ')
+          
+          if [[ "$LABEL_NAMES" == *"site-suggestion"* ]] && [[ "$LABEL_NAMES" == *"approved"* ]]; then
+            if [[ "$LABEL_NAMES" == *"processed"* ]] || [[ "$LABEL_NAMES" == *"auto-pr-created"* ]]; then
+              echo "❌ Issue already processed"
+              echo "should_process=false" >> $GITHUB_OUTPUT
+            else
+              echo "✅ Found required labels, proceeding"
+              echo "should_process=true" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "❌ Missing required labels"
+            echo "should_process=false" >> $GITHUB_OUTPUT
+          fi
+
+  process-suggestion:
+    needs: check-trigger
+    if: needs.check-trigger.outputs.should_process == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Extract and Add Site
+        id: process
+        run: |
+          echo '${{ toJson(github.event.issue.body) }}' > issue_body.json
+          
+          # Simple inline node script to parse issue body and update data.json
+          node -e '
+            const fs = require("fs");
+            const body = JSON.parse(fs.readFileSync("issue_body.json", "utf8"));
+            
+            // Basic markdown regex parsing for issue forms
+            const extract = (field) => {
+              const regex = new RegExp(`### ${field}\\s+([^#]+)`);
+              const match = body.match(regex);
+              return match ? match[1].trim() : "";
+            };
+            
+            const title = extract("Site Name");
+            const url = extract("Site URL");
+            const desc = extract("Description");
+            const category = extract("Category");
+            
+            if(!title || !url) {
+              console.error("Missing required fields");
+              process.exit(1);
+            }
+            
+            const dataPath = "public/data.json";
+            const data = JSON.parse(fs.readFileSync(dataPath, "utf8"));
+            
+            const newSite = {
+              id: "site_" + Date.now(),
+              title,
+              url,
+              desc: desc || "Added via suggestion",
+              category: category || "common",
+              iconId: "default"
+            };
+            
+            data.sites.push(newSite);
+            fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
+            
+            console.log(`::set-output name=site_name::${title}`);
+            console.log(`::set-output name=site_url::${url}`);
+          '
+
+      - name: Create Pull Request
+        id: create-pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "feat: Add site ${{ steps.process.outputs.site_name }}"
+          title: "Add ${{ steps.process.outputs.site_name }} to directory"
+          body: |
+            Auto-generated from approved site suggestion #${{ github.event.issue.number }}
+            
+            - **Site:** ${{ steps.process.outputs.site_name }}
+            - **URL:** ${{ steps.process.outputs.site_url }}
+          branch: "add-site-${{ github.event.issue.number }}"
+          delete-branch: true
+
+      - name: Comment on issue
+        if: steps.create-pr.outputs.pull-request-number != ''
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const prNumber = ${{ steps.create-pr.outputs.pull-request-number }};
+            await github.rest.issues.createComment({
+              issue_number: ${{ github.event.issue.number }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `✅ Site suggestion processed! A pull request has been automatically created: #${prNumber}`
+            });
+            
+            try {
+              await github.rest.issues.removeLabel({
+                issue_number: ${{ github.event.issue.number }},
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'approved'
+              });
+            } catch (e) {}
+            
+            await github.rest.issues.addLabels({
+              issue_number: ${{ github.event.issue.number }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['processed', 'auto-pr-created']
+            });
