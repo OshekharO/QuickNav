@@ -7,7 +7,6 @@
     <link rel="icon" href="./public/favicon.svg" type="image/svg+xml">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- SortableJS for flawless mobile/desktop drag & drop -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <script>
         tailwind.config = {
@@ -15,13 +14,7 @@
             theme: {
                 extend: {
                     colors: {
-                        dark: {
-                            bg: '#111827',
-                            card: '#1f2937',
-                            border: '#374151',
-                            text: '#f3f4f6',
-                            muted: '#9ca3af'
-                        }
+                        dark: { bg: '#111827', card: '#1f2937', border: '#374151', text: '#f3f4f6', muted: '#9ca3af' }
                     }
                 }
             }
@@ -29,175 +22,69 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        
-        /* 2-Row Horizontal Scroll for Categories */
-        .category-grid {
-            display: grid;
-            grid-template-rows: repeat(2, auto);
-            grid-auto-flow: column;
-            grid-auto-columns: max-content;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        /* SortableJS Drag and Drop Polish */
-        .drag-ghost {
-            opacity: 0.4;
-            background-color: var(--drag-bg, rgba(130, 164, 234, 0.15));
-            border: 2px dashed #82a4ea !important;
-            border-radius: 16px;
-            transform: scale(0.98);
-        }
-        .dark .drag-ghost {
-            --drag-bg: rgba(130, 164, 234, 0.2);
-        }
-        .drag-item {
-            cursor: grabbing !important;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.12) !important;
-            transform: scale(1.02) !important;
-            z-index: 50;
-        }
-        .dark .drag-item {
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4) !important;
-        }
-        
-        /* Smooth transitions */
-        .modal-enter {
-            opacity: 0;
-            transform: scale(0.95);
-        }
-        .modal-enter-active {
-            opacity: 1;
-            transform: scale(1);
-            transition: opacity 200ms ease-out, transform 200ms ease-out;
-        }
-        .modal-exit {
-            opacity: 1;
-            transform: scale(1);
-        }
-        .modal-exit-active {
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 150ms ease-in, transform 150ms ease-in;
-        }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; transition: background-color 0.3s, color 0.3s; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .category-grid { display: grid; grid-template-rows: repeat(2, auto); grid-auto-flow: column; grid-auto-columns: max-content; overflow-x: auto; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+        .drag-ghost { opacity: 0.4; background-color: var(--drag-bg, rgba(130, 164, 234, 0.15)); border: 2px dashed #82a4ea !important; border-radius: 16px; transform: scale(0.98); }
+        .dark .drag-ghost { --drag-bg: rgba(130, 164, 234, 0.2); }
+        .drag-item { cursor: grabbing !important; box-shadow: 0 20px 40px rgba(0,0,0,0.12) !important; transform: scale(1.02) !important; z-index: 50; }
+        .dark .drag-item { box-shadow: 0 20px 40px rgba(0,0,0,0.4) !important; }
     </style>
 </head>
 <body class="min-h-screen flex justify-center pb-6 bg-[#eef1f6] text-gray-800 dark:bg-dark-bg dark:text-dark-text">
-    
-    <!-- Main App Container -->
     <div id="app" class="w-full max-w-4xl px-4 sm:px-6 lg:px-8 flex flex-col gap-6 pt-8 md:pt-12 transition-all duration-300 min-h-screen">
         
-        <!-- Header Section (Actions + Search) -->
+        <!-- Header -->
         <div class="flex flex-col md:flex-row-reverse gap-4 items-center w-full max-w-[600px] mx-auto md:max-w-none justify-between">
-            
-            <!-- Top Actions -->
             <div class="flex justify-end gap-3 w-full md:w-auto shrink-0 relative">
-                <button id="themeToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border" title="Toggle Theme">
-                    <i data-lucide="moon" class="w-[20px] h-[20px] hidden dark:block"></i>
-                    <i data-lucide="sun" class="w-[20px] h-[20px] block dark:hidden"></i>
+                <button id="themeToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center border border-transparent dark:border-dark-border">
+                    <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                    <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
                 </button>
-                <button id="editToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border" title="Manage Sites">
+                <button id="editToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center border border-transparent dark:border-dark-border">
                     <i data-lucide="pencil" class="w-[18px] h-[18px]"></i>
                 </button>
-                
-                <!-- Settings Dropdown Container -->
                 <div class="relative">
-                    <button id="settingsToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 outline-none" title="Settings">
+                    <button id="settingsToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center border border-transparent dark:border-dark-border outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900">
                         <i data-lucide="sliders-horizontal" class="w-[18px] h-[18px]"></i>
                     </button>
-                    <!-- Settings Panel -->
-                    <div id="settingsDropdown" class="hidden absolute top-[52px] right-0 bg-white dark:bg-dark-card rounded-[16px] shadow-xl border border-gray-100 dark:border-dark-border p-3 w-[260px] z-50 transform origin-top-right transition-all">
+                    <div id="settingsDropdown" class="hidden absolute top-[52px] right-0 bg-white dark:bg-dark-card rounded-[16px] shadow-xl border border-gray-100 dark:border-dark-border p-3 w-[260px] z-50 transform origin-top-right">
                         <div class="flex items-center gap-2 mb-3 px-1">
                             <i data-lucide="settings" class="w-4 h-4 text-gray-400"></i>
-                            <h3 class="text-[13px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Preferences</h3>
+                            <h3 class="text-[13px] font-semibold text-gray-500 uppercase tracking-wider">Preferences</h3>
                         </div>
-                        
-                        <div class="flex flex-col gap-1 mb-3">
-                            <label class="flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-[10px] cursor-pointer transition-colors group">
-                                <span class="text-[14px] text-gray-700 dark:text-gray-300 font-medium select-none">Open in new tab</span>
-                                <div class="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" id="settingNewTab" class="sr-only peer">
-                                    <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-[#82a4ea]"></div>
-                                </div>
-                            </label>
-                            
-                            <label class="flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-[10px] cursor-pointer transition-colors group">
-                                <span class="text-[14px] text-gray-700 dark:text-gray-300 font-medium select-none">Compact view</span>
-                                <div class="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" id="settingCompact" class="sr-only peer">
-                                    <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-[#82a4ea]"></div>
-                                </div>
-                            </label>
-
-                            <label class="flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-[10px] cursor-pointer transition-colors group">
-                                <div class="flex flex-col">
-                                    <span class="text-[14px] text-gray-700 dark:text-gray-300 font-medium select-none">Drag & Drop</span>
-                                    <span class="text-[11px] text-gray-400 dark:text-gray-500">Allow reordering sites</span>
-                                </div>
-                                <div class="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" id="settingDragDrop" class="sr-only peer">
-                                    <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-[#82a4ea]"></div>
-                                </div>
-                            </label>
+                        <div class="flex flex-col gap-1 mb-3" id="settingsControls">
+                            <!-- Injected via JS -->
                         </div>
-                        
                         <div class="border-t border-gray-100 dark:border-gray-700 pt-3 mt-1">
-                            <button id="clearDataBtn" class="w-full flex items-center justify-center gap-2 p-2.5 text-[13px] font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-[10px] transition-colors">
-                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                                Clear Local Data
+                            <button id="clearDataBtn" class="w-full flex items-center justify-center gap-2 p-2.5 text-[13px] font-medium text-red-600 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 rounded-[10px] transition-colors">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i> Clear Local Data
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Search Bar -->
+            <!-- Search -->
             <div class="bg-white dark:bg-dark-card rounded-[16px] shadow-[0_2px_12px_rgba(0,0,0,0.04)] p-1.5 flex items-center gap-2 h-[56px] relative z-20 border border-transparent dark:border-dark-border w-full max-w-[600px]">
-                <button id="searchEngineToggle" class="flex items-center gap-1.5 px-3 py-2 rounded-[12px] hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors h-full outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 shrink-0">
-                    <!-- Injected via JS -->
-                </button>
-                
-                <!-- Search Engine Dropdown -->
-                <div id="searchEngineDropdown" class="hidden absolute top-[64px] left-0 bg-white dark:bg-dark-card rounded-[14px] shadow-xl border border-gray-100 dark:border-dark-border p-1.5 w-36 z-50 transform origin-top-left transition-all">
-                    <!-- Injected via JS -->
-                </div>
-                
+                <button id="searchEngineToggle" class="flex items-center gap-1.5 px-3 py-2 rounded-[12px] hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors h-full outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 shrink-0"></button>
+                <div id="searchEngineDropdown" class="hidden absolute top-[64px] left-0 bg-white dark:bg-dark-card rounded-[14px] shadow-xl border border-gray-100 dark:border-dark-border p-1.5 w-36 z-50"></div>
                 <div class="w-[1px] h-5 bg-gray-200 dark:bg-gray-700 shrink-0"></div>
-                
-                <input type="text" id="searchInput" placeholder="搜索或输入网址..." class="flex-1 bg-transparent outline-none text-[#374151] dark:text-dark-text placeholder-gray-400 dark:placeholder-gray-500 text-[15px] px-2 h-full w-full min-w-0">
-                
-                <button id="searchBtn" class="w-[44px] h-[44px] bg-[#82a4ea] rounded-[12px] flex items-center justify-center text-white shrink-0 hover:bg-[#6c92df] transition-colors shadow-sm focus:ring-2 focus:ring-blue-300 focus:ring-offset-1">
-                    <i data-lucide="search" class="w-[20px] h-[20px]"></i>
+                <input type="text" id="searchInput" placeholder="搜索或输入网址..." class="flex-1 bg-transparent outline-none text-[15px] px-2 h-full w-full min-w-0">
+                <button id="searchBtn" class="w-[44px] h-[44px] bg-[#82a4ea] rounded-[12px] flex items-center justify-center text-white shrink-0 hover:bg-[#6c92df] transition-colors shadow-sm focus:ring-2 focus:ring-blue-300">
+                    <i data-lucide="search" class="w-5 h-5"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Categories (Redesigned to 2-row horizontal scroll) -->
+        <!-- Categories -->
         <div class="w-full max-w-[600px] md:max-w-none mx-auto">
-            <div id="categoriesContainer" class="category-grid gap-2.5 px-1 pb-2 hide-scrollbar md:flex md:flex-wrap md:justify-center md:items-center">
-                <!-- Injected via JS -->
-            </div>
+            <div id="categoriesContainer" class="category-grid gap-2.5 px-1 pb-2 hide-scrollbar md:flex md:flex-wrap md:justify-center md:items-center"></div>
         </div>
 
-        <!-- Site List Grid -->
-        <div id="sitesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2 max-w-[600px] md:max-w-none mx-auto w-full flex-1 content-start">
-            <!-- Injected via JS -->
-        </div>
+        <!-- Sites -->
+        <div id="sitesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2 max-w-[600px] md:max-w-none mx-auto w-full flex-1 content-start"></div>
 
         <!-- Footer -->
         <footer class="mt-auto pt-8 border-t border-gray-200/60 dark:border-dark-border/60 flex flex-col items-center justify-center pb-2">
@@ -206,598 +93,348 @@
                 <span>QuickNav</span>
             </div>
         </footer>
-        
     </div>
 
-    <!-- Manage Sites Modal -->
+    <!-- Manage Modal -->
     <div id="manageModal" class="hidden fixed inset-0 bg-black/40 dark:bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm transition-opacity">
-        <div class="bg-white dark:bg-dark-card rounded-[20px] w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl transform transition-transform border border-transparent dark:border-dark-border">
+        <div class="bg-white dark:bg-dark-card rounded-[20px] w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl border border-transparent dark:border-dark-border">
             <div class="p-5 border-b border-gray-100 dark:border-dark-border flex justify-between items-center">
-                <h2 class="font-semibold text-[18px] text-gray-800 dark:text-dark-text">Manage Sites</h2>
-                <button id="closeManageModal" class="text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
+                <h2 class="font-semibold text-[18px]">Manage Sites</h2>
+                <button id="closeManageModal" class="text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 p-1 rounded-lg"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
-            <div class="p-4 overflow-y-auto flex-1 flex flex-col gap-3 hide-scrollbar bg-gray-50/50 dark:bg-dark-bg/50" id="manageSiteList">
-                <!-- Injected via JS -->
-            </div>
-            <div class="p-5 border-t border-gray-100 dark:border-dark-border bg-white dark:bg-dark-card rounded-b-[20px]">
-                <button id="addNewSiteBtn" class="w-full py-3 bg-[#82a4ea] text-white rounded-[14px] font-medium hover:bg-[#6c92df] transition-colors shadow-sm flex items-center justify-center gap-2 max-w-md mx-auto">
+            <div class="p-4 overflow-y-auto flex-1 flex flex-col gap-3 hide-scrollbar bg-gray-50/50 dark:bg-dark-bg/50" id="manageSiteList"></div>
+            <div class="p-5 border-t border-gray-100 dark:border-dark-border">
+                <button id="addNewSiteBtn" class="w-full py-3 bg-[#82a4ea] text-white rounded-[14px] font-medium hover:bg-[#6c92df] flex items-center justify-center gap-2 max-w-md mx-auto">
                     <i data-lucide="plus" class="w-4 h-4"></i> Add New Site
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Add/Edit Form Modal -->
+    <!-- Form Modal -->
     <div id="formModal" class="hidden fixed inset-0 bg-black/40 dark:bg-black/60 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
         <div class="bg-white dark:bg-dark-card rounded-[20px] w-full max-w-md flex flex-col shadow-2xl border border-transparent dark:border-dark-border">
             <div class="p-5 border-b border-gray-100 dark:border-dark-border flex justify-between items-center">
-                <h2 class="font-semibold text-[18px] text-gray-800 dark:text-dark-text" id="formModalTitle">Add Site</h2>
-                <button id="closeFormModal" class="text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
-                    <i data-lucide="x" class="w-5 h-5"></i>
-                </button>
+                <h2 class="font-semibold text-[18px]" id="formModalTitle">Add Site</h2>
+                <button id="closeFormModal" class="text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 p-1 rounded-lg"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
             <form id="siteForm" class="p-5 flex flex-col gap-4">
                 <input type="hidden" id="formSiteId">
+                ${['Title', 'Description', 'URL'].map(field => `
                 <div>
-                    <label class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">Title</label>
-                    <input type="text" id="formTitle" required placeholder="e.g. GitHub" class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-[#82a4ea] focus:ring-2 focus:ring-[#82a4ea]/20 transition-all text-[14px] dark:text-white">
-                </div>
-                <div>
-                    <label class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">Description</label>
-                    <input type="text" id="formDesc" required placeholder="Short description..." class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-[#82a4ea] focus:ring-2 focus:ring-[#82a4ea]/20 transition-all text-[14px] dark:text-white">
-                </div>
-                <div>
-                    <label class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">URL</label>
-                    <input type="url" id="formUrl" required placeholder="https://..." class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-[#82a4ea] focus:ring-2 focus:ring-[#82a4ea]/20 transition-all text-[14px] dark:text-white">
-                </div>
+                    <label class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">${field}</label>
+                    <input type="${field==='URL'?'url':'text'}" id="form${field}" required class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-[#82a4ea] focus:ring-2 focus:ring-[#82a4ea]/20 text-[14px]">
+                </div>`).join('')}
                 <div>
                     <label class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">Category</label>
-                    <select id="formCategory" required class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-[#82a4ea] focus:ring-2 focus:ring-[#82a4ea]/20 transition-all text-[14px] dark:text-white appearance-none cursor-pointer">
-                        <!-- Injected via JS -->
-                    </select>
+                    <select id="formCategory" required class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none text-[14px] appearance-none"></select>
                 </div>
                 <div>
                     <label class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">Lucide Icon (Optional)</label>
-                    <input type="text" id="formIcon" placeholder="e.g. github, tv, server" class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-[#82a4ea] focus:ring-2 focus:ring-[#82a4ea]/20 transition-all text-[14px] dark:text-white">
+                    <input type="text" id="formIcon" class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none text-[14px]">
                 </div>
-                <button type="submit" class="w-full py-3 bg-[#24292f] dark:bg-white text-white dark:text-[#24292f] rounded-[14px] font-medium hover:bg-black dark:hover:bg-gray-200 transition-colors shadow-sm mt-2 flex items-center justify-center gap-2">
+                <button type="submit" class="w-full py-3 bg-[#24292f] dark:bg-white text-white dark:text-[#24292f] rounded-[14px] font-medium flex items-center justify-center gap-2 mt-2">
                     <i data-lucide="github" class="w-5 h-5"></i> Submit via GitHub Issue
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Toast Notification -->
+    <!-- Toast -->
     <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#1f2329] dark:bg-white text-white dark:text-[#1f2329] px-5 py-3.5 rounded-[14px] shadow-xl flex items-center gap-3 transition-transform duration-300 translate-y-[200%] z-[70]">
-        <i data-lucide="loader-2" class="w-5 h-5 animate-spin hidden text-[#82a4ea]" id="toastSpinner"></i>
-        <i data-lucide="check-circle-2" class="w-5 h-5 text-green-400 dark:text-green-600 hidden" id="toastSuccess"></i>
-        <span id="toastMsg" class="text-[14px] font-medium tracking-wide">Processing...</span>
+        <i data-lucide="loader-2" class="w-5 h-5 animate-spin text-[#82a4ea]"></i>
+        <span id="toastMsg" class="text-[14px] font-medium tracking-wide">Redirecting to GitHub...</span>
     </div>
 
     <script>
-        // State
-        let data = { searchEngines: [], categories: [], sites: [] };
-        let currentCategory = 'all';
-        let currentSearchEngine = 'bing';
-        let sitesData = [];
-        let sortableInstance = null;
+        // --- Core Configuration & State ---
+        const CACHE_KEY = 'qn_data_cache';
+        const $ = id => document.getElementById(id);
         
-        // Settings State
-        let userSettings = {
-            newTab: localStorage.getItem('qn_setting_newtab') !== 'false', // Default true
-            compact: localStorage.getItem('qn_setting_compact') === 'true', // Default false
-            dragDrop: localStorage.getItem('qn_setting_dragdrop') !== 'false' // Default true
+        const state = {
+            data: { searchEngines: [], categories: [], sites: [] },
+            sites: [],
+            category: 'all',
+            engine: 'bing',
+            sortable: null
         };
 
-        // Theme Toggle Logic
-        const themeToggleBtn = document.getElementById('themeToggle');
-        
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+        const settings = {
+            newTab: localStorage.getItem('qn_newtab') !== 'false',
+            compact: localStorage.getItem('qn_compact') === 'true',
+            dragDrop: localStorage.getItem('qn_dragdrop') !== 'false'
+        };
 
-        themeToggleBtn.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-            if (document.documentElement.classList.contains('dark')) {
-                localStorage.theme = 'dark';
-            } else {
-                localStorage.theme = 'light';
-            }
-        });
+        // --- Theme Initialization ---
+        const initTheme = () => {
+            const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            document.documentElement.classList.toggle('dark', isDark);
+        };
+        initTheme();
 
-        // Settings Panel Logic
-        const settingsToggleBtn = document.getElementById('settingsToggle');
-        const settingsDropdown = document.getElementById('settingsDropdown');
-        const settingNewTab = document.getElementById('settingNewTab');
-        const settingCompact = document.getElementById('settingCompact');
-        const settingDragDrop = document.getElementById('settingDragDrop');
-        const clearDataBtn = document.getElementById('clearDataBtn');
+        $('themeToggle').onclick = () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.theme = isDark ? 'dark' : 'light';
+        };
 
-        settingNewTab.checked = userSettings.newTab;
-        settingCompact.checked = userSettings.compact;
-        settingDragDrop.checked = userSettings.dragDrop;
+        // --- Settings Panel ---
+        const buildSettings = () => {
+            const configs = [
+                { id: 'newTab', label: 'Open in new tab', sub: '' },
+                { id: 'compact', label: 'Compact view', sub: '' },
+                { id: 'dragDrop', label: 'Drag & Drop', sub: 'Allow reordering sites' }
+            ];
+            $('settingsControls').innerHTML = configs.map(c => `
+                <label class="flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-[10px] cursor-pointer group">
+                    <div class="flex flex-col"><span class="text-[14px] font-medium select-none">${c.label}</span>${c.sub ? `<span class="text-[11px] text-gray-400">${c.sub}</span>` : ''}</div>
+                    <div class="relative inline-flex items-center">
+                        <input type="checkbox" id="set_${c.id}" class="sr-only peer" ${settings[c.id] ? 'checked' : ''}>
+                        <div class="w-9 h-5 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:bg-[#82a4ea] after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-full"></div>
+                    </div>
+                </label>
+            `).join('');
 
-        settingsToggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            settingsDropdown.classList.toggle('hidden');
-        });
+            configs.forEach(c => {
+                $(`set_${c.id}`).onchange = e => {
+                    settings[c.id] = e.target.checked;
+                    localStorage.setItem(`qn_${c.id.toLowerCase()}`, e.target.checked);
+                    renderSites();
+                };
+            });
+        };
+        buildSettings();
 
-        settingNewTab.addEventListener('change', (e) => {
-            userSettings.newTab = e.target.checked;
-            localStorage.setItem('qn_setting_newtab', userSettings.newTab);
-            renderSites();
-        });
-
-        settingCompact.addEventListener('change', (e) => {
-            userSettings.compact = e.target.checked;
-            localStorage.setItem('qn_setting_compact', userSettings.compact);
-            renderSites();
-        });
-
-        settingDragDrop.addEventListener('change', (e) => {
-            userSettings.dragDrop = e.target.checked;
-            localStorage.setItem('qn_setting_dragdrop', userSettings.dragDrop);
-            renderSites();
-        });
-
-        clearDataBtn.addEventListener('click', () => {
-            if (confirm("Are you sure you want to clear all local settings and preferences?")) {
-                localStorage.removeItem('theme');
-                localStorage.removeItem('qn_setting_newtab');
-                localStorage.removeItem('qn_setting_compact');
-                localStorage.removeItem('qn_setting_dragdrop');
+        $('clearDataBtn').onclick = () => {
+            if (confirm("Clear all local settings and cache?")) {
+                localStorage.clear();
+                sessionStorage.removeItem(CACHE_KEY);
                 window.location.reload();
             }
-        });
-
-        // SVG Icons dictionary for hardcoded brands not in Lucide
-        const customBrandIcons = {
-            bing: `<svg viewBox="0 0 24 24" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bingGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#38c5fc"/><stop offset="100%" stop-color="#006bea"/></linearGradient></defs><path d="M10.1 2.1c-.5-.2-1.1-.1-1.4.3L4.2 3.6c-.4.3-.6.8-.6 1.3v14.1c0 .4.3.8.7.9l5.2 1.9c.4.1.8 0 1-.4.1-.1.1-.2.1-.3l1.6-6.4h0l3.7 1.9c.3.2.8.1 1.1-.1l3.4-2.8c.3-.2.4-.6.3-.9l-2.6-7.5c-.1-.3-.4-.5-.7-.5H12.9L10.1 2.1z" fill="url(#bingGrad)"/></svg>`,
-            google: `<svg viewBox="0 0 24 24" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>`,
-            baidu: `<svg viewBox="0 0 24 24" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"><path d="M13.2 2.3c-1.3.1-2.5 1.1-2.8 2.4-.2 1.4.5 2.8 1.8 3.3 1.3.5 2.9-.1 3.5-1.4.6-1.2.2-2.8-1-3.6-.4-.3-.9-.6-1.5-.7zM8.8 3.2c-1.3-.1-2.5 1-2.6 2.3-.1 1.3 1 2.5 2.3 2.6 1.3.1 2.5-1 2.6-2.3.1-1.3-1-2.5-2.3-2.6zM20 6.6c-1.2-.1-2.3.8-2.5 2-.2 1.2.6 2.4 1.8 2.6 1.2.2 2.4-.6 2.6-1.8.2-1.2-.6-2.4-1.8-2.6-.1 0-.1-.2-.1-.2zM4.7 6.8c-1.1-.3-2.3.4-2.6 1.5-.3 1.1.4 2.3 1.5 2.6 1.1.3 2.3-.4 2.6-1.5.3-1.1-.4-2.3-1.5-2.6zM12.1 9.8c-3.1.2-5.7 2.3-6.6 5.3-.9 3 .3 6.3 2.9 8.1 2.6 1.8 6.1 1.8 8.7.1 2.6-1.7 3.9-5 3.1-8-1-3.2-4.1-5.6-7.4-5.5h-.7z" fill="#2932E1"/></svg>`
         };
 
-        // Robust Icon Resolution Logic
-        function resolveIcon(site, sizeClass = 'w-6 h-6') {
-            if (site.icon && customBrandIcons[site.icon]) {
-                return `<div class="${sizeClass}">${customBrandIcons[site.icon]}</div>`;
-            }
-            if (site.icon) {
-                return `<i data-lucide="${site.icon}" class="${sizeClass} text-gray-700 dark:text-gray-300"></i>`;
-            }
+        // --- Dropdowns & Modals ---
+        const toggleDrop = (btnId, dropId) => {
+            const drop = $(dropId);
+            $(btnId).onclick = e => { e.stopPropagation(); drop.classList.toggle('hidden'); };
+            return drop;
+        };
+        const settingsDrop = toggleDrop('settingsToggle', 'settingsDropdown');
+        const engineDrop = toggleDrop('searchEngineToggle', 'searchEngineDropdown');
+
+        document.addEventListener('click', e => {
+            if (!settingsDrop.contains(e.target) && e.target.id !== 'settingsToggle') settingsDrop.classList.add('hidden');
+            if (!engineDrop.contains(e.target) && e.target.id !== 'searchEngineToggle') engineDrop.classList.add('hidden');
+        });
+
+        const toggleModal = (id, show) => {
+            const m = $(id);
+            show ? m.classList.remove('hidden') : m.classList.add('hidden');
+            if (show) requestAnimationFrame(() => {
+                m.firstElementChild.classList.remove('scale-95', 'opacity-0');
+                m.firstElementChild.classList.add('scale-100', 'opacity-100');
+            });
+        };
+
+        $('editToggle').onclick = () => { renderManageList(); toggleModal('manageModal', true); };
+        $('closeManageModal').onclick = () => toggleModal('manageModal', false);
+        $('addNewSiteBtn').onclick = () => openForm();
+        $('closeFormModal').onclick = () => toggleModal('formModal', false);
+        window.onclick = e => {
+            if (e.target.id === 'manageModal') toggleModal('manageModal', false);
+            if (e.target.id === 'formModal') toggleModal('formModal', false);
+        };
+
+        // --- Icon Resolution ---
+        const brandIcons = {
+            bing: `<svg viewBox="0 0 24 24" class="w-full h-full"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#38c5fc"/><stop offset="100%" stop-color="#006bea"/></linearGradient></defs><path d="M10.1 2.1c-.5-.2-1.1-.1-1.4.3L4.2 3.6c-.4.3-.6.8-.6 1.3v14.1c0 .4.3.8.7.9l5.2 1.9c.4.1.8 0 1-.4.1-.1.1-.2.1-.3l1.6-6.4h0l3.7 1.9c.3.2.8.1 1.1-.1l3.4-2.8c.3-.2.4-.6.3-.9l-2.6-7.5c-.1-.3-.4-.5-.7-.5H12.9L10.1 2.1z" fill="url(#bg)"/></svg>`,
+            google: `<svg viewBox="0 0 24 24" class="w-full h-full"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>`,
+            baidu: `<svg viewBox="0 0 24 24" class="w-full h-full"><path d="M13.2 2.3c-1.3.1-2.5 1.1-2.8 2.4-.2 1.4.5 2.8 1.8 3.3 1.3.5 2.9-.1 3.5-1.4.6-1.2.2-2.8-1-3.6-.4-.3-.9-.6-1.5-.7zM8.8 3.2c-1.3-.1-2.5 1-2.6 2.3-.1 1.3 1 2.5 2.3 2.6 1.3.1 2.5-1 2.6-2.3.1-1.3-1-2.5-2.3-2.6zM20 6.6c-1.2-.1-2.3.8-2.5 2-.2 1.2.6 2.4 1.8 2.6 1.2.2 2.4-.6 2.6-1.8.2-1.2-.6-2.4-1.8-2.6-.1 0-.1-.2-.1-.2zM4.7 6.8c-1.1-.3-2.3.4-2.6 1.5-.3 1.1.4 2.3 1.5 2.6 1.1.3 2.3-.4 2.6-1.5.3-1.1-.4-2.3-1.5-2.6zM12.1 9.8c-3.1.2-5.7 2.3-6.6 5.3-.9 3 .3 6.3 2.9 8.1 2.6 1.8 6.1 1.8 8.7.1 2.6-1.7 3.9-5 3.1-8-1-3.2-4.1-5.6-7.4-5.5h-.7z" fill="#2932E1"/></svg>`
+        };
+        const lucideMap = { github: 'github', twitter: 'twitter', youtube: 'youtube', linkedin: 'linkedin', facebook: 'facebook', instagram: 'instagram', figma: 'figma', codepen: 'codepen', discord: 'discord', slack: 'slack', trello: 'trello', twitch: 'twitch', bilibili: 'tv', bluesky: 'cloud' };
+
+        const resolveIcon = (site, size = 'w-6 h-6') => {
+            if (site.icon && brandIcons[site.icon]) return `<div class="${size}">${brandIcons[site.icon]}</div>`;
+            if (site.icon) return `<i data-lucide="${site.icon}" class="${size} text-gray-700 dark:text-gray-300"></i>`;
             try {
                 const domain = site.url ? new URL(site.url).hostname.toLowerCase() : '';
-                const name = site.title ? site.title.toLowerCase() : '';
-                
-                const iconMap = {
-                    'github': 'github', 'twitter': 'twitter', 'youtube': 'youtube',
-                    'linkedin': 'linkedin', 'facebook': 'facebook', 'instagram': 'instagram',
-                    'figma': 'figma', 'codepen': 'codepen', 'discord': 'discord',
-                    'slack': 'slack', 'trello': 'trello', 'twitch': 'twitch',
-                    'bilibili': 'tv', 'bluesky': 'cloud'
-                };
-                
-                for (const [key, icon] of Object.entries(iconMap)) {
-                    if (name.includes(key) || domain.includes(key)) {
-                        return `<i data-lucide="${icon}" class="${sizeClass} text-gray-700 dark:text-gray-300"></i>`;
-                    }
-                }
-                
-                if (domain) {
-                    return `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" class="${sizeClass} rounded-md object-contain" alt="${site.title}" onerror="this.outerHTML='<i data-lucide=\\'globe\\' class=\\'${sizeClass} text-gray-400\\'></i>'"/>`;
-                }
+                const name = (site.title || '').toLowerCase();
+                for (const [k, v] of Object.entries(lucideMap)) if (name.includes(k) || domain.includes(k)) return `<i data-lucide="${v}" class="${size} text-gray-700 dark:text-gray-300"></i>`;
+                if (domain) return `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" class="${size} rounded-md object-contain" alt="" onerror="this.outerHTML='<i data-lucide=\\'globe\\' class=\\'${size} text-gray-400\\'></i>'"/>`;
             } catch(e) {}
-            
-            return `<i data-lucide="globe" class="${sizeClass} text-gray-400 dark:text-gray-500"></i>`;
-        }
+            return `<i data-lucide="globe" class="${size} text-gray-400 dark:text-gray-500"></i>`;
+        };
 
-        // Initialize App
-        async function init() {
+        // --- Render Functions ---
+        window.setCategory = id => { state.category = id; renderCategories(); renderSites(); };
+
+        const renderCategories = () => {
+            $('categoriesContainer').innerHTML = state.data.categories.map(cat => {
+                const act = cat.id === state.category;
+                const cls = `px-4 py-2.5 rounded-[12px] text-[14px] font-medium transition-all duration-200 flex items-center gap-1.5 border whitespace-nowrap ${act ? 'bg-[#e3ecfa] dark:bg-blue-900/30 text-[#3e598b] dark:text-blue-400 border-transparent scale-[1.02] shadow-sm' : 'bg-white dark:bg-dark-card shadow-[0_2px_8px_rgba(0,0,0,0.03)] text-[#5e6673] dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 border-white dark:border-dark-border hover:border-gray-100 dark:hover:border-gray-700'}`;
+                const icon = cat.icon ? `<i data-lucide="${cat.icon}" class="w-[15px] h-[15px] ${act ? 'text-[#3e598b] dark:text-blue-400' : 'text-gray-400'}"></i>` : '';
+                return `<button class="${cls}" onclick="setCategory('${cat.id}')">${icon} ${cat.name}</button>`;
+            }).join('');
+            lucide.createIcons();
+        };
+
+        const renderSites = () => {
+            const c = $('sitesContainer');
+            if (state.sortable) { state.sortable.destroy(); state.sortable = null; }
+            
+            const filtered = state.category === 'all' ? state.sites : state.sites.filter(s => s.category === state.category);
+            if (!filtered.length) {
+                c.innerHTML = `<div class="col-span-full text-center py-16 text-gray-400 flex flex-col items-center gap-3"><i data-lucide="inbox" class="w-10 h-10 opacity-50"></i><p class="text-[15px]">No sites configured.</p></div>`;
+                lucide.createIcons(); return;
+            }
+
+            c.innerHTML = filtered.map(s => {
+                const t = settings.newTab ? '_blank' : '_self';
+                const drag = settings.dragDrop ? 'cursor-grab hover:-translate-y-[2px]' : 'cursor-pointer hover:-translate-y-[2px]';
+                if (settings.compact) return `
+                    <a href="${s.url}" target="${t}" data-id="${s.id}" class="bg-white dark:bg-dark-card rounded-[12px] p-3 flex items-center gap-3 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)] transition-all group border border-transparent dark:border-dark-border h-full select-none ${drag}">
+                        <div class="w-[32px] h-[32px] rounded-[10px] bg-[#f8fafd] dark:bg-gray-800 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-sm pointer-events-none">${resolveIcon(s, 'w-[18px] h-[18px]')}</div>
+                        <div class="flex-1 min-w-0 flex items-center justify-between gap-2 pointer-events-none">
+                            <h3 class="text-[14px] font-medium text-[#1f2329] dark:text-gray-100 group-hover:text-[#82a4ea] dark:group-hover:text-blue-400 truncate">${s.title}</h3>
+                            ${s.rightIcon ? `<i data-lucide="${s.rightIcon}" class="w-4 h-4 text-gray-300 group-hover:text-[#82a4ea]"></i>` : ''}
+                        </div>
+                    </a>`;
+                return `
+                    <a href="${s.url}" target="${t}" data-id="${s.id}" class="bg-white dark:bg-dark-card rounded-[16px] p-4 flex items-center gap-4 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all group border border-transparent dark:border-dark-border h-full select-none ${drag}">
+                        <div class="w-[48px] h-[48px] rounded-[14px] bg-[#f8fafd] dark:bg-gray-800 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-sm pointer-events-none">${resolveIcon(s, 'w-6 h-6')}</div>
+                        <div class="flex-1 min-w-0 pointer-events-none">
+                            <h3 class="text-[15.5px] font-semibold text-[#1f2329] dark:text-gray-100 mb-1 group-hover:text-[#82a4ea] dark:group-hover:text-blue-400 truncate">${s.title}</h3>
+                            <p class="text-[13px] text-[#8f959e] dark:text-gray-400 line-clamp-2 leading-snug">${s.desc}</p>
+                        </div>
+                        ${s.rightIcon ? `<i data-lucide="${s.rightIcon}" class="w-5 h-5 text-gray-300 group-hover:text-[#82a4ea]"></i>` : ''}
+                    </a>`;
+            }).join('');
+            
+            lucide.createIcons();
+
+            if (settings.dragDrop) {
+                state.sortable = new Sortable(c, {
+                    animation: 250, easing: "cubic-bezier(0.25, 1, 0.5, 1)", ghostClass: "drag-ghost", dragClass: "drag-item", delay: 200, delayOnTouchOnly: true, touchStartThreshold: 3,
+                    onStart: () => window.navigator?.vibrate?.(40),
+                    onEnd: evt => {
+                        if (evt.oldIndex === evt.newIndex) return;
+                        const draggedId = evt.item.dataset.id;
+                        const nextId = evt.item.nextElementSibling?.dataset.id;
+                        const draggedIdx = state.sites.findIndex(s => s.id === draggedId);
+                        const [item] = state.sites.splice(draggedIdx, 1);
+                        const insertIdx = nextId ? state.sites.findIndex(s => s.id === nextId) : (evt.item.previousElementSibling ? state.sites.findIndex(s => s.id === evt.item.previousElementSibling.dataset.id) + 1 : state.sites.length);
+                        state.sites.splice(insertIdx, 0, item);
+                        renderSites();
+                    }
+                });
+            }
+        };
+
+        // --- Search Logic ---
+        window.setSearchEngine = id => { state.engine = id; renderSearchEngine(); };
+
+        const renderSearchEngine = () => {
+            const e = state.data.searchEngines.find(x => x.id === state.engine);
+            if (!e) return;
+            $('searchEngineToggle').innerHTML = `${resolveIcon(e, 'w-[18px] h-[18px]')} <span class="text-[14px] font-medium ml-0.5">${e.shortName}</span> <i data-lucide="chevron-down" class="w-[14px] h-[14px] text-gray-400"></i>`;
+            lucide.createIcons();
+        };
+
+        const populateSearchEngineDropdown = () => {
+            $('searchEngineDropdown').innerHTML = state.data.searchEngines.map(e => `
+                <div class="flex items-center gap-2.5 p-2.5 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer rounded-[10px]" onclick="setSearchEngine('${e.id}')">
+                    ${resolveIcon(e, 'w-4 h-4')} <span class="text-[14px] font-medium">${e.name}</span>
+                </div>
+            `).join('');
+        };
+
+        const executeSearch = () => {
+            const q = $('searchInput').value.trim();
+            if (!q) return;
+            if (q.match(/^(http:\/\/|https:\/\/)/)) window.open(q, '_blank');
+            else if (q.includes('.') && !q.includes(' ')) window.open('https://' + q, '_blank');
+            else window.open(state.data.searchEngines.find(e => e.id === state.engine).url + encodeURIComponent(q), '_blank');
+        };
+        $('searchBtn').onclick = executeSearch;
+        $('searchInput').onkeypress = e => e.key === 'Enter' && executeSearch();
+
+        // --- GitHub Issue Management ---
+        const submitToGitHub = (action, site) => {
+            $('toast').classList.remove('translate-y-[200%]');
+            setTimeout(() => $('toast').classList.add('translate-y-[200%]'), 3000);
+            
+            let body = `### Action\n${action}\n\n`;
+            if (action !== 'add' && site.id) body += `### Original ID\n${site.id}\n\n`;
+            ['title', 'url', 'desc', 'category'].forEach(k => body += `### Site ${k.charAt(0).toUpperCase() + k.slice(1)}\n${site[k]}\n\n`);
+            if (site.icon) body += `### Lucide Icon\n${site.icon}\n`;
+
+            setTimeout(() => {
+                window.open(`https://github.com/OshekharO/QuickNav/issues/new?title=${encodeURIComponent(`[${action.toUpperCase()}] ${site.title}`)}&labels=site-suggestion&body=${encodeURIComponent(body)}`, '_blank');
+                toggleModal('formModal', false);
+            }, 800);
+        };
+
+        window.openForm = (id = null) => {
+            const s = id ? state.sites.find(x => x.id === id) : null;
+            $('formModalTitle').textContent = s ? 'Edit Site' : 'Add New Site';
+            $('formSiteId').value = s ? s.id : '';
+            ['Title', 'Desc', 'Url', 'Icon'].forEach(k => $(`form${k}`).value = s && s[k.toLowerCase()] ? s[k.toLowerCase()] : '');
+            $('formCategory').value = s ? s.category : (state.data.categories[1]?.id || '');
+            toggleModal('formModal', true);
+        };
+
+        window.deleteSite = id => {
+            const s = state.sites.find(x => x.id === id);
+            if (s && confirm(`Delete ${s.title} via GitHub Issue?`)) submitToGitHub('delete', s);
+        };
+
+        const renderManageList = () => {
+            const l = $('manageSiteList');
+            if (!state.sites.length) return l.innerHTML = '<p class="text-center text-gray-500 text-sm py-8">No sites configured.</p>';
+            l.innerHTML = state.sites.map(s => `
+                <div class="flex items-center justify-between p-4 bg-white dark:bg-dark-card rounded-[14px] border border-gray-100 dark:border-dark-border shadow-sm">
+                    <div class="flex items-center gap-4 min-w-0">
+                        <div class="w-10 h-10 rounded-[10px] bg-[#f8fafd] dark:bg-gray-800 flex items-center justify-center shrink-0">${resolveIcon(s, 'w-5 h-5')}</div>
+                        <div class="flex flex-col min-w-0"><span class="font-semibold text-[14px] truncate">${s.title}</span><span class="text-[12px] text-gray-500 truncate">${s.url}</span></div>
+                    </div>
+                    <div class="flex gap-2 shrink-0 ml-4">
+                        <button onclick="openForm('${s.id}')" class="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-[10px] transition-colors"><i data-lucide="pencil" class="w-4 h-4"></i></button>
+                        <button onclick="deleteSite('${s.id}')" class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-[10px] transition-colors"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        };
+
+        $('siteForm').onsubmit = e => {
+            e.preventDefault();
+            const site = { id: $('formSiteId').value, title: $('formTitle').value, desc: $('formDesc').value, url: $('formUrl').value, category: $('formCategory').value, icon: $('formIcon').value.trim() };
+            submitToGitHub(site.id ? 'edit' : 'add', site);
+        };
+
+        // --- Init ---
+        (async () => {
             try {
-                const response = await fetch('./public/data.json');
-                if (!response.ok) throw new Error('Failed to fetch data');
+                const cached = sessionStorage.getItem(CACHE_KEY);
+                if (cached) {
+                    state.data = JSON.parse(cached);
+                } else {
+                    const res = await fetch('./public/data.json');
+                    if (!res.ok) throw new Error('Fetch failed');
+                    state.data = await res.json();
+                    sessionStorage.setItem(CACHE_KEY, JSON.stringify(state.data));
+                }
+                state.sites = [...state.data.sites];
                 
-                data = await response.json();
-                sitesData = [...data.sites];
+                $('formCategory').innerHTML = state.data.categories.filter(c => c.id !== 'all').map(c => `<option value="${c.id}">${c.name}</option>`).join('');
                 
                 renderSearchEngine();
                 populateSearchEngineDropdown();
                 renderCategories();
                 renderSites();
-                populateFormCategories();
-                lucide.createIcons();
-            } catch (error) {
-                console.error("Initialization error:", error);
-                showToast("Failed to load configuration data.");
+            } catch (e) {
+                console.error(e);
             }
-        }
-
-        // Render Functions
-        function renderCategories() {
-            const container = document.getElementById('categoriesContainer');
-            container.innerHTML = '';
-            
-            data.categories.forEach(cat => {
-                const isSelected = cat.id === currentCategory;
-                const btn = document.createElement('button');
-                
-                let classes = 'px-4 py-2.5 rounded-[12px] text-[14px] font-medium transition-all duration-200 flex items-center gap-1.5 border whitespace-nowrap ';
-                if (isSelected) {
-                    classes += 'bg-[#e3ecfa] dark:bg-blue-900/30 text-[#3e598b] dark:text-blue-400 border-transparent scale-[1.02] shadow-sm';
-                } else {
-                    classes += 'bg-white dark:bg-dark-card shadow-[0_2px_8px_rgba(0,0,0,0.03)] text-[#5e6673] dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 border-white dark:border-dark-border hover:border-gray-100 dark:hover:border-gray-700';
-                }
-                btn.className = classes;
-                
-                if (cat.icon) {
-                    btn.innerHTML = `<i data-lucide="${cat.icon}" class="w-[15px] h-[15px] ${isSelected ? 'text-[#3e598b] dark:text-blue-400' : 'text-gray-400 dark:text-gray-500'}"></i> ${cat.name}`;
-                } else {
-                    btn.textContent = cat.name;
-                }
-                
-                btn.onclick = () => {
-                    currentCategory = cat.id;
-                    renderCategories();
-                    renderSites();
-                };
-                
-                container.appendChild(btn);
-            });
-            lucide.createIcons();
-        }
-
-        function renderSites() {
-            const container = document.getElementById('sitesContainer');
-            container.innerHTML = '';
-            
-            if (sortableInstance) {
-                sortableInstance.destroy();
-                sortableInstance = null;
-            }
-            
-            const filtered = currentCategory === 'all' 
-                ? sitesData 
-                : sitesData.filter(s => s.category === currentCategory);
-            
-            if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div class="col-span-full text-center py-16 text-gray-400 dark:text-gray-500 flex flex-col items-center gap-3">
-                        <i data-lucide="inbox" class="w-10 h-10 opacity-50"></i>
-                        <p class="text-[15px]">No sites in this category.</p>
-                    </div>
-                `;
-                lucide.createIcons();
-                return;
-            }
-            
-            filtered.forEach(site => {
-                const a = document.createElement('a');
-                a.href = site.url;
-                a.target = userSettings.newTab ? '_blank' : '_self';
-                a.dataset.id = site.id; // Crucial for Sortable logic
-                
-                const dragClasses = userSettings.dragDrop ? 'cursor-grab hover:-translate-y-[2px]' : 'cursor-pointer hover:-translate-y-[2px]';
-                
-                if (userSettings.compact) {
-                    a.className = `bg-white dark:bg-dark-card rounded-[12px] p-3 flex items-center gap-3 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)] transition-all duration-300 group border border-transparent dark:border-dark-border hover:border-gray-100 dark:hover:border-gray-700 h-full select-none ${dragClasses}`;
-                    a.innerHTML = `
-                        <div class="w-[32px] h-[32px] rounded-[10px] bg-[#f8fafd] dark:bg-gray-800 flex items-center justify-center shrink-0 border border-gray-50/50 dark:border-gray-700 group-hover:scale-105 transition-transform duration-300 shadow-sm pointer-events-none">
-                            ${resolveIcon(site, 'w-[18px] h-[18px]')}
-                        </div>
-                        <div class="flex-1 min-w-0 flex items-center justify-between gap-2 pointer-events-none">
-                            <h3 class="text-[14px] font-medium text-[#1f2329] dark:text-gray-100 group-hover:text-[#82a4ea] dark:group-hover:text-blue-400 transition-colors truncate">${site.title}</h3>
-                            ${site.rightIcon ? `<div class="shrink-0 text-gray-300 dark:text-gray-600 group-hover:text-[#82a4ea] dark:group-hover:text-blue-400 transition-colors duration-300"><i data-lucide="${site.rightIcon}" class="w-4 h-4"></i></div>` : ''}
-                        </div>
-                    `;
-                } else {
-                    a.className = `bg-white dark:bg-dark-card rounded-[16px] p-4 flex items-center gap-4 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-300 group border border-transparent dark:border-dark-border hover:border-gray-100 dark:hover:border-gray-700 h-full select-none ${dragClasses}`;
-                    a.innerHTML = `
-                        <div class="w-[48px] h-[48px] rounded-[14px] bg-[#f8fafd] dark:bg-gray-800 flex items-center justify-center shrink-0 border border-gray-50/50 dark:border-gray-700 group-hover:scale-105 transition-transform duration-300 shadow-sm pointer-events-none">
-                            ${resolveIcon(site, 'w-6 h-6')}
-                        </div>
-                        <div class="flex-1 min-w-0 pointer-events-none">
-                            <h3 class="text-[15.5px] font-semibold text-[#1f2329] dark:text-gray-100 mb-1 group-hover:text-[#82a4ea] dark:group-hover:text-blue-400 transition-colors truncate">${site.title}</h3>
-                            <p class="text-[13px] text-[#8f959e] dark:text-gray-400 line-clamp-2 leading-snug">${site.desc}</p>
-                        </div>
-                        ${site.rightIcon ? `<div class="shrink-0 text-gray-300 dark:text-gray-600 group-hover:text-[#82a4ea] dark:group-hover:text-blue-400 transition-colors group-hover:translate-x-1 duration-300"><i data-lucide="${site.rightIcon}" class="w-5 h-5"></i></div>` : ''}
-                    `;
-                }
-
-                container.appendChild(a);
-            });
-            
-            lucide.createIcons();
-
-            // Initialize SortableJS for flawless Desktop + Mobile drag & drop
-            if (userSettings.dragDrop) {
-                sortableInstance = new Sortable(container, {
-                    animation: 250,
-                    easing: "cubic-bezier(0.25, 1, 0.5, 1)",
-                    ghostClass: "drag-ghost",
-                    dragClass: "drag-item",
-                    delay: 200, // 200ms delay before drag starts -> allows normal scrolling on touch devices
-                    delayOnTouchOnly: true, // Only apply delay on mobile/touch screens
-                    touchStartThreshold: 3, // User can move finger 3px before tap is canceled
-                    onStart: function(evt) {
-                        // Optional haptic feedback on mobile when drag initiates
-                        if (window.navigator && window.navigator.vibrate) {
-                            window.navigator.vibrate(40);
-                        }
-                    },
-                    onEnd: function (evt) {
-                        if (evt.oldIndex === evt.newIndex) return;
-                        
-                        const draggedId = evt.item.dataset.id;
-                        const nextEl = evt.item.nextElementSibling;
-                        const nextId = nextEl ? nextEl.dataset.id : null;
-                        
-                        // 1. Extract dragged item from main array
-                        const draggedIdx = sitesData.findIndex(s => s.id === draggedId);
-                        const [draggedItem] = sitesData.splice(draggedIdx, 1);
-                        
-                        // 2. Determine exact insertion point in main array
-                        let insertIdx;
-                        if (nextId) {
-                            insertIdx = sitesData.findIndex(s => s.id === nextId);
-                        } else {
-                            // Dropped at the very end of the current filtered view
-                            const prevEl = evt.item.previousElementSibling;
-                            if (prevEl) {
-                                const prevId = prevEl.dataset.id;
-                                insertIdx = sitesData.findIndex(s => s.id === prevId) + 1;
-                            } else {
-                                insertIdx = sitesData.length;
-                            }
-                        }
-                        
-                        // 3. Re-insert and ensure DOM reflects state
-                        sitesData.splice(insertIdx, 0, draggedItem);
-                        renderSites();
-                    }
-                });
-            }
-        }
-
-        // Search Logic
-        function renderSearchEngine() {
-            const engine = data.searchEngines.find(e => e.id === currentSearchEngine);
-            if (!engine) return;
-            
-            const iconHtml = resolveIcon({ title: engine.name, url: engine.url, icon: engine.icon }, 'w-[18px] h-[18px]');
-            
-            document.getElementById('searchEngineToggle').innerHTML = `
-                ${iconHtml}
-                <span class="text-[14px] font-medium text-[#374151] dark:text-gray-300 ml-0.5">${engine.shortName}</span>
-                <i data-lucide="chevron-down" class="w-[14px] h-[14px] text-gray-400 dark:text-gray-500"></i>
-            `;
-            lucide.createIcons();
-        }
-
-        function populateSearchEngineDropdown() {
-            const seDropdown = document.getElementById('searchEngineDropdown');
-            seDropdown.innerHTML = '';
-            
-            data.searchEngines.forEach(engine => {
-                const div = document.createElement('div');
-                div.className = 'flex items-center gap-2.5 p-2.5 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer rounded-[10px] transition-colors mb-1 last:mb-0';
-                
-                const iconHtml = resolveIcon({ title: engine.name, url: engine.url, icon: engine.icon }, 'w-4 h-4');
-                
-                div.innerHTML = `
-                    ${iconHtml}
-                    <span class="text-[14px] text-gray-700 dark:text-gray-300 font-medium">${engine.name}</span>
-                `;
-                div.onclick = () => {
-                    currentSearchEngine = engine.id;
-                    renderSearchEngine();
-                };
-                seDropdown.appendChild(div);
-            });
-        }
-
-        const seDropdown = document.getElementById('searchEngineDropdown');
-        document.getElementById('searchEngineToggle').onclick = (e) => {
-            e.stopPropagation();
-            if (!settingsDropdown.classList.contains('hidden')) settingsDropdown.classList.add('hidden');
-            seDropdown.classList.toggle('hidden');
-        };
-        
-        document.addEventListener('click', (e) => {
-            if (!seDropdown.classList.contains('hidden') && !seDropdown.contains(e.target) && e.target.id !== 'searchEngineToggle') {
-                seDropdown.classList.add('hidden');
-            }
-            if (!settingsDropdown.classList.contains('hidden') && !settingsDropdown.contains(e.target) && e.target.id !== 'settingsToggle') {
-                settingsDropdown.classList.add('hidden');
-            }
-        });
-
-        function performSearch() {
-            const query = document.getElementById('searchInput').value.trim();
-            if (query) {
-                if (query.match(/^(http:\/\/|https:\/\/)/)) {
-                    window.open(query, '_blank');
-                } else if (query.includes('.') && !query.includes(' ')) {
-                    window.open('https://' + query, '_blank');
-                } else {
-                    const engine = data.searchEngines.find(e => e.id === currentSearchEngine);
-                    window.open(engine.url + encodeURIComponent(query), '_blank');
-                }
-            }
-        }
-
-        document.getElementById('searchBtn').onclick = performSearch;
-        document.getElementById('searchInput').onkeypress = (e) => {
-            if (e.key === 'Enter') performSearch();
-        };
-
-        // Manage Sites Logic
-        function showToast(message, isSuccess = false) {
-            const toast = document.getElementById('toast');
-            const msg = document.getElementById('toastMsg');
-            const spinner = document.getElementById('toastSpinner');
-            const successIcon = document.getElementById('toastSuccess');
-            
-            msg.textContent = message;
-            toast.classList.remove('translate-y-[200%]');
-            
-            if (isSuccess) {
-                spinner.classList.add('hidden');
-                successIcon.classList.remove('hidden');
-                setTimeout(() => {
-                    toast.classList.add('translate-y-[200%]');
-                }, 3000);
-            } else {
-                spinner.classList.remove('hidden');
-                successIcon.classList.add('hidden');
-            }
-        }
-
-        function submitToGitHub(action, site) {
-            showToast('Redirecting to GitHub...', true);
-            
-            const repoUrl = 'https://github.com/OshekharO/QuickNav';
-            const title = `[${action.toUpperCase()}] ${site.title}`;
-            
-            let body = `### Action\n${action}\n\n`;
-            
-            if (action !== 'add' && site.id) {
-                body += `### Original ID\n${site.id}\n\n`;
-            }
-            
-            body += `### Site Name\n${site.title}\n\n`;
-            body += `### Site URL\n${site.url}\n\n`;
-            body += `### Description\n${site.desc}\n\n`;
-            body += `### Category\n${site.category}\n\n`;
-            
-            if (site.icon) {
-                body += `### Lucide Icon\n${site.icon}\n`;
-            }
-
-            const issueUrl = `${repoUrl}/issues/new?title=${encodeURIComponent(title)}&labels=site-suggestion&body=${encodeURIComponent(body)}`;
-            
-            setTimeout(() => {
-                window.open(issueUrl, '_blank');
-                closeModal('formModal');
-            }, 800);
-        }
-
-        function renderManageList() {
-            const list = document.getElementById('manageSiteList');
-            list.innerHTML = '';
-            
-            if (sitesData.length === 0) {
-                list.innerHTML = '<p class="text-center text-gray-500 text-sm py-8">No sites configured.</p>';
-                return;
-            }
-
-            sitesData.forEach(site => {
-                const div = document.createElement('div');
-                div.className = 'flex items-center justify-between p-4 bg-white dark:bg-dark-card rounded-[14px] border border-gray-100 dark:border-dark-border shadow-sm';
-                div.innerHTML = `
-                    <div class="flex items-center gap-4 min-w-0">
-                        <div class="w-10 h-10 rounded-[10px] bg-[#f8fafd] dark:bg-gray-800 flex items-center justify-center shrink-0 border border-gray-50 dark:border-gray-700">
-                            ${resolveIcon(site, 'w-5 h-5')}
-                        </div>
-                        <div class="flex flex-col min-w-0">
-                            <span class="font-semibold text-[14px] text-gray-800 dark:text-gray-200 truncate">${site.title}</span>
-                            <span class="text-[12px] text-gray-500 dark:text-gray-400 truncate">${site.url}</span>
-                        </div>
-                    </div>
-                    <div class="flex gap-2 shrink-0 ml-4">
-                        <button class="p-2 text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-[10px] transition-colors edit-btn" title="Edit">
-                            <i data-lucide="pencil" class="w-4 h-4"></i>
-                        </button>
-                        <button class="p-2 text-gray-400 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-[10px] transition-colors del-btn" title="Delete">
-                            <i data-lucide="trash-2" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                `;
-                
-                div.querySelector('.edit-btn').onclick = () => openFormModal(site);
-                div.querySelector('.del-btn').onclick = () => {
-                    if (confirm(`Delete ${site.title}?\nThis will redirect you to open a GitHub issue to remove it from the repository.`)) {
-                        submitToGitHub('delete', site);
-                    }
-                };
-                
-                list.appendChild(div);
-            });
-            lucide.createIcons();
-        }
-
-        // Modal Controls
-        function openModal(id) {
-            const modal = document.getElementById(id);
-            modal.classList.remove('hidden');
-            requestAnimationFrame(() => {
-                modal.firstElementChild.classList.add('scale-100', 'opacity-100');
-                modal.firstElementChild.classList.remove('scale-95', 'opacity-0');
-            });
-        }
-
-        function closeModal(id) {
-            const modal = document.getElementById(id);
-            modal.classList.add('hidden');
-        }
-
-        document.getElementById('editToggle').onclick = () => {
-            renderManageList();
-            openModal('manageModal');
-        };
-        
-        document.getElementById('closeManageModal').onclick = () => closeModal('manageModal');
-
-        function populateFormCategories() {
-            const select = document.getElementById('formCategory');
-            select.innerHTML = '';
-            data.categories.filter(c => c.id !== 'all').forEach(c => {
-                const opt = document.createElement('option');
-                opt.value = c.id;
-                opt.textContent = c.name;
-                select.appendChild(opt);
-            });
-        }
-
-        document.getElementById('addNewSiteBtn').onclick = () => openFormModal();
-        document.getElementById('closeFormModal').onclick = () => closeModal('formModal');
-
-        function openFormModal(site = null) {
-            document.getElementById('formModalTitle').textContent = site ? 'Edit Site' : 'Add New Site';
-            document.getElementById('formSiteId').value = site ? site.id : '';
-            document.getElementById('formTitle').value = site ? site.title : '';
-            document.getElementById('formDesc').value = site ? site.desc : '';
-            document.getElementById('formUrl').value = site ? site.url : '';
-            document.getElementById('formIcon').value = site && site.icon ? site.icon : '';
-            document.getElementById('formCategory').value = site ? site.category : (data.categories[1] ? data.categories[1].id : '');
-            
-            openModal('formModal');
-        }
-
-        document.getElementById('siteForm').onsubmit = (e) => {
-            e.preventDefault();
-            const id = document.getElementById('formSiteId').value;
-            const site = {
-                id,
-                title: document.getElementById('formTitle').value,
-                desc: document.getElementById('formDesc').value,
-                url: document.getElementById('formUrl').value,
-                category: document.getElementById('formCategory').value,
-                icon: document.getElementById('formIcon').value.trim()
-            };
-            
-            submitToGitHub(id ? 'edit' : 'add', site);
-        };
-
-        window.onclick = (e) => {
-            if (e.target.id === 'manageModal') closeModal('manageModal');
-            if (e.target.id === 'formModal') closeModal('formModal');
-        };
-
-        init();
+        })();
     </script>
 </body>
 </html>
