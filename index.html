@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickNav</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            bg: '#111827',
+                            card: '#1f2937',
+                            border: '#374151',
+                            text: '#f3f4f6',
+                            muted: '#9ca3af'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .drag-over {
+            border-top: 2px solid #82a4ea;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+        
+        /* Smooth transitions */
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        .modal-enter-active {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 200ms ease-out, transform 200ms ease-out;
+        }
+        .modal-exit {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .modal-exit-active {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 150ms ease-in, transform 150ms ease-in;
+        }
+    </style>
+  <script data-arena-recording="true">(function(){
+"use strict";
+var SK="__arena_rec",RRWEB_CDN="https://cdn.jsdelivr.net/npm/rrweb@2.0.0-alpha.4/dist/rrweb.min.js";
+var MAX_RECORDING_MS=600000,MAX_RRWEB_EVENTS=30000,MAX_INTERACTIONS=5000,MAX_CURSOR_POINTS=10000,recStopped=false;
+var stored=null;try{var raw=sessionStorage.getItem(SK);if(raw)stored=JSON.parse(raw);}catch(ex){}
+var meta=stored?stored.m||null:null,rrwebEvents=stored?stored.r||[]:[],rrwebStarted=false,startTime=stored?stored.st||Date.now():Date.now();
+var interactions=stored?stored.i||[]:[],cursorPath=stored?stored.c||[]:[],lastCursorSample=0,lastScrollSample=0;
+var pageHeight=document.documentElement.scrollHeight;
+var viewport={width:window.innerWidth,height:window.innerHeight};
+function isCapped(){if(recStopped)return true;if(Date.now()-startTime>=MAX_RECORDING_MS){recStopped=true;return true;}return false;}
+function persist(){try{var d=JSON.stringify({r:rrwebEvents,i:interactions,c:cursorPath,m:meta,st:startTime});sessionStorage.setItem(SK,d);}catch(ex){rrwebEvents=rrwebEvents.slice(Math.floor(rrwebEvents.length/2));try{sessionStorage.setItem(SK,JSON.stringify({r:rrwebEvents,i:interactions,c:cursorPath,m:meta,st:startTime}));}catch(ex2){}}}
+setInterval(persist,5000);
+window.addEventListener("resize",function(){viewport={width:window.innerWidth,height:window.innerHeight};pageHeight=document.documentElement.scrollHeight;});
+document.addEventListener("click",function(e){if(isCapped()||interactions.length>=MAX_INTERACTIONS)return;var el=e.target;var tag=el.tagName?el.tagName.toLowerCase():"";var text=(el.textContent||"").trim().substring(0,80);var classes=el.className&&typeof el.className==="string"?el.className.substring(0,120):"";interactions.push({type:"click",t:Date.now()-startTime,x:Math.round(e.clientX),y:Math.round(e.clientY),element:{tag:tag,text:text,classes:classes}});},true);
+window.addEventListener("scroll",function(){if(isCapped()||interactions.length>=MAX_INTERACTIONS)return;var now=Date.now();if(now-lastScrollSample<200)return;lastScrollSample=now;var scrollY=Math.round(window.scrollY||window.pageYOffset||0);var depthPct=pageHeight>viewport.height?Math.min(100,Math.round(((scrollY+viewport.height)/pageHeight)*100)):100;interactions.push({type:"scroll",t:now-startTime,y:scrollY,depth_pct:depthPct});},{passive:true});
+document.addEventListener("mousemove",function(e){if(isCapped()||cursorPath.length>=MAX_CURSOR_POINTS)return;var now=Date.now();if(now-lastCursorSample<250)return;lastCursorSample=now;cursorPath.push([Math.round(e.clientX),Math.round(e.clientY),now-startTime]);},{passive:true});
+document.addEventListener("keydown",function(e){if(isCapped()||interactions.length>=MAX_INTERACTIONS)return;if(e.target&&(e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA"))return;interactions.push({type:"keydown",t:Date.now()-startTime,key:e.key});},true);
+function buildAnalytics(){if(!meta)return null;var ph=document.documentElement.scrollHeight;var maxScroll=0,clickElements={},firstClick=null,firstScroll=null,totalDistance=0;for(var i=0;i<interactions.length;i++){var ev=interactions[i];if(ev.type==="scroll"){if(ev.depth_pct>maxScroll)maxScroll=ev.depth_pct;if(!firstScroll)firstScroll=ev.t;}if(ev.type==="click"){if(!firstClick)firstClick=ev.t;var key=ev.element.tag+":"+ev.element.text.substring(0,30);clickElements[key]=true;}}for(var j=1;j<cursorPath.length;j++){var dx=cursorPath[j][0]-cursorPath[j-1][0];var dy=cursorPath[j][1]-cursorPath[j-1][1];totalDistance+=Math.sqrt(dx*dx+dy*dy);}var duration=Date.now()-startTime;var clickHeatmap=[];for(var k=0;k<interactions.length;k++){if(interactions[k].type==="click")clickHeatmap.push([interactions[k].x,interactions[k].y]);}return{generation_id:meta.generationId,tournament_id:meta.tournamentId,started_at:new Date(startTime).toISOString(),ended_at:new Date().toISOString(),duration_ms:duration,viewport:viewport,page_height:ph,interactions:interactions,cursor_path:cursorPath,click_heatmap:clickHeatmap,summary:{total_clicks:clickHeatmap.length,total_scrolls:interactions.filter(function(e){return e.type==="scroll";}).length,max_scroll_depth_pct:maxScroll,unique_elements_clicked:Object.keys(clickElements).length,time_to_first_click_ms:firstClick,time_to_first_scroll_ms:firstScroll,cursor_distance_px:Math.round(totalDistance),active_time_ms:duration}};}
+function loadRrweb(){if(rrwebStarted)return;rrwebStarted=true;var s=document.createElement("script");s.src=RRWEB_CDN;s.onload=function(){var rec=(window.rrweb&&window.rrweb.record)||window.rrwebRecord;if(!rec)return;rec({emit:function(event){if(rrwebEvents.length>=MAX_RRWEB_EVENTS||isCapped())return;rrwebEvents.push(event);}});};s.onerror=function(){};document.head.appendChild(s);}
+window.addEventListener("message",function(e){if(!e.data||typeof e.data.type!=="string")return;if(e.data.type==="arena:init"){if(!meta)startTime=Date.now();meta={generationId:e.data.generationId||e.data.modelId,tournamentId:e.data.tournamentId};persist();loadRrweb();if(e.source)e.source.postMessage({type:"arena:init-ack",generationId:meta.generationId},"*");}if(e.data.type==="arena:flush"){var resp={type:"arena:recording-data",generationId:meta?meta.generationId:null,rrwebEvents:rrwebEvents,analytics:buildAnalytics()};try{sessionStorage.removeItem(SK);}catch(ex){}if(e.source)e.source.postMessage(resp,"*");}});
+loadRrweb();
+})();</script>
+  <script data-arena-views="true">(function(){var isTop=false;try{isTop=window.self===window.top;}catch(e){}if(!isTop)return;window.__ARENA_META={generationId:"gemini-3.1-pro-preview",tournamentId:"ff813747-77d7-451f-adcb-fc29b7d8c932"};var payload={tournamentId:"ff813747-77d7-451f-adcb-fc29b7d8c932",modelId:"gemini-3.1-pro-preview"};try{var r=document.referrer;if(r){var u=new URL(r);payload.referrerDomain=u.hostname;}}catch(e){}try{var vid=null;try{vid=localStorage.getItem('arena_vid');}catch(e){}if(!vid){vid=typeof crypto!=="undefined"&&crypto.randomUUID?crypto.randomUUID():(Date.now().toString(36)+Math.random().toString(36).slice(2)).slice(0,32);try{localStorage.setItem('arena_vid',vid);}catch(e){}}if(vid)payload.viewerId=vid;}catch(e){}try{fetch("https://www.designarena.ai/api/agon/page-views",{"method":"POST","headers":{"Content-Type":"application/json"},"body":JSON.stringify(payload),"keepalive":true});}catch(e){}})();</script>
+</head>
+<body class="min-h-screen flex justify-center pb-12 bg-[#eef1f6] text-gray-800 dark:bg-dark-bg dark:text-dark-text">
+    
+    <!-- Main App Container -->
+    <div id="app" class="w-full max-w-[460px] p-4 flex flex-col gap-5 pt-8">
+        
+        <!-- Top Actions -->
+        <div class="flex justify-end gap-3 mb-1">
+            <button id="themeToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border">
+                <i data-lucide="moon" class="w-[20px] h-[20px] hidden dark:block"></i>
+                <i data-lucide="sun" class="w-[20px] h-[20px] block dark:hidden"></i>
+            </button>
+            <button id="editToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border">
+                <i data-lucide="pencil" class="w-[18px] h-[18px]"></i>
+            </button>
+            <button class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border">
+                <i data-lucide="sliders-horizontal" class="w-[18px] h-[18px]"></i>
+            </button>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="bg-white dark:bg-dark-card rounded-[16px] shadow-[0_2px_12px_rgba(0,0,0,0.04)] p-1.5 flex items-center gap-2 h-[56px] relative z-20 border border-transparent dark:border-dark-border">
+            <button id="searchEngineToggle" class="flex items-center gap-1.5 px-3 py-2 rounded-[12px] hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors h-full outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900">
+                <!-- Injected via JS -->
+            </button>
+            
+            <!-- Search Engine Dropdown -->
+            <div id="searchEngineDropdown" class="hidden absolute top-[64px] left-0 bg-white dark:bg-dark-card rounded-[14px] shadow-xl border border-gray-100 dark:border-dark-border p-1.5 w-36 z-50 transform origin-top-left transition-all">
+                <!-- Injected via JS -->
+            </div>
+            
+            <div class="w-[1px] h-5 bg-gray-200 dark:bg-gray-700"></div>
+            
+            <input type="text" id="searchInput" placeholder="搜索或输入网址..." class="flex-1 bg-transparent outline-none text-[#374151] dark:text-dark-text placeholder-gray-400 dark:placeholder-gray-500 text-[15px] px-2 h-full w-full">
+            
+            <button id="searchBtn" class="w-[44px] h-[44px] bg-[#82a4ea] rounded-[12px] flex items-center justify-center text-white shrink-0 hover:bg-[#6c92df] transition-colors shadow-sm focus:ring-2 focus:ring-blue-300 focus:ring-offset-1">
+                <i data-lucide="search" class="w-[20px] h-[20px]"></i>
+            </button>
+        </div>
+
+        <!-- Categories -->
+        <div id="categoriesContainer" class="flex flex-wrap gap-2.5 justify-center px-1 mt-1">
+            <!-- Injected via JS -->
+        </div>
+
+        <!-- Site List -->
+        <div id="sitesContainer" class="flex flex-col gap-3.5 mt-2">
+            <!-- Injected via JS -->
+        </div>
+        
+    </div>
+
+    <!-- Manage Sites Modal -->
+    <div id="manageModal" class="hidden fixed inset-0 bg-black/40 dark:bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm transition-opacity">
+        <div class="bg-white dark:bg-dark-card rounded-[20px] w-full max-w-md max-h-[85vh] flex flex-col shadow-2xl transform transition-transform border border-transparent dark:border-dark-border">
+            <div class="p-5 border-b border-gray-100 dark:border-dark-border flex justify-between items-center">
+                <h2 class="font-semibold text-[18px] text-gray-800 dark:text-dark-text">Manage Sites</h2>
+                <button id="closeManageModal" class="text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="p-4 overflow-y-auto flex-1 flex flex-col gap-3 hide-scrollbar bg-gray-50/50 dark:bg-dark-bg/50" id="manageSiteList">
+                <!-- Injected via JS -->
+            </div>
+            <div class="p-5 border-t border-gray-100 dark:border-dark-border bg-white dark:bg-dark-card rounded-b-[20px]">
+                <button id="addNewSiteBtn" class="w-full py-3 bg-[#82a4ea] text-white rounded-[14px] font-medium hover:bg-[#6c92df] transition-colors shadow-sm flex items-center justify-center gap-2">
+                    <i data-lucide="plus" class="w-4 h-4"></i> Add New Site
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Form Modal -->
+    <div id="formModal" class="hidden fixed inset-0 bg-black/40 dark:bg-black/60 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white dark:bg-dark-card rounded-[20px] w-full max-w-md flex flex-col shadow-2xl border border-transparent dark:border-dark-border">
+            <div class="p-5 border-b border-gray-100 dark:border-dark-border flex justify-between items-center">
+                <h2 class="font-semibold text-[18px] text-gray-800 dark:text-dark-text" id="formModalTitle">Add Site</h2>
+                <button id="closeFormModal" class="text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <form id="siteForm" class="p-5 flex flex-col gap-4">
+                <input type="hidden" id="formSiteId">
+                <div>
+                    <label class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">Title</label>
+                    <input type="text" id="formTitle" required placeholder="e.g. GitHub" class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-[#82a4ea] focus:ring-2 focus:ring-[#82a4ea]/20 transition-all text-[14px] dark:text-white">
+                </div>
+                <div>
+                    <label class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">Description</label>
+                    <input type="text" id="formDesc" required placeholder="Short description..." class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-[#82a4ea] focus:ring-2 focus:ring-[#82a4ea]/20 transition-all text-[14px] dark:text-white">
+                </div>
+                <div>
+                    <label class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">URL</label>
+                    <input type="url" id="formUrl" required placeholder="https://..." class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-[#82a4ea] focus:ring-2 focus:ring-[#82a4ea]/20 transition-all text-[14px] dark:text-white">
+                </div>
+                <div>
+                    <label class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">Category</label>
+                    <select id="formCategory" required class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-[#82a4ea] focus:ring-2 focus:ring-[#82a4ea]/20 transition-all text-[14px] dark:text-white appearance-none cursor-pointer">
+                        <!-- Injected via JS -->
+                    </select>
+                </div>
+                <button type="submit" class="w-full py-3 bg-[#82a4ea] text-white rounded-[14px] font-medium hover:bg-[#6c92df] transition-colors shadow-sm mt-2 flex items-center justify-center gap-2">
+                    <i data-lucide="git-pull-request" class="w-4 h-4"></i> Save & Submit PR
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#1f2329] dark:bg-white text-white dark:text-[#1f2329] px-5 py-3.5 rounded-[14px] shadow-xl flex items-center gap-3 transition-transform duration-300 translate-y-[200%] z-[70]">
+        <i data-lucide="loader-2" class="w-5 h-5 animate-spin hidden text-[#82a4ea]" id="toastSpinner"></i>
+        <i data-lucide="check-circle-2" class="w-5 h-5 text-green-400 dark:text-green-600 hidden" id="toastSuccess"></i>
+        <span id="toastMsg" class="text-[14px] font-medium tracking-wide">Processing...</span>
+    </div>
+
+    <script>
+        // State
+        let data = { searchEngines: [], categories: [], sites: [] };
+        let currentCategory = 'all';
+        let currentSearchEngine = 'bing';
+        let sitesData = [];
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('themeToggle');
+        
+        // Check local storage or system preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            if (document.documentElement.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+            } else {
+                localStorage.theme = 'light';
+            }
+        });
+
+        // Icon SVG Generator
+        function getIconSvg(id) {
+            const icons = {
+                bilibili: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="8" width="18" height="12" rx="3.5" stroke="#00A1D6" stroke-width="2"/><path d="M7 4.5L10 8M17 4.5L14 8" stroke="#00A1D6" stroke-width="2" stroke-linecap="round"/><rect x="7.5" y="12" width="2.5" height="2" rx="1" fill="#00A1D6"/><rect x="14" y="12" width="2.5" height="2" rx="1" fill="#00A1D6"/></svg>`,
+                nodeloc: `<div class="flex items-center justify-center font-bold text-[22px] tracking-tighter"><span class="text-[#4ade80]">N</span><span class="text-[#d97706]">L</span></div>`,
+                '1panel': `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z" stroke="#2563eb" stroke-width="2"/><path d="M12 7L16 9.5V14.5L12 17L8 14.5V9.5L12 7Z" fill="#2563eb"/><path d="M11 11L12 10V14" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M11 14H13" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+                appicon: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" fill="#a1a1aa"/><path d="M10.5 8.5L14 12L10.5 15.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+                bluesky: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 10.8c-1.5-3.8-4-6.8-7.5-6.8C2 4 2 8.5 2 11c0 3.5 5.5 6.5 10 9 4.5-2.5 10-5.5 10-9 0-2.5 0-7-2.5-7-3.5 0-6 3-7.5 6.8z" fill="#0ea5e9"/></svg>`,
+                bing: `<svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bingGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#38c5fc"/><stop offset="100%" stop-color="#006bea"/></linearGradient></defs><path d="M10.1 2.1c-.5-.2-1.1-.1-1.4.3L4.2 3.6c-.4.3-.6.8-.6 1.3v14.1c0 .4.3.8.7.9l5.2 1.9c.4.1.8 0 1-.4.1-.1.1-.2.1-.3l1.6-6.4h0l3.7 1.9c.3.2.8.1 1.1-.1l3.4-2.8c.3-.2.4-.6.3-.9l-2.6-7.5c-.1-.3-.4-.5-.7-.5H12.9L10.1 2.1z" fill="url(#bingGrad)"/></svg>`,
+                google: `<svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>`,
+                baidu: `<svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M13.2 2.3c-1.3.1-2.5 1.1-2.8 2.4-.2 1.4.5 2.8 1.8 3.3 1.3.5 2.9-.1 3.5-1.4.6-1.2.2-2.8-1-3.6-.4-.3-.9-.6-1.5-.7zM8.8 3.2c-1.3-.1-2.5 1-2.6 2.3-.1 1.3 1 2.5 2.3 2.6 1.3.1 2.5-1 2.6-2.3.1-1.3-1-2.5-2.3-2.6zM20 6.6c-1.2-.1-2.3.8-2.5 2-.2 1.2.6 2.4 1.8 2.6 1.2.2 2.4-.6 2.6-1.8.2-1.2-.6-2.4-1.8-2.6-.1 0-.1-.2-.1-.2zM4.7 6.8c-1.1-.3-2.3.4-2.6 1.5-.3 1.1.4 2.3 1.5 2.6 1.1.3 2.3-.4 2.6-1.5.3-1.1-.4-2.3-1.5-2.6zM12.1 9.8c-3.1.2-5.7 2.3-6.6 5.3-.9 3 .3 6.3 2.9 8.1 2.6 1.8 6.1 1.8 8.7.1 2.6-1.7 3.9-5 3.1-8-1-3.2-4.1-5.6-7.4-5.5h-.7z" fill="#2932E1"/></svg>`,
+                default: `<div class="w-6 h-6 bg-gray-200 dark:bg-gray-600 rounded-full"></div>`
+            };
+            return icons[id] || icons.default;
+        }
+
+        // Initialize App
+        async function init() {
+            try {
+                const response = await fetch('/data.json');
+                if (!response.ok) throw new Error('Failed to fetch data');
+                
+                data = await response.json();
+                sitesData = [...data.sites];
+                
+                renderSearchEngine();
+                populateSearchEngineDropdown();
+                renderCategories();
+                renderSites();
+                populateFormCategories();
+                lucide.createIcons();
+            } catch (error) {
+                console.error("Initialization error:", error);
+                showToast("Failed to load configuration data.");
+            }
+        }
+
+        // Render Functions
+        function renderCategories() {
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = '';
+            
+            data.categories.forEach(cat => {
+                const isSelected = cat.id === currentCategory;
+                const btn = document.createElement('button');
+                
+                let classes = 'px-4 py-2.5 rounded-[12px] text-[14px] font-medium transition-all duration-200 flex items-center gap-1.5 border ';
+                if (isSelected) {
+                    classes += 'bg-[#e3ecfa] dark:bg-blue-900/30 text-[#3e598b] dark:text-blue-400 border-transparent scale-105';
+                } else {
+                    classes += 'bg-white dark:bg-dark-card shadow-[0_2px_8px_rgba(0,0,0,0.03)] text-[#5e6673] dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 border-white dark:border-dark-border hover:border-gray-100 dark:hover:border-gray-700';
+                }
+                btn.className = classes;
+                
+                if (cat.icon) {
+                    btn.innerHTML = `<i data-lucide="${cat.icon}" class="w-[15px] h-[15px] ${isSelected ? 'text-[#3e598b] dark:text-blue-400' : 'text-gray-400 dark:text-gray-500'}"></i> ${cat.name}`;
+                } else {
+                    btn.textContent = cat.name;
+                }
+                
+                btn.onclick = () => {
+                    currentCategory = cat.id;
+                    renderCategories();
+                    renderSites();
+                };
+                
+                container.appendChild(btn);
+            });
+            lucide.createIcons();
+        }
+
+        function renderSites() {
+            const container = document.getElementById('sitesContainer');
+            container.innerHTML = '';
+            
+            const filtered = currentCategory === 'all' 
+                ? sitesData 
+                : sitesData.filter(s => s.category === currentCategory);
+            
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-10 text-gray-400 dark:text-gray-500 flex flex-col items-center gap-2">
+                        <i data-lucide="inbox" class="w-8 h-8 opacity-50"></i>
+                        <p class="text-[14px]">No sites in this category.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+            
+            filtered.forEach(site => {
+                const a = document.createElement('a');
+                a.href = site.url;
+                a.target = '_blank';
+                a.className = 'bg-white dark:bg-dark-card rounded-[16px] p-4 flex items-center gap-4 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-300 group hover:-translate-y-[1px] border border-transparent dark:border-dark-border hover:border-gray-50 dark:hover:border-gray-700 cursor-pointer';
+                a.draggable = true;
+                
+                a.innerHTML = `
+                    <div class="w-[48px] h-[48px] rounded-[14px] bg-[#f8fafd] dark:bg-gray-800 flex items-center justify-center shrink-0 border border-gray-50/50 dark:border-gray-700 group-hover:scale-105 transition-transform duration-300">
+                        ${getIconSvg(site.iconId)}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-[15.5px] font-semibold text-[#1f2329] dark:text-gray-100 mb-0.5 group-hover:text-[#82a4ea] dark:group-hover:text-blue-400 transition-colors">${site.title}</h3>
+                        <p class="text-[13px] text-[#8f959e] dark:text-gray-400 truncate">${site.desc}</p>
+                    </div>
+                    ${site.rightIcon ? `<div class="shrink-0 text-gray-300 dark:text-gray-600 group-hover:text-[#82a4ea] dark:group-hover:text-blue-400 transition-colors group-hover:translate-x-1 duration-300"><i data-lucide="${site.rightIcon}" class="w-5 h-5"></i></div>` : ''}
+                `;
+                
+                // Drag & Drop
+                a.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', site.id);
+                    setTimeout(() => a.classList.add('opacity-40', 'scale-[0.98]'), 0);
+                });
+                a.addEventListener('dragend', () => {
+                    a.classList.remove('opacity-40', 'scale-[0.98]');
+                });
+                a.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    a.classList.add('drag-over');
+                });
+                a.addEventListener('dragleave', () => {
+                    a.classList.remove('drag-over');
+                });
+                a.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    a.classList.remove('drag-over');
+                    const draggedId = e.dataTransfer.getData('text/plain');
+                    if (draggedId && draggedId !== site.id) {
+                        const draggedIdx = sitesData.findIndex(s => s.id === draggedId);
+                        const targetIdx = sitesData.findIndex(s => s.id === site.id);
+                        if (draggedIdx > -1 && targetIdx > -1) {
+                            const [draggedItem] = sitesData.splice(draggedIdx, 1);
+                            sitesData.splice(targetIdx, 0, draggedItem);
+                            renderSites();
+                        }
+                    }
+                });
+
+                container.appendChild(a);
+            });
+            lucide.createIcons();
+        }
+
+        // Search Logic
+        function renderSearchEngine() {
+            const engine = data.searchEngines.find(e => e.id === currentSearchEngine);
+            if (!engine) return;
+            document.getElementById('searchEngineToggle').innerHTML = `
+                ${getIconSvg(engine.icon)}
+                <span class="text-[14px] font-medium text-[#374151] dark:text-gray-300">${engine.shortName}</span>
+                <i data-lucide="chevron-down" class="w-[14px] h-[14px] text-gray-400 dark:text-gray-500"></i>
+            `;
+            lucide.createIcons();
+        }
+
+        function populateSearchEngineDropdown() {
+            const seDropdown = document.getElementById('searchEngineDropdown');
+            seDropdown.innerHTML = '';
+            
+            data.searchEngines.forEach(engine => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center gap-2.5 p-2.5 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer rounded-[10px] transition-colors mb-1 last:mb-0';
+                div.innerHTML = `
+                    ${getIconSvg(engine.icon)}
+                    <span class="text-[14px] text-gray-700 dark:text-gray-300 font-medium">${engine.name}</span>
+                `;
+                div.onclick = () => {
+                    currentSearchEngine = engine.id;
+                    renderSearchEngine();
+                };
+                seDropdown.appendChild(div);
+            });
+        }
+
+        const seDropdown = document.getElementById('searchEngineDropdown');
+        document.getElementById('searchEngineToggle').onclick = (e) => {
+            e.stopPropagation();
+            seDropdown.classList.toggle('hidden');
+        };
+        
+        document.addEventListener('click', () => {
+            if (!seDropdown.classList.contains('hidden')) {
+                seDropdown.classList.add('hidden');
+            }
+        });
+
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (query) {
+                if (query.match(/^(http:\/\/|https:\/\/)/)) {
+                    window.open(query, '_blank');
+                } else if (query.includes('.') && !query.includes(' ')) {
+                    window.open('https://' + query, '_blank');
+                } else {
+                    const engine = data.searchEngines.find(e => e.id === currentSearchEngine);
+                    window.open(engine.url + encodeURIComponent(query), '_blank');
+                }
+            }
+        }
+
+        document.getElementById('searchBtn').onclick = performSearch;
+        document.getElementById('searchInput').onkeypress = (e) => {
+            if (e.key === 'Enter') performSearch();
+        };
+
+        // Manage Sites Logic (Simulating PR Workflow)
+        function showToast(message, isSuccess = false) {
+            const toast = document.getElementById('toast');
+            const msg = document.getElementById('toastMsg');
+            const spinner = document.getElementById('toastSpinner');
+            const successIcon = document.getElementById('toastSuccess');
+            
+            msg.textContent = message;
+            toast.classList.remove('translate-y-[200%]');
+            
+            if (isSuccess) {
+                spinner.classList.add('hidden');
+                successIcon.classList.remove('hidden');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-[200%]');
+                }, 3000);
+            } else {
+                spinner.classList.remove('hidden');
+                successIcon.classList.add('hidden');
+            }
+        }
+
+        function simulatePRWorkflow(actionData) {
+            showToast('Creating Pull Request to repository...');
+            
+            // Disable form while saving
+            const submitBtn = document.querySelector('#siteForm button[type="submit"]');
+            if(submitBtn) submitBtn.disabled = true;
+
+            setTimeout(() => {
+                if (actionData.type === 'add') {
+                    sitesData.push(actionData.site);
+                } else if (actionData.type === 'edit') {
+                    const idx = sitesData.findIndex(s => s.id === actionData.site.id);
+                    if (idx !== -1) sitesData[idx] = actionData.site;
+                } else if (actionData.type === 'delete') {
+                    sitesData = sitesData.filter(s => s.id !== actionData.id);
+                }
+                
+                renderSites();
+                if(!document.getElementById('manageModal').classList.contains('hidden')) {
+                    renderManageList();
+                }
+                
+                showToast('Successfully created PR! Changes applied locally.', true);
+                closeModal('formModal');
+                if(submitBtn) submitBtn.disabled = false;
+            }, 1800);
+        }
+
+        function renderManageList() {
+            const list = document.getElementById('manageSiteList');
+            list.innerHTML = '';
+            
+            if (sitesData.length === 0) {
+                list.innerHTML = '<p class="text-center text-gray-500 text-sm py-4">No sites configured.</p>';
+                return;
+            }
+
+            sitesData.forEach(site => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center justify-between p-3.5 bg-white dark:bg-dark-card rounded-[14px] border border-gray-100 dark:border-dark-border shadow-sm';
+                div.innerHTML = `
+                    <div class="flex items-center gap-3.5 min-w-0">
+                        <div class="w-10 h-10 rounded-[10px] bg-[#f8fafd] dark:bg-gray-800 flex items-center justify-center shrink-0 border border-gray-50 dark:border-gray-700">
+                            ${getIconSvg(site.iconId)}
+                        </div>
+                        <div class="flex flex-col min-w-0">
+                            <span class="font-semibold text-[14px] text-gray-800 dark:text-gray-200 truncate">${site.title}</span>
+                            <span class="text-[12px] text-gray-500 dark:text-gray-400 truncate">${site.url}</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-1.5 shrink-0 ml-2">
+                        <button class="p-2 text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-[10px] transition-colors edit-btn" title="Edit">
+                            <i data-lucide="pencil" class="w-4 h-4"></i>
+                        </button>
+                        <button class="p-2 text-gray-400 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-[10px] transition-colors del-btn" title="Delete">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                `;
+                
+                div.querySelector('.edit-btn').onclick = () => openFormModal(site);
+                div.querySelector('.del-btn').onclick = () => {
+                    if (confirm(`Delete ${site.title}?\nThis will create a PR to remove it from the repository.`)) {
+                        simulatePRWorkflow({ type: 'delete', id: site.id });
+                    }
+                };
+                
+                list.appendChild(div);
+            });
+            lucide.createIcons();
+        }
+
+        // Modal Controls
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('hidden');
+            // small delay to allow display:block to apply before opacity transition
+            requestAnimationFrame(() => {
+                modal.firstElementChild.classList.add('scale-100', 'opacity-100');
+                modal.firstElementChild.classList.remove('scale-95', 'opacity-0');
+            });
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.add('hidden');
+        }
+
+        document.getElementById('editToggle').onclick = () => {
+            renderManageList();
+            openModal('manageModal');
+        };
+        
+        document.getElementById('closeManageModal').onclick = () => closeModal('manageModal');
+
+        function populateFormCategories() {
+            const select = document.getElementById('formCategory');
+            select.innerHTML = '';
+            data.categories.filter(c => c.id !== 'all').forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c.id;
+                opt.textContent = c.name;
+                select.appendChild(opt);
+            });
+        }
+
+        document.getElementById('addNewSiteBtn').onclick = () => openFormModal();
+        document.getElementById('closeFormModal').onclick = () => closeModal('formModal');
+
+        function openFormModal(site = null) {
+            document.getElementById('formModalTitle').textContent = site ? 'Edit Site' : 'Add New Site';
+            document.getElementById('formSiteId').value = site ? site.id : '';
+            document.getElementById('formTitle').value = site ? site.title : '';
+            document.getElementById('formDesc').value = site ? site.desc : '';
+            document.getElementById('formUrl').value = site ? site.url : '';
+            document.getElementById('formCategory').value = site ? site.category : (data.categories[1] ? data.categories[1].id : '');
+            
+            openModal('formModal');
+        }
+
+        document.getElementById('siteForm').onsubmit = (e) => {
+            e.preventDefault();
+            const id = document.getElementById('formSiteId').value || 'site_' + Date.now();
+            const site = {
+                id,
+                title: document.getElementById('formTitle').value,
+                desc: document.getElementById('formDesc').value,
+                url: document.getElementById('formUrl').value,
+                category: document.getElementById('formCategory').value,
+                iconId: 'default' // In a real app, we'd have an icon picker
+            };
+            
+            simulatePRWorkflow({
+                type: document.getElementById('formSiteId').value ? 'edit' : 'add',
+                site
+            });
+        };
+
+        // Close modals on outside click
+        window.onclick = (e) => {
+            if (e.target.id === 'manageModal') closeModal('manageModal');
+            if (e.target.id === 'formModal') closeModal('formModal');
+        };
+
+        // Run Init
+        init();
+    </script>
+</body>
+</html>
