@@ -57,7 +57,7 @@ jobs:
         run: |
           echo '${{ toJson(github.event.issue.body) }}' > issue_body.json
           
-          # Parse issue body and update data.json
+          # Parse issue body, process site data, and auto-reindex IDs
           node -e '
             const fs = require("fs");
             const body = JSON.parse(fs.readFileSync("issue_body.json", "utf8"));
@@ -75,23 +75,25 @@ jobs:
             const url = extract("Site URL");
             const desc = extract("Description");
             const category = extract("Category");
+            const icon = extract("Lucide Icon");
             
             const dataPath = "public/data.json";
             const data = JSON.parse(fs.readFileSync(dataPath, "utf8"));
             
             if (action === "delete" && originalId) {
                 // Delete existing site
-                data.sites = data.sites.filter(s => s.id !== originalId);
+                data.sites = data.sites.filter(s => String(s.id) !== String(originalId));
             } else if (action === "edit" && originalId) {
                 // Edit existing site
-                const idx = data.sites.findIndex(s => s.id === originalId);
+                const idx = data.sites.findIndex(s => String(s.id) === String(originalId));
                 if (idx !== -1) {
                     data.sites[idx] = {
                         ...data.sites[idx],
                         title: title || data.sites[idx].title,
                         url: url || data.sites[idx].url,
                         desc: desc || data.sites[idx].desc,
-                        category: category || data.sites[idx].category
+                        category: category || data.sites[idx].category,
+                        icon: icon || data.sites[idx].icon
                     };
                 } else {
                     console.error("Site ID to edit not found");
@@ -103,15 +105,24 @@ jobs:
                   console.error("Missing required fields for adding site");
                   process.exit(1);
                 }
-                data.sites.push({
-                  id: "site_" + Date.now(),
+                const newSite = {
+                  id: "", // Will be overwritten during reindex
                   title,
                   url,
                   desc: desc || "Added via suggestion",
-                  category: category || "common",
-                  iconId: "default"
-                });
+                  category: category || "common"
+                };
+                if (icon) {
+                  newSite.icon = icon;
+                }
+                data.sites.push(newSite);
             }
+            
+            // Automatically reindex all sites sequentially (1, 2, 3...)
+            data.sites = data.sites.map((site, index) => ({
+                ...site,
+                id: String(index + 1)
+            }));
             
             fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
             
