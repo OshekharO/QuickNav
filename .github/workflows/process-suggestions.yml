@@ -52,12 +52,12 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Extract and Add Site
+      - name: Extract and Process Site
         id: process
         run: |
           echo '${{ toJson(github.event.issue.body) }}' > issue_body.json
           
-          # Simple inline node script to parse issue body and update data.json
+          # Parse issue body and update data.json
           node -e '
             const fs = require("fs");
             const body = JSON.parse(fs.readFileSync("issue_body.json", "utf8"));
@@ -69,33 +69,54 @@ jobs:
               return match ? match[1].trim() : "";
             };
             
+            const action = extract("Action").toLowerCase() || "add";
+            const originalId = extract("Original ID");
             const title = extract("Site Name");
             const url = extract("Site URL");
             const desc = extract("Description");
             const category = extract("Category");
             
-            if(!title || !url) {
-              console.error("Missing required fields");
-              process.exit(1);
-            }
-            
             const dataPath = "public/data.json";
             const data = JSON.parse(fs.readFileSync(dataPath, "utf8"));
             
-            const newSite = {
-              id: "site_" + Date.now(),
-              title,
-              url,
-              desc: desc || "Added via suggestion",
-              category: category || "common",
-              iconId: "default"
-            };
+            if (action === "delete" && originalId) {
+                // Delete existing site
+                data.sites = data.sites.filter(s => s.id !== originalId);
+            } else if (action === "edit" && originalId) {
+                // Edit existing site
+                const idx = data.sites.findIndex(s => s.id === originalId);
+                if (idx !== -1) {
+                    data.sites[idx] = {
+                        ...data.sites[idx],
+                        title: title || data.sites[idx].title,
+                        url: url || data.sites[idx].url,
+                        desc: desc || data.sites[idx].desc,
+                        category: category || data.sites[idx].category
+                    };
+                } else {
+                    console.error("Site ID to edit not found");
+                    process.exit(1);
+                }
+            } else {
+                // Add new site
+                if(!title || !url) {
+                  console.error("Missing required fields for adding site");
+                  process.exit(1);
+                }
+                data.sites.push({
+                  id: "site_" + Date.now(),
+                  title,
+                  url,
+                  desc: desc || "Added via suggestion",
+                  category: category || "common",
+                  iconId: "default"
+                });
+            }
             
-            data.sites.push(newSite);
             fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
             
+            console.log(`::set-output name=action::${action}`);
             console.log(`::set-output name=site_name::${title}`);
-            console.log(`::set-output name=site_url::${url}`);
           '
 
       - name: Create Pull Request
@@ -103,14 +124,14 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "feat: Add site ${{ steps.process.outputs.site_name }}"
-          title: "Add ${{ steps.process.outputs.site_name }} to directory"
+          commit-message: "${{ steps.process.outputs.action }}: update directory for ${{ steps.process.outputs.site_name }}"
+          title: "${{ steps.process.outputs.action }} ${{ steps.process.outputs.site_name }} in directory"
           body: |
             Auto-generated from approved site suggestion #${{ github.event.issue.number }}
             
+            - **Action:** ${{ steps.process.outputs.action }}
             - **Site:** ${{ steps.process.outputs.site_name }}
-            - **URL:** ${{ steps.process.outputs.site_url }}
-          branch: "add-site-${{ github.event.issue.number }}"
+          branch: "site-update-${{ github.event.issue.number }}"
           delete-branch: true
 
       - name: Comment on issue
