@@ -1,32 +1,73 @@
 {
   "searchEngines": [
-    { "id": "bing", "name": "Bing", "shortName": "Bing", "url": "https://www.bing.com/search?q=", "icon": "bing" },
-    { "id": "google", "name": "Google", "shortName": "Google", "url": "https://www.google.com/search?q=", "icon": "google" },
-    { "id": "baidu", "name": "Baidu", "shortName": "Baidu", "url": "https://www.baidu.com/s?wd=", "icon": "baidu" }
+    {
+      "id": "bing",
+      "name": "Bing",
+      "shortName": "Bing",
+      "url": "https://www.bing.com/search?q=",
+      "icon": "bing"
+    },
+    {
+      "id": "google",
+      "name": "Google",
+      "shortName": "Google",
+      "url": "https://www.google.com/search?q=",
+      "icon": "google"
+    },
+    {
+      "id": "baidu",
+      "name": "Baidu",
+      "shortName": "Baidu",
+      "url": "https://www.baidu.com/s?wd=",
+      "icon": "baidu"
+    }
   ],
   "categories": [
-    { "id": "all", "name": "All" },
-    { "id": "common", "name": "Common", "icon": "star" },
-    { "id": "resources", "name": "#Resources" },
-    { "id": "forums", "name": "#Forums" },
-    { "id": "tech", "name": "#Technology" },
-    { "id": "servers", "name": "#Servers" },
-    { "id": "proxies", "name": "#Proxies" },
-    { "id": "domains", "name": "#Domains" },
-    { "id": "email", "name": "#Email" },
-    { "id": "cloud", "name": "#Cloud Storage" }
+    {
+      "id": "all",
+      "name": "All"
+    },
+    {
+      "id": "common",
+      "name": "Common",
+      "icon": "star"
+    },
+    {
+      "id": "resources",
+      "name": "#Resources"
+    },
+    {
+      "id": "forums",
+      "name": "#Forums"
+    },
+    {
+      "id": "tech",
+      "name": "#Technology"
+    },
+    {
+      "id": "servers",
+      "name": "#Servers"
+    },
+    {
+      "id": "proxies",
+      "name": "#Proxies"
+    },
+    {
+      "id": "domains",
+      "name": "#Domains"
+    },
+    {
+      "id": "email",
+      "name": "#Email"
+    },
+    {
+      "id": "cloud",
+      "name": "#Cloud Storage"
+    }
   ],
   "sites": [
     {
       "id": "1",
-      "title": "BiliBili",
-      "desc": "Chinese video, tutorial, and technology content platform.",
-      "url": "https://bilibili.com",
-      "category": "common",
-      "icon": "tv"
-    },
-    {
-      "id": "2",
       "title": "NodeLoc",
       "desc": "Chinese forum mainly focused on technical discussions.",
       "url": "https://nodeloc.com",
@@ -34,7 +75,7 @@
       "icon": "message-square"
     },
     {
-      "id": "3",
+      "id": "2",
       "title": "1Panel.cn",
       "desc": "Modern Chinese open-source Linux panel with containerized deployment and operations management.",
       "url": "https://1panel.cn",
@@ -42,7 +83,7 @@
       "icon": "server"
     },
     {
-      "id": "4",
+      "id": "3",
       "title": "Appicon-forge",
       "desc": "Online generator for iOS, Android, and Web app icons.",
       "url": "https://appicon-forge.com",
@@ -50,7 +91,7 @@
       "icon": "image"
     },
     {
-      "id": "5",
+      "id": "4",
       "title": "Bluesky",
       "desc": "Decentralized social network gathering developers and tech enthusiasts.",
       "url": "https://bsky.app",
