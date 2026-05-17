@@ -162,6 +162,13 @@
                                     <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-[#82a4ea]"></div>
                                 </div>
                             </label>
+
+                            <div class="flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-[10px] transition-colors group">
+                                <span class="text-[14px] text-gray-700 dark:text-gray-300 font-medium select-none">Search Engine</span>
+                                <select id="settingSearchEngine" class="bg-transparent text-[13px] font-medium text-gray-600 dark:text-gray-400 outline-none cursor-pointer border-none focus:ring-0 text-right">
+                                    <!-- Injected via JS -->
+                                </select>
+                            </div>
                         </div>
                         
                         <div class="border-t border-gray-100 dark:border-gray-700 pt-3 mt-1">
@@ -288,7 +295,7 @@
         // State
         let data = { searchEngines: [], categories: [], sites: [] };
         let currentCategory = 'all';
-        let currentSearchEngine = 'bing';
+        let currentSearchEngine = localStorage.getItem('qn_setting_searchengine') || 'google';
         let sitesData = [];
         let sortableInstance = null;
         
@@ -323,6 +330,7 @@
         const settingNewTab = document.getElementById('settingNewTab');
         const settingCompact = document.getElementById('settingCompact');
         const settingDragDrop = document.getElementById('settingDragDrop');
+        const settingSearchEngine = document.getElementById('settingSearchEngine');
         const clearDataBtn = document.getElementById('clearDataBtn');
 
         settingNewTab.checked = userSettings.newTab;
@@ -352,12 +360,15 @@
             renderSites();
         });
 
+        settingSearchEngine.addEventListener('change', (e) => {
+            currentSearchEngine = e.target.value;
+            localStorage.setItem('qn_setting_searchengine', currentSearchEngine);
+            renderSearchEngine();
+        });
+
         clearDataBtn.addEventListener('click', () => {
             if (confirm("Are you sure you want to clear all local settings and preferences?")) {
-                localStorage.removeItem('theme');
-                localStorage.removeItem('qn_setting_newtab');
-                localStorage.removeItem('qn_setting_compact');
-                localStorage.removeItem('qn_setting_dragdrop');
+                localStorage.clear();
                 window.location.reload();
             }
         });
@@ -416,6 +427,7 @@
                 
                 renderSearchEngine();
                 populateSearchEngineDropdown();
+                populateSettingsSearchEngine();
                 renderCategories();
                 renderSites();
                 populateFormCategories();
@@ -424,6 +436,18 @@
                 console.error("Initialization error:", error);
                 showToast("Failed to load configuration data.");
             }
+        }
+
+        function populateSettingsSearchEngine() {
+            const select = document.getElementById('settingSearchEngine');
+            select.innerHTML = '';
+            data.searchEngines.forEach(engine => {
+                const opt = document.createElement('option');
+                opt.value = engine.id;
+                opt.textContent = engine.name;
+                if (engine.id === currentSearchEngine) opt.selected = true;
+                select.appendChild(opt);
+            });
         }
 
         // Render Functions
@@ -603,6 +627,8 @@
                 `;
                 div.onclick = () => {
                     currentSearchEngine = engine.id;
+                    localStorage.setItem('qn_setting_searchengine', currentSearchEngine);
+                    document.getElementById('settingSearchEngine').value = currentSearchEngine;
                     renderSearchEngine();
                 };
                 seDropdown.appendChild(div);
