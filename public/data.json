@@ -1,14 +1,14 @@
 {
   "searchEngines": [
-    { "id": "bing", "name": "Bing", "shortName": "Bing", "url": "https://www.bing.com/search?q=", "icon": "bing" },
+    { "id": "bing", "name": "Bing", "shortName": "Bing", "url": "https://www.bing.com/search?q=", "icon": "search" },
     {
       "id": "google",
       "name": "Google",
       "shortName": "Google",
       "url": "https://www.google.com/search?q=",
-      "icon": "google"
+      "icon": "search"
     },
-    { "id": "baidu", "name": "Baidu", "shortName": "Baidu", "url": "https://www.baidu.com/s?wd=", "icon": "baidu" }
+    { "id": "baidu", "name": "Baidu", "shortName": "Baidu", "url": "https://www.baidu.com/s?wd=", "icon": "search" }
   ],
   "categories": [
     { "id": "all", "name": "All" },
@@ -191,6 +191,79 @@
       "url": "https://kevsrv.me/",
       "category": "domains",
       "icon": "server-cog"
+    },
+    {
+      "id": "22",
+      "title": "YouTube",
+      "desc": "Global video-sharing platform for tutorials, entertainment, technology, and creators.",
+      "url": "https://youtube.com",
+      "category": "common",
+      "icon": "hd",
+      "rightIcon": "play"
+    },
+    {
+      "id": "23",
+      "title": "Gmail",
+      "desc": "Google email service with integrated productivity tools.",
+      "url": "https://gmail.com",
+      "category": "email",
+      "icon": "mail"
+    },
+    {
+      "id": "24",
+      "title": "Outlook",
+      "desc": "Microsoft email and calendar platform.",
+      "url": "https://outlook.live.com",
+      "category": "email",
+      "icon": "inbox"
+    },
+    {
+      "id": "25",
+      "title": "Tuta",
+      "desc": "Privacy-focused encrypted email service.",
+      "url": "https://tuta.com",
+      "category": "email",
+      "icon": "shield-check"
+    },
+    {
+      "id": "26",
+      "title": "TinkMail",
+      "desc": "Temporary and privacy-oriented email service.",
+      "url": "https://tinkmail.me/",
+      "category": "email",
+      "icon": "mail-plus"
+    },
+    {
+      "id": "27",
+      "title": "Proton Mail",
+      "desc": "Secure encrypted email service focused on privacy.",
+      "url": "https://proton.me/mail",
+      "category": "email",
+      "icon": "lock"
+    },
+    {
+      "id": "28",
+      "title": "YTDLP Online",
+      "desc": "Online media downloader powered by yt-dlp supporting multiple platforms.",
+      "url": "https://ytdlp.online/",
+      "category": "common",
+      "icon": "download"
+    },
+    {
+      "id": "29",
+      "title": "DownloadHD",
+      "desc": "Video downloader for social media and streaming platforms.",
+      "url": "https://downloadhd.net/",
+      "category": "common",
+      "icon": "video"
+    },
+    {
+      "id": "30",
+      "title": "Cobalt",
+      "desc": "Minimal and privacy-friendly media downloader for supported websites.",
+      "url": "https://cobalt.canine.tools/",
+      "category": "common",
+      "icon": "arrow-down-to-line"
     }
   ]
 }
