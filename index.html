@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="light">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuickNav</title>
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <!-- Fixed absolute path to relative path for GitHub Pages -->
+    <link rel="icon" href="./public/favicon.svg" type="image/svg+xml">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
@@ -40,6 +41,17 @@
         .hide-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
+        }
+        
+        /* 2-Row Horizontal Scroll for Categories */
+        .category-grid {
+            display: grid;
+            grid-template-rows: repeat(2, auto);
+            grid-auto-flow: column;
+            grid-auto-columns: max-content;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
         }
         
         .drag-over {
@@ -131,8 +143,8 @@ loadRrweb();
             </button>
         </div>
 
-        <!-- Categories -->
-        <div id="categoriesContainer" class="flex flex-wrap gap-2.5 justify-center px-1 mt-1">
+        <!-- Categories (Redesigned to 2-row horizontal scroll) -->
+        <div id="categoriesContainer" class="category-grid gap-2.5 px-1 mt-1 pb-2 hide-scrollbar">
             <!-- Injected via JS -->
         </div>
 
@@ -192,8 +204,8 @@ loadRrweb();
                         <!-- Injected via JS -->
                     </select>
                 </div>
-                <button type="submit" class="w-full py-3 bg-[#82a4ea] text-white rounded-[14px] font-medium hover:bg-[#6c92df] transition-colors shadow-sm mt-2 flex items-center justify-center gap-2">
-                    <i data-lucide="git-pull-request" class="w-4 h-4"></i> Save & Submit PR
+                <button type="submit" class="w-full py-3 bg-[#24292f] dark:bg-white text-white dark:text-[#24292f] rounded-[14px] font-medium hover:bg-black dark:hover:bg-gray-200 transition-colors shadow-sm mt-2 flex items-center justify-center gap-2">
+                    <i data-lucide="github" class="w-5 h-5"></i> Submit via GitHub Issue
                 </button>
             </form>
         </div>
@@ -251,6 +263,7 @@ loadRrweb();
         // Initialize App
         async function init() {
             try {
+                // Fixed absolute path to relative path for GitHub Pages compatibility
                 const response = await fetch('./public/data.json');
                 if (!response.ok) throw new Error('Failed to fetch data');
                 
@@ -278,9 +291,9 @@ loadRrweb();
                 const isSelected = cat.id === currentCategory;
                 const btn = document.createElement('button');
                 
-                let classes = 'px-4 py-2.5 rounded-[12px] text-[14px] font-medium transition-all duration-200 flex items-center gap-1.5 border ';
+                let classes = 'px-4 py-2.5 rounded-[12px] text-[14px] font-medium transition-all duration-200 flex items-center gap-1.5 border whitespace-nowrap ';
                 if (isSelected) {
-                    classes += 'bg-[#e3ecfa] dark:bg-blue-900/30 text-[#3e598b] dark:text-blue-400 border-transparent scale-105';
+                    classes += 'bg-[#e3ecfa] dark:bg-blue-900/30 text-[#3e598b] dark:text-blue-400 border-transparent scale-[1.02]';
                 } else {
                     classes += 'bg-white dark:bg-dark-card shadow-[0_2px_8px_rgba(0,0,0,0.03)] text-[#5e6673] dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 border-white dark:border-dark-border hover:border-gray-100 dark:hover:border-gray-700';
                 }
@@ -437,7 +450,7 @@ loadRrweb();
             if (e.key === 'Enter') performSearch();
         };
 
-        // Manage Sites Logic (Simulating PR Workflow)
+        // Manage Sites Logic (Integration with GitHub Issues)
         function showToast(message, isSuccess = false) {
             const toast = document.getElementById('toast');
             const msg = document.getElementById('toastMsg');
@@ -459,32 +472,31 @@ loadRrweb();
             }
         }
 
-        function simulatePRWorkflow(actionData) {
-            showToast('Creating Pull Request to repository...');
+        function submitToGitHub(action, site) {
+            showToast('Redirecting to GitHub...', true);
             
-            // Disable form while saving
-            const submitBtn = document.querySelector('#siteForm button[type="submit"]');
-            if(submitBtn) submitBtn.disabled = true;
+            const repoUrl = 'https://github.com/OshekharO/QuickNav';
+            let title = '';
+            let body = '';
+            
+            // Format the issue body to match what the GitHub Actions parser expects
+            if (action === 'add') {
+                title = `Add Site: ${site.title}`;
+                body = `### Site Name\n${site.title}\n\n### Site URL\n${site.url}\n\n### Description\n${site.desc}\n\n### Category\n${site.category}`;
+            } else if (action === 'edit') {
+                title = `Edit Site: ${site.title}`;
+                body = `Please update the site with the following details:\n\n### Site Name\n${site.title}\n\n### Site URL\n${site.url}\n\n### Description\n${site.desc}\n\n### Category\n${site.category}\n\n**Original ID:** ${site.id}`;
+            } else if (action === 'delete') {
+                title = `Delete Site: ${site.title}`;
+                body = `Please remove this site from the directory.\n\n### Site Name\n${site.title}\n\n### Site URL\n${site.url}\n\n**Original ID:** ${site.id}`;
+            }
 
+            const issueUrl = `${repoUrl}/issues/new?title=${encodeURIComponent(title)}&labels=site-suggestion&body=${encodeURIComponent(body)}`;
+            
             setTimeout(() => {
-                if (actionData.type === 'add') {
-                    sitesData.push(actionData.site);
-                } else if (actionData.type === 'edit') {
-                    const idx = sitesData.findIndex(s => s.id === actionData.site.id);
-                    if (idx !== -1) sitesData[idx] = actionData.site;
-                } else if (actionData.type === 'delete') {
-                    sitesData = sitesData.filter(s => s.id !== actionData.id);
-                }
-                
-                renderSites();
-                if(!document.getElementById('manageModal').classList.contains('hidden')) {
-                    renderManageList();
-                }
-                
-                showToast('Successfully created PR! Changes applied locally.', true);
+                window.open(issueUrl, '_blank');
                 closeModal('formModal');
-                if(submitBtn) submitBtn.disabled = false;
-            }, 1800);
+            }, 800);
         }
 
         function renderManageList() {
@@ -521,8 +533,8 @@ loadRrweb();
                 
                 div.querySelector('.edit-btn').onclick = () => openFormModal(site);
                 div.querySelector('.del-btn').onclick = () => {
-                    if (confirm(`Delete ${site.title}?\nThis will create a PR to remove it from the repository.`)) {
-                        simulatePRWorkflow({ type: 'delete', id: site.id });
+                    if (confirm(`Delete ${site.title}?\nThis will redirect you to open a GitHub issue to remove it from the repository.`)) {
+                        submitToGitHub('delete', site);
                     }
                 };
                 
@@ -588,13 +600,10 @@ loadRrweb();
                 desc: document.getElementById('formDesc').value,
                 url: document.getElementById('formUrl').value,
                 category: document.getElementById('formCategory').value,
-                iconId: 'default' // In a real app, we'd have an icon picker
+                iconId: 'default'
             };
             
-            simulatePRWorkflow({
-                type: document.getElementById('formSiteId').value ? 'edit' : 'add',
-                site
-            });
+            submitToGitHub(document.getElementById('formSiteId').value ? 'edit' : 'add', site);
         };
 
         // Close modals on outside click
