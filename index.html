@@ -251,7 +251,7 @@ loadRrweb();
         // Initialize App
         async function init() {
             try {
-                const response = await fetch('/data.json');
+                const response = await fetch('./public/data.json');
                 if (!response.ok) throw new Error('Failed to fetch data');
                 
                 data = await response.json();
