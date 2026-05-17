@@ -136,15 +136,6 @@
                         </div>
                         
                         <div class="flex flex-col gap-1 mb-3">
-                            
-                            <!-- Search Engine Selector -->
-                            <div class="flex flex-col p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-[10px] transition-colors group mb-1">
-                                <label class="text-[12px] text-gray-400 dark:text-gray-500 font-medium mb-1.5 uppercase tracking-wide">Default Search</label>
-                                <select id="settingSearchEngine" class="w-full bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-[14px] rounded-lg px-2 py-1.5 outline-none focus:ring-2 focus:ring-[#82a4ea]/50 cursor-pointer">
-                                    <!-- Injected via JS -->
-                                </select>
-                            </div>
-
                             <label class="flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-[10px] cursor-pointer transition-colors group">
                                 <span class="text-[14px] text-gray-700 dark:text-gray-300 font-medium select-none">Open in new tab</span>
                                 <div class="relative inline-flex items-center cursor-pointer">
@@ -297,7 +288,7 @@
         // State
         let data = { searchEngines: [], categories: [], sites: [] };
         let currentCategory = 'all';
-        let currentSearchEngine = 'google';
+        let currentSearchEngine = 'bing';
         let sitesData = [];
         let sortableInstance = null;
         
@@ -332,7 +323,6 @@
         const settingNewTab = document.getElementById('settingNewTab');
         const settingCompact = document.getElementById('settingCompact');
         const settingDragDrop = document.getElementById('settingDragDrop');
-        const settingSearchEngine = document.getElementById('settingSearchEngine');
         const clearDataBtn = document.getElementById('clearDataBtn');
 
         settingNewTab.checked = userSettings.newTab;
@@ -361,15 +351,13 @@
             localStorage.setItem('qn_setting_dragdrop', userSettings.dragDrop);
             renderSites();
         });
-        
-        settingSearchEngine.addEventListener('change', (e) => {
-            window.setSearchEngine(e.target.value);
-        });
 
         clearDataBtn.addEventListener('click', () => {
             if (confirm("Are you sure you want to clear all local settings and preferences?")) {
-                localStorage.clear();
-                sessionStorage.removeItem('qn_data_cache');
+                localStorage.removeItem('theme');
+                localStorage.removeItem('qn_setting_newtab');
+                localStorage.removeItem('qn_setting_compact');
+                localStorage.removeItem('qn_setting_dragdrop');
                 window.location.reload();
             }
         });
@@ -385,16 +373,15 @@
 
         // Robust Icon Resolution Logic
         function resolveIcon(site, sizeClass = 'w-6 h-6') {
-            const iconId = site.icon ? site.icon.toLowerCase() : site.id ? site.id.toLowerCase() : '';
-            if (iconId && customBrandIcons[iconId]) {
-                return `<div class="${sizeClass}">${customBrandIcons[iconId]}</div>`;
+            if (site.icon && customBrandIcons[site.icon]) {
+                return `<div class="${sizeClass}">${customBrandIcons[site.icon]}</div>`;
             }
             if (site.icon) {
                 return `<i data-lucide="${site.icon}" class="${sizeClass} text-gray-700 dark:text-gray-300"></i>`;
             }
             try {
                 const domain = site.url ? new URL(site.url).hostname.toLowerCase() : '';
-                const name = (site.title || site.name || '').toLowerCase();
+                const name = site.title ? site.title.toLowerCase() : '';
                 
                 const iconMap = {
                     'github': 'github', 'twitter': 'twitter', 'youtube': 'youtube',
@@ -411,7 +398,7 @@
                 }
                 
                 if (domain) {
-                    return `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" class="${sizeClass} rounded-md object-contain" alt="" onerror="this.outerHTML='<i data-lucide=\\'globe\\' class=\\'${sizeClass} text-gray-400\\'></i>'"/>`;
+                    return `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" class="${sizeClass} rounded-md object-contain" alt="${site.title}" onerror="this.outerHTML='<i data-lucide=\\'globe\\' class=\\'${sizeClass} text-gray-400\\'></i>'"/>`;
                 }
             } catch(e) {}
             
@@ -421,31 +408,17 @@
         // Initialize App
         async function init() {
             try {
-                const cached = sessionStorage.getItem('qn_data_cache');
-                if (cached) {
-                    data = JSON.parse(cached);
-                } else {
-                    const response = await fetch('./public/data.json');
-                    if (!response.ok) throw new Error('Failed to fetch data');
-                    data = await response.json();
-                    sessionStorage.setItem('qn_data_cache', JSON.stringify(data));
-                }
+                const response = await fetch('./public/data.json');
+                if (!response.ok) throw new Error('Failed to fetch data');
                 
+                data = await response.json();
                 sitesData = [...data.sites];
                 
-                const savedEngine = localStorage.getItem('qn_searchengine');
-                if (savedEngine && data.searchEngines.find(e => e.id === savedEngine)) {
-                    currentSearchEngine = savedEngine;
-                } else if (data.searchEngines.length > 0) {
-                    currentSearchEngine = data.searchEngines.find(e => e.id === 'google') ? 'google' : data.searchEngines[0].id;
-                }
-                
-                populateFormCategories();
-                populateSettingsSearchEngine();
                 renderSearchEngine();
                 populateSearchEngineDropdown();
                 renderCategories();
                 renderSites();
+                populateFormCategories();
                 lucide.createIcons();
             } catch (error) {
                 console.error("Initialization error:", error);
@@ -515,7 +488,7 @@
                 const a = document.createElement('a');
                 a.href = site.url;
                 a.target = userSettings.newTab ? '_blank' : '_self';
-                a.dataset.id = site.id;
+                a.dataset.id = site.id; // Crucial for Sortable logic
                 
                 const dragClasses = userSettings.dragDrop ? 'cursor-grab hover:-translate-y-[2px]' : 'cursor-pointer hover:-translate-y-[2px]';
                 
@@ -549,16 +522,18 @@
             
             lucide.createIcons();
 
+            // Initialize SortableJS for flawless Desktop + Mobile drag & drop
             if (userSettings.dragDrop) {
                 sortableInstance = new Sortable(container, {
                     animation: 250,
                     easing: "cubic-bezier(0.25, 1, 0.5, 1)",
                     ghostClass: "drag-ghost",
                     dragClass: "drag-item",
-                    delay: 200,
-                    delayOnTouchOnly: true,
-                    touchStartThreshold: 3,
+                    delay: 200, // 200ms delay before drag starts -> allows normal scrolling on touch devices
+                    delayOnTouchOnly: true, // Only apply delay on mobile/touch screens
+                    touchStartThreshold: 3, // User can move finger 3px before tap is canceled
                     onStart: function(evt) {
+                        // Optional haptic feedback on mobile when drag initiates
                         if (window.navigator && window.navigator.vibrate) {
                             window.navigator.vibrate(40);
                         }
@@ -570,13 +545,16 @@
                         const nextEl = evt.item.nextElementSibling;
                         const nextId = nextEl ? nextEl.dataset.id : null;
                         
+                        // 1. Extract dragged item from main array
                         const draggedIdx = sitesData.findIndex(s => s.id === draggedId);
                         const [draggedItem] = sitesData.splice(draggedIdx, 1);
                         
+                        // 2. Determine exact insertion point in main array
                         let insertIdx;
                         if (nextId) {
                             insertIdx = sitesData.findIndex(s => s.id === nextId);
                         } else {
+                            // Dropped at the very end of the current filtered view
                             const prevEl = evt.item.previousElementSibling;
                             if (prevEl) {
                                 const prevId = prevEl.dataset.id;
@@ -586,6 +564,7 @@
                             }
                         }
                         
+                        // 3. Re-insert and ensure DOM reflects state
                         sitesData.splice(insertIdx, 0, draggedItem);
                         renderSites();
                     }
@@ -594,28 +573,21 @@
         }
 
         // Search Logic
-        window.setSearchEngine = id => { 
-            currentSearchEngine = id; 
-            localStorage.setItem('qn_searchengine', id);
-            settingSearchEngine.value = id;
-            renderSearchEngine(); 
-        };
-
-        const renderSearchEngine = () => {
-            const e = data.searchEngines.find(x => x.id === currentSearchEngine);
-            if (!e) return;
+        function renderSearchEngine() {
+            const engine = data.searchEngines.find(e => e.id === currentSearchEngine);
+            if (!engine) return;
             
-            const iconHtml = resolveIcon({ id: e.id, title: e.name, url: e.url, icon: e.icon }, 'w-[18px] h-[18px]');
+            const iconHtml = resolveIcon({ title: engine.name, url: engine.url, icon: engine.icon }, 'w-[18px] h-[18px]');
             
             document.getElementById('searchEngineToggle').innerHTML = `
                 ${iconHtml}
-                <span class="text-[14px] font-medium text-[#374151] dark:text-gray-300 ml-0.5">${e.shortName}</span>
+                <span class="text-[14px] font-medium text-[#374151] dark:text-gray-300 ml-0.5">${engine.shortName}</span>
                 <i data-lucide="chevron-down" class="w-[14px] h-[14px] text-gray-400 dark:text-gray-500"></i>
             `;
             lucide.createIcons();
-        };
+        }
 
-        const populateSearchEngineDropdown = () => {
+        function populateSearchEngineDropdown() {
             const seDropdown = document.getElementById('searchEngineDropdown');
             seDropdown.innerHTML = '';
             
@@ -623,23 +595,19 @@
                 const div = document.createElement('div');
                 div.className = 'flex items-center gap-2.5 p-2.5 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer rounded-[10px] transition-colors mb-1 last:mb-0';
                 
-                const iconHtml = resolveIcon({ id: engine.id, title: engine.name, url: engine.url, icon: engine.icon }, 'w-4 h-4');
+                const iconHtml = resolveIcon({ title: engine.name, url: engine.url, icon: engine.icon }, 'w-4 h-4');
                 
                 div.innerHTML = `
                     ${iconHtml}
                     <span class="text-[14px] text-gray-700 dark:text-gray-300 font-medium">${engine.name}</span>
                 `;
                 div.onclick = () => {
-                    setSearchEngine(engine.id);
+                    currentSearchEngine = engine.id;
+                    renderSearchEngine();
                 };
                 seDropdown.appendChild(div);
             });
-        };
-        
-        const populateSettingsSearchEngine = () => {
-            settingSearchEngine.innerHTML = data.searchEngines.map(e => `<option value="${e.id}">${e.name}</option>`).join('');
-            settingSearchEngine.value = currentSearchEngine;
-        };
+        }
 
         const seDropdown = document.getElementById('searchEngineDropdown');
         document.getElementById('searchEngineToggle').onclick = (e) => {
@@ -814,12 +782,9 @@
             document.getElementById('formDesc').value = site ? site.desc : '';
             document.getElementById('formUrl').value = site ? site.url : '';
             document.getElementById('formIcon').value = site && site.icon ? site.icon : '';
-            
-            if ($('formCategory').options.length === 0) populateFormCategories();
             document.getElementById('formCategory').value = site ? site.category : (data.categories[1] ? data.categories[1].id : '');
             
-            toggleModal('manageModal', false);
-            setTimeout(() => toggleModal('formModal', true), 200);
+            openModal('formModal');
         }
 
         document.getElementById('siteForm').onsubmit = (e) => {
