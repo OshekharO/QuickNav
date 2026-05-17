@@ -1,7 +1,13 @@
 {
   "searchEngines": [
     { "id": "bing", "name": "Bing", "shortName": "Bing", "url": "https://www.bing.com/search?q=", "icon": "bing" },
-    { "id": "google", "name": "Google", "shortName": "Google", "url": "https://www.google.com/search?q=", "icon": "google" },
+    {
+      "id": "google",
+      "name": "Google",
+      "shortName": "Google",
+      "url": "https://www.google.com/search?q=",
+      "icon": "google"
+    },
     { "id": "baidu", "name": "Baidu", "shortName": "Baidu", "url": "https://www.baidu.com/s?wd=", "icon": "baidu" }
   ],
   "categories": [
@@ -137,6 +143,54 @@
       "url": "https://stackoverflow.com",
       "category": "development",
       "icon": "code"
+    },
+    {
+      "id": "16",
+      "title": "Now.CC",
+      "desc": "Free subdomain provider with dynamic DNS support.",
+      "url": "https://www.now.cc/",
+      "category": "domains",
+      "icon": "globe"
+    },
+    {
+      "id": "17",
+      "title": "DigitalPlat Domains",
+      "desc": "Free subdomain and domain allocation platform.",
+      "url": "https://domain.digitalplat.org/",
+      "category": "domains",
+      "icon": "network"
+    },
+    {
+      "id": "18",
+      "title": "EU.org",
+      "desc": "Free domain registration service offering subdomains under eu.org.",
+      "url": "https://nic.eu.org/",
+      "category": "domains",
+      "icon": "badge-check"
+    },
+    {
+      "id": "19",
+      "title": "ISRoot",
+      "desc": "Free subdomain provider for developers and personal projects.",
+      "url": "https://isroot.in/",
+      "category": "domains",
+      "icon": "link"
+    },
+    {
+      "id": "20",
+      "title": "FJ.KG",
+      "desc": "Free subdomain registration platform under fj.kg.",
+      "url": "https://nic.fj.kg/",
+      "category": "domains",
+      "icon": "globe-2"
+    },
+    {
+      "id": "21",
+      "title": "KevSrv",
+      "desc": "Free subdomain service for self-hosted and developer projects.",
+      "url": "https://kevsrv.me/",
+      "category": "domains",
+      "icon": "server-cog"
     }
   ]
 }
