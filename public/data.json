@@ -81,7 +81,7 @@
       "title": "HacksNation",
       "desc": "Cybersecurity and ethical hacking community forum.",
       "url": "https://hacksnation.com",
-      "category": "security",
+      "category": "forums",
       "icon": "shield"
     },
     {
@@ -89,7 +89,7 @@
       "title": "OneHack",
       "desc": "Forum focused on cybersecurity discussions and digital tools.",
       "url": "https://onehack.st",
-      "category": "security",
+      "category": "forums",
       "icon": "terminal"
     },
     {
@@ -97,7 +97,7 @@
       "title": "LeakForum",
       "desc": "Discussion forum related to cybersecurity and leaked database awareness.",
       "url": "https://leakforum.io",
-      "category": "security",
+      "category": "forums",
       "icon": "database"
     },
     {
