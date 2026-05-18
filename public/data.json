@@ -420,7 +420,15 @@
       "desc": "Searchable collection of open-source icon libraries for developers and designers.",
       "url": "https://icones.js.org",
       "category": "resources",
-      "icon": "shape"
+      "icon": "radius"
+    },
+    {
+      "id": "48",
+      "title": "DNSHE",
+      "desc": "Free subdomain registration platform for developers, students, and open-source enthusiasts worldwide.",
+      "url": "https://www.dnshe.com/",
+      "category": "domains",
+      "icon": "globe-2"
     }
   ]
 }
