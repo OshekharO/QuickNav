@@ -165,9 +165,12 @@
 
                             <div class="flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-[10px] transition-colors group">
                                 <span class="text-[14px] text-gray-700 dark:text-gray-300 font-medium select-none">Search Engine</span>
-                                <select id="settingSearchEngine" class="bg-transparent text-[13px] font-medium text-gray-600 dark:text-gray-400 outline-none cursor-pointer border-none focus:ring-0 text-right">
-                                    <!-- Injected via JS -->
-                                </select>
+                                <div class="relative">
+                                    <select id="settingSearchEngine" class="appearance-none bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[10px] pl-3 pr-8 py-1.5 text-[13px] font-medium text-gray-700 dark:text-gray-300 outline-none cursor-pointer focus:ring-2 focus:ring-[#82a4ea]/30 focus:border-[#82a4ea] transition-all">
+                                        <!-- Injected via JS -->
+                                    </select>
+                                    <i data-lucide="chevron-down" class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 dark:text-gray-500"></i>
+                                </div>
                             </div>
                         </div>
                         
