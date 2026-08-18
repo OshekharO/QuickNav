@@ -13,7 +13,18 @@
     <meta property="og:url" content="https://stacker.bond/">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="./public/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Prevent theme flash on load
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- SortableJS for flawless mobile/desktop drag & drop -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
@@ -52,16 +63,41 @@
             scrollbar-width: none;
         }
         
-        /* 2-Row Horizontal Scroll for Categories */
-        .category-grid {
-            display: grid;
-            grid-template-rows: repeat(2, auto);
-            grid-auto-flow: column;
-            grid-auto-columns: max-content;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-        }
+         /* 2-Row Horizontal Scroll for Categories */
+         .category-grid {
+             display: grid;
+             grid-template-rows: repeat(2, auto);
+             grid-auto-flow: column;
+             grid-auto-columns: max-content;
+             overflow-x: auto;
+             scroll-behavior: smooth;
+             -webkit-overflow-scrolling: touch;
+             overscroll-behavior-x: contain;
+         }
+         
+         /* Category scroll fade indicators */
+         .category-wrapper {
+             position: relative;
+         }
+         .category-wrapper::after {
+             content: '';
+             position: absolute;
+             top: 0;
+             right: 0;
+             bottom: 0;
+             width: 24px;
+             background: linear-gradient(to right, transparent, #eef1f6);
+             pointer-events: none;
+             z-index: 10;
+         }
+         .dark .category-wrapper::after {
+             background: linear-gradient(to right, transparent, #111827);
+         }
+         @media (min-width: 768px) {
+             .category-wrapper::after {
+                 display: none;
+             }
+         }
         
         /* SortableJS Drag and Drop Polish */
         .drag-ghost {
@@ -103,29 +139,70 @@
             transform: scale(0.95);
             transition: opacity 150ms ease-in, transform 150ms ease-in;
         }
+        
+        /* Card entrance animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .card-animate {
+            animation: fadeInUp 0.3s ease-out forwards;
+        }
     </style>
 </head>
 <body class="min-h-screen flex justify-center pb-6 bg-[#eef1f6] text-gray-800 dark:bg-dark-bg dark:text-dark-text">
     
+    <!-- Loading Skeleton -->
+    <div id="loadingSkeleton" class="w-full max-w-4xl px-4 sm:px-6 lg:px-8 flex flex-col gap-6 pt-8 md:pt-12 transition-all duration-300 min-h-screen">
+        <div class="flex flex-col md:flex-row-reverse gap-4 items-center w-full max-w-[600px] mx-auto md:max-w-none justify-between">
+            <div class="flex justify-end gap-3 w-full md:w-auto shrink-0">
+                <div class="w-[42px] h-[42px] bg-gray-200 dark:bg-gray-700 rounded-[14px] animate-pulse"></div>
+                <div class="w-[42px] h-[42px] bg-gray-200 dark:bg-gray-700 rounded-[14px] animate-pulse"></div>
+                <div class="w-[42px] h-[42px] bg-gray-200 dark:bg-gray-700 rounded-[14px] animate-pulse"></div>
+            </div>
+            <div class="w-full max-w-[600px] h-[56px] bg-gray-200 dark:bg-gray-700 rounded-[16px] animate-pulse"></div>
+        </div>
+        <div class="flex gap-2.5 px-1 pb-2">
+            <div class="w-20 h-10 bg-gray-200 dark:bg-gray-700 rounded-[12px] animate-pulse"></div>
+            <div class="w-24 h-10 bg-gray-200 dark:bg-gray-700 rounded-[12px] animate-pulse"></div>
+            <div class="w-20 h-10 bg-gray-200 dark:bg-gray-700 rounded-[12px] animate-pulse"></div>
+            <div class="w-24 h-10 bg-gray-200 dark:bg-gray-700 rounded-[12px] animate-pulse"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2 w-full">
+            <div class="h-32 bg-gray-200 dark:bg-gray-700 rounded-[16px] animate-pulse"></div>
+            <div class="h-32 bg-gray-200 dark:bg-gray-700 rounded-[16px] animate-pulse"></div>
+            <div class="h-32 bg-gray-200 dark:bg-gray-700 rounded-[16px] animate-pulse"></div>
+            <div class="h-32 bg-gray-200 dark:bg-gray-700 rounded-[16px] animate-pulse"></div>
+            <div class="h-32 bg-gray-200 dark:bg-gray-700 rounded-[16px] animate-pulse"></div>
+            <div class="h-32 bg-gray-200 dark:bg-gray-700 rounded-[16px] animate-pulse"></div>
+        </div>
+    </div>
+    
     <!-- Main App Container -->
-    <div id="app" class="w-full max-w-4xl px-4 sm:px-6 lg:px-8 flex flex-col gap-6 pt-8 md:pt-12 transition-all duration-300 min-h-screen">
+    <div id="app" class="hidden w-full max-w-4xl px-4 sm:px-6 lg:px-8 flex flex-col gap-6 pt-8 md:pt-12 transition-all duration-300 min-h-screen">
         
         <!-- Header Section (Actions + Search) -->
         <div class="flex flex-col md:flex-row-reverse gap-4 items-center w-full max-w-[600px] mx-auto md:max-w-none justify-between">
             
             <!-- Top Actions -->
             <div class="flex justify-end gap-3 w-full md:w-auto shrink-0 relative">
-                <button id="themeToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border" title="Toggle Theme">
+                <button id="themeToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border" title="Toggle Theme" aria-label="Toggle theme">
                     <i data-lucide="moon" class="w-[20px] h-[20px] hidden dark:block"></i>
                     <i data-lucide="sun" class="w-[20px] h-[20px] block dark:hidden"></i>
                 </button>
-                <button id="editToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border" title="Manage Sites">
+                <button id="editToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border" title="Manage Sites" aria-label="Manage sites">
                     <i data-lucide="pencil" class="w-[18px] h-[18px]"></i>
                 </button>
                 
                 <!-- Settings Dropdown Container -->
                 <div class="relative">
-                    <button id="settingsToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 outline-none" title="Settings">
+                    <button id="settingsToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 outline-none" title="Settings" aria-label="Settings">
                         <i data-lucide="sliders-horizontal" class="w-[18px] h-[18px]"></i>
                     </button>
                     <!-- Settings Panel -->
@@ -186,7 +263,7 @@
 
             <!-- Search Bar -->
             <div class="bg-white dark:bg-dark-card rounded-[16px] shadow-[0_2px_12px_rgba(0,0,0,0.04)] p-1.5 flex items-center gap-2 h-[56px] relative z-20 border border-transparent dark:border-dark-border w-full max-w-[600px]">
-                <button id="searchEngineToggle" class="flex items-center gap-1.5 px-3 py-2 rounded-[12px] hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors h-full outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 shrink-0">
+                <button id="searchEngineToggle" class="flex items-center gap-1.5 px-3 py-2 rounded-[12px] hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors h-full outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 shrink-0" aria-label="Select search engine">
                     <!-- Injected via JS -->
                 </button>
                 
@@ -197,16 +274,20 @@
                 
                 <div class="w-[1px] h-5 bg-gray-200 dark:bg-gray-700 shrink-0"></div>
                 
-                <input type="text" id="searchInput" placeholder="Search..." class="flex-1 bg-transparent outline-none text-[#374151] dark:text-dark-text placeholder-gray-400 dark:placeholder-gray-500 text-[15px] px-2 h-full w-full min-w-0">
+                <input type="text" id="searchInput" placeholder="Search..." aria-label="Search sites or web" inputmode="search" autocomplete="off" class="flex-1 bg-transparent outline-none text-[#374151] dark:text-dark-text placeholder-gray-400 dark:placeholder-gray-500 text-[15px] px-2 h-full w-full min-w-0">
                 
-                <button id="searchBtn" class="w-[44px] h-[44px] bg-[#82a4ea] rounded-[12px] flex items-center justify-center text-white shrink-0 hover:bg-[#6c92df] transition-colors shadow-sm focus:ring-2 focus:ring-blue-300 focus:ring-offset-1">
+                <button id="searchClearBtn" class="hidden w-[32px] h-[32px] items-center justify-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 rounded-lg shrink-0 transition-colors" aria-label="Clear search">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+                
+                <button id="searchBtn" class="w-[44px] h-[44px] bg-[#82a4ea] rounded-[12px] flex items-center justify-center text-white shrink-0 hover:bg-[#6c92df] transition-colors shadow-sm focus:ring-2 focus:ring-blue-300 focus:ring-offset-1" aria-label="Search">
                     <i data-lucide="search" class="w-[20px] h-[20px]"></i>
                 </button>
             </div>
         </div>
 
         <!-- Categories (Redesigned to 2-row horizontal scroll) -->
-        <div class="w-full max-w-[600px] md:max-w-none mx-auto">
+        <div class="w-full max-w-[600px] md:max-w-none mx-auto category-wrapper">
             <div id="categoriesContainer" class="category-grid gap-2.5 px-1 pb-2 hide-scrollbar md:flex md:flex-wrap md:justify-center md:items-center">
                 <!-- Injected via JS -->
             </div>
@@ -228,11 +309,11 @@
     </div>
 
     <!-- Manage Sites Modal -->
-    <div id="manageModal" class="hidden fixed inset-0 bg-black/40 dark:bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm transition-opacity">
+    <div id="manageModal" class="hidden fixed inset-0 bg-black/40 dark:bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm transition-opacity" role="dialog" aria-modal="true" aria-labelledby="manageModalTitle">
         <div class="bg-white dark:bg-dark-card rounded-[20px] w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl transform transition-transform border border-transparent dark:border-dark-border">
             <div class="p-5 border-b border-gray-100 dark:border-dark-border flex justify-between items-center">
-                <h2 class="font-semibold text-[18px] text-gray-800 dark:text-dark-text">Manage Sites</h2>
-                <button id="closeManageModal" class="text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+                <h2 id="manageModalTitle" class="font-semibold text-[18px] text-gray-800 dark:text-dark-text">Manage Sites</h2>
+                 <button id="closeManageModal" class="text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" aria-label="Close manage sites modal">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
@@ -248,11 +329,11 @@
     </div>
 
     <!-- Add/Edit Form Modal -->
-    <div id="formModal" class="hidden fixed inset-0 bg-black/40 dark:bg-black/60 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
+    <div id="formModal" class="hidden fixed inset-0 bg-black/40 dark:bg-black/60 z-[60] flex items-center justify-center p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="formModalTitle">
         <div class="bg-white dark:bg-dark-card rounded-[20px] w-full max-w-md flex flex-col shadow-2xl border border-transparent dark:border-dark-border">
             <div class="p-5 border-b border-gray-100 dark:border-dark-border flex justify-between items-center">
                 <h2 class="font-semibold text-[18px] text-gray-800 dark:text-dark-text" id="formModalTitle">Add Site</h2>
-                <button id="closeFormModal" class="text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+                 <button id="closeFormModal" class="text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" aria-label="Close form modal">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
@@ -301,6 +382,9 @@
         let currentSearchEngine = localStorage.getItem('qn_setting_searchengine') || 'google';
         let sitesData = [];
         let sortableInstance = null;
+        let searchDebounce;
+        const searchInput = document.getElementById('searchInput');
+        const searchClearBtn = document.getElementById('searchClearBtn');
         
         // Settings State
         let userSettings = {
@@ -312,18 +396,36 @@
         // Theme Toggle Logic
         const themeToggleBtn = document.getElementById('themeToggle');
         
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-
         themeToggleBtn.addEventListener('click', () => {
             document.documentElement.classList.toggle('dark');
             if (document.documentElement.classList.contains('dark')) {
                 localStorage.theme = 'dark';
             } else {
                 localStorage.theme = 'light';
+            }
+        });
+
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Cmd/Ctrl + K to focus search
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+            // Escape to close modals
+            if (e.key === 'Escape') {
+                if (!document.getElementById('manageModal').classList.contains('hidden')) {
+                    closeModal('manageModal');
+                }
+                if (!document.getElementById('formModal').classList.contains('hidden')) {
+                    closeModal('formModal');
+                }
+                if (!document.getElementById('settingsDropdown').classList.contains('hidden')) {
+                    settingsDropdown.classList.add('hidden');
+                }
+                if (!document.getElementById('searchEngineDropdown').classList.contains('hidden')) {
+                    seDropdown.classList.add('hidden');
+                }
             }
         });
 
@@ -412,7 +514,7 @@
                 }
                 
                 if (domain) {
-                    return `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" class="${sizeClass} rounded-md object-contain" alt="${site.title}" onerror="this.outerHTML='<i data-lucide=\\'globe\\' class=\\'${sizeClass} text-gray-400\\'></i>'"/>`;
+                    return `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" class="${sizeClass} rounded-md object-contain" alt="${site.title}" loading="lazy" onerror="this.outerHTML='<i data-lucide=\\'globe\\' class=\\'${sizeClass} text-gray-400\\'></i>'"/>`;
                 }
             } catch(e) {}
             
@@ -421,12 +523,30 @@
 
         // Initialize App
         async function init() {
+            const skeleton = document.getElementById('loadingSkeleton');
+            const app = document.getElementById('app');
+            
             try {
                 const response = await fetch('./public/data.json');
                 if (!response.ok) throw new Error('Failed to fetch data');
                 
                 data = await response.json();
+                
+                // Persist drag & drop order if available
+                const savedOrder = localStorage.getItem('qn_sites_order');
+                if (savedOrder) {
+                    try {
+                        const orderIds = JSON.parse(savedOrder);
+                        const siteMap = new Map(data.sites.map(s => [s.id, s]));
+                        data.sites = orderIds.map(id => siteMap.get(id)).filter(Boolean);
+                    } catch(e) {}
+                }
+                
                 sitesData = [...data.sites];
+                
+                // Hide skeleton, show app
+                if (skeleton) skeleton.classList.add('hidden');
+                if (app) app.classList.remove('hidden');
                 
                 renderSearchEngine();
                 populateSearchEngineDropdown();
@@ -437,6 +557,15 @@
                 lucide.createIcons();
             } catch (error) {
                 console.error("Initialization error:", error);
+                if (skeleton) {
+                    skeleton.innerHTML = `
+                        <div class="flex flex-col items-center justify-center py-20 gap-4 text-gray-400 dark:text-gray-500">
+                            <i data-lucide="wifi-off" class="w-12 h-12 opacity-50"></i>
+                            <p class="text-[15px] font-medium">Failed to load data. Please refresh the page.</p>
+                        </div>
+                    `;
+                    lucide.createIcons();
+                }
                 showToast("Failed to load configuration data.");
             }
         }
@@ -462,13 +591,14 @@
                 const isSelected = cat.id === currentCategory;
                 const btn = document.createElement('button');
                 
-                let classes = 'px-4 py-2.5 rounded-[12px] text-[14px] font-medium transition-all duration-200 flex items-center gap-1.5 border whitespace-nowrap ';
+                let classes = 'px-4 py-2.5 rounded-[12px] text-[14px] font-medium transition-all duration-200 flex items-center gap-1.5 border whitespace-nowrap select-none touch-manipulation ';
                 if (isSelected) {
                     classes += 'bg-[#e3ecfa] dark:bg-blue-900/30 text-[#3e598b] dark:text-blue-400 border-transparent scale-[1.02] shadow-sm';
                 } else {
                     classes += 'bg-white dark:bg-dark-card shadow-[0_2px_8px_rgba(0,0,0,0.03)] text-[#5e6673] dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 border-white dark:border-dark-border hover:border-gray-100 dark:hover:border-gray-700';
                 }
                 btn.className = classes;
+                btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
                 
                 if (cat.icon) {
                     btn.innerHTML = `<i data-lucide="${cat.icon}" class="w-[15px] h-[15px] ${isSelected ? 'text-[#3e598b] dark:text-blue-400' : 'text-gray-400 dark:text-gray-500'}"></i> ${cat.name}`;
@@ -478,8 +608,14 @@
                 
                 btn.onclick = () => {
                     currentCategory = cat.id;
+                    // Clear search when switching categories
+                    searchInput.value = '';
+                    searchClearBtn.classList.add('hidden');
+                    searchClearBtn.classList.remove('flex');
                     renderCategories();
                     renderSites();
+                    // Scroll to top of sites on category change
+                    document.getElementById('sitesContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 };
                 
                 container.appendChild(btn);
@@ -487,7 +623,7 @@
             lucide.createIcons();
         }
 
-        function renderSites() {
+        function renderSites(searchQuery = '') {
             const container = document.getElementById('sitesContainer');
             container.innerHTML = '';
             
@@ -496,15 +632,26 @@
                 sortableInstance = null;
             }
             
-            const filtered = currentCategory === 'all' 
+            let filtered = currentCategory === 'all' 
                 ? sitesData 
                 : sitesData.filter(s => s.category === currentCategory);
             
+            if (searchQuery) {
+                const q = searchQuery.toLowerCase();
+                filtered = filtered.filter(s => 
+                    s.title.toLowerCase().includes(q) || 
+                    s.desc.toLowerCase().includes(q) ||
+                    s.url.toLowerCase().includes(q)
+                );
+            }
+            
             if (filtered.length === 0) {
+                const isSearching = searchQuery.length > 0;
                 container.innerHTML = `
                     <div class="col-span-full text-center py-16 text-gray-400 dark:text-gray-500 flex flex-col items-center gap-3">
-                        <i data-lucide="inbox" class="w-10 h-10 opacity-50"></i>
-                        <p class="text-[15px]">No sites in this category.</p>
+                        <i data-lucide="${isSearching ? 'search' : 'inbox'}" class="w-10 h-10 opacity-50"></i>
+                        <p class="text-[15px]">${isSearching ? 'No local sites match your search.' : 'No sites in this category.'}</p>
+                        ${isSearching ? '<p class="text-[13px] text-gray-400 dark:text-gray-500">Press Enter to search the web.</p>' : ''}
                     </div>
                 `;
                 lucide.createIcons();
@@ -520,7 +667,7 @@
                 const dragClasses = userSettings.dragDrop ? 'cursor-grab hover:-translate-y-[2px]' : 'cursor-pointer hover:-translate-y-[2px]';
                 
                 if (userSettings.compact) {
-                    a.className = `bg-white dark:bg-dark-card rounded-[12px] p-3 flex items-center gap-3 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)] transition-all duration-300 group border border-transparent dark:border-dark-border hover:border-gray-100 dark:hover:border-gray-700 h-full select-none ${dragClasses}`;
+                    a.className = `bg-white dark:bg-dark-card rounded-[12px] p-3 flex items-center gap-3 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)] transition-all duration-300 group border border-transparent dark:border-dark-border hover:border-gray-100 dark:hover:border-gray-700 h-full select-none ${dragClasses} card-animate active:scale-[0.98]`;
                     a.innerHTML = `
                         <div class="w-[32px] h-[32px] rounded-[10px] bg-[#f8fafd] dark:bg-gray-800 flex items-center justify-center shrink-0 border border-gray-50/50 dark:border-gray-700 group-hover:scale-105 transition-transform duration-300 shadow-sm pointer-events-none">
                             ${resolveIcon(site, 'w-[18px] h-[18px]')}
@@ -531,7 +678,7 @@
                         </div>
                     `;
                 } else {
-                    a.className = `bg-white dark:bg-dark-card rounded-[16px] p-4 flex items-center gap-4 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-300 group border border-transparent dark:border-dark-border hover:border-gray-100 dark:hover:border-gray-700 h-full select-none ${dragClasses}`;
+                    a.className = `bg-white dark:bg-dark-card rounded-[16px] p-4 flex items-center gap-4 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-300 group border border-transparent dark:border-dark-border hover:border-gray-100 dark:hover:border-gray-700 h-full select-none ${dragClasses} card-animate active:scale-[0.98]`;
                     a.innerHTML = `
                         <div class="w-[48px] h-[48px] rounded-[14px] bg-[#f8fafd] dark:bg-gray-800 flex items-center justify-center shrink-0 border border-gray-50/50 dark:border-gray-700 group-hover:scale-105 transition-transform duration-300 shadow-sm pointer-events-none">
                             ${resolveIcon(site, 'w-6 h-6')}
@@ -593,6 +740,10 @@
                         
                         // 3. Re-insert and ensure DOM reflects state
                         sitesData.splice(insertIdx, 0, draggedItem);
+                        
+                        // 4. Persist order to localStorage
+                        localStorage.setItem('qn_sites_order', JSON.stringify(sitesData.map(s => s.id)));
+                        
                         renderSites();
                     }
                 });
@@ -608,7 +759,7 @@
             
             document.getElementById('searchEngineToggle').innerHTML = `
                 ${iconHtml}
-                <span class="text-[14px] font-medium text-[#374151] dark:text-gray-300 ml-0.5">${engine.shortName}</span>
+                <span class="text-[14px] font-medium text-[#374151] dark:text-gray-300 ml-0.5 truncate max-w-[60px]">${engine.shortName}</span>
                 <i data-lucide="chevron-down" class="w-[14px] h-[14px] text-gray-400 dark:text-gray-500"></i>
             `;
             lucide.createIcons();
@@ -672,6 +823,30 @@
         document.getElementById('searchInput').onkeypress = (e) => {
             if (e.key === 'Enter') performSearch();
         };
+        
+        // Real-time local site filtering
+        searchInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            if (val) {
+                searchClearBtn.classList.remove('hidden');
+                searchClearBtn.classList.add('flex');
+            } else {
+                searchClearBtn.classList.add('hidden');
+                searchClearBtn.classList.remove('flex');
+            }
+            clearTimeout(searchDebounce);
+            searchDebounce = setTimeout(() => {
+                renderSites(val);
+            }, 150);
+        });
+        
+        searchClearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            searchClearBtn.classList.add('hidden');
+            searchClearBtn.classList.remove('flex');
+            renderSites('');
+            searchInput.focus();
+        });
 
         // Manage Sites Logic
         function showToast(message, isSuccess = false) {
@@ -747,10 +922,10 @@
                         </div>
                     </div>
                     <div class="flex gap-2 shrink-0 ml-4">
-                        <button class="p-2 text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-[10px] transition-colors edit-btn" title="Edit">
+                        <button class="p-2 text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-[10px] transition-colors edit-btn" title="Edit" aria-label="Edit site">
                             <i data-lucide="pencil" class="w-4 h-4"></i>
                         </button>
-                        <button class="p-2 text-gray-400 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-[10px] transition-colors del-btn" title="Delete">
+                        <button class="p-2 text-gray-400 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-[10px] transition-colors del-btn" title="Delete" aria-label="Delete site">
                             <i data-lucide="trash-2" class="w-4 h-4"></i>
                         </button>
                     </div>
@@ -781,6 +956,12 @@
         function closeModal(id) {
             const modal = document.getElementById(id);
             modal.classList.add('hidden');
+            // Reset animation classes for next open
+            const content = modal.firstElementChild;
+            if (content) {
+                content.classList.remove('scale-100', 'opacity-100');
+                content.classList.add('scale-95', 'opacity-0');
+            }
         }
 
         document.getElementById('editToggle').onclick = () => {
