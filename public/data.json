@@ -37,6 +37,7 @@
     { "id": "resources", "name": "#Resources" },
     { "id": "forums", "name": "#Forums" },
     { "id": "tech", "name": "#Technology" },
+    { "id": "development", "name": "#Development" },
     { "id": "servers", "name": "#Servers" },
     { "id": "ai", "name": "#Ai" },
     { "id": "domains", "name": "#Domains" },
@@ -46,95 +47,30 @@
   "sites": [
     {
       "id": "1",
-      "title": "BiliBili",
-      "desc": "Chinese video, tutorial, and technology content platform.",
-      "url": "https://bilibili.com",
-      "category": "common",
-      "icon": "tv"
-    },
-    {
-      "id": "2",
       "title": "NodeLoc",
-      "desc": "Chinese forum mainly focused on technical discussions.",
+      "desc": "Chinese tech forum focused on servers, VPS, and infrastructure.",
       "url": "https://nodeloc.com",
       "category": "forums",
       "icon": "message-square"
     },
     {
-      "id": "3",
+      "id": "2",
       "title": "NodeSeek",
-      "desc": "Popular Chinese VPS, hosting, and infrastructure discussion forum.",
+      "desc": "Community for VPS hosting reviews, deals, and infrastructure discussions.",
       "url": "https://www.nodeseek.com",
       "category": "forums",
       "icon": "server"
     },
     {
-      "id": "4",
-      "title": "1Panel.cn",
-      "desc": "Modern Chinese open-source Linux panel with containerized deployment and operations management.",
-      "url": "https://1panel.cn",
-      "category": "servers",
-      "icon": "server"
-    },
-    {
-      "id": "5",
-      "title": "HacksNation",
-      "desc": "Cybersecurity and ethical hacking community forum.",
-      "url": "https://hacksnation.com",
-      "category": "forums",
-      "icon": "shield"
-    },
-    {
-      "id": "6",
-      "title": "OneHack",
-      "desc": "Forum focused on cybersecurity discussions and digital tools.",
-      "url": "https://onehack.st",
-      "category": "forums",
-      "icon": "terminal"
-    },
-    {
-      "id": "7",
-      "title": "LeakForum",
-      "desc": "Discussion forum related to cybersecurity and leaked database awareness.",
-      "url": "https://leakforum.io",
-      "category": "forums",
-      "icon": "database"
-    },
-    {
-      "id": "8",
-      "title": "Xreactor",
-      "desc": "Technology and underground discussion community.",
-      "url": "https://xreactor.org",
-      "category": "forums",
-      "icon": "cpu"
-    },
-    {
-      "id": "9",
-      "title": "Brian's Job Search",
-      "desc": "Job discovery platform that searches ATS systems and recently posted openings.",
-      "url": "https://briansjobsearch.com",
-      "category": "resources",
-      "icon": "briefcase"
-    },
-    {
-      "id": "10",
-      "title": "Bluesky",
-      "desc": "Decentralized social network gathering developers and tech enthusiasts.",
-      "url": "https://bsky.app",
-      "category": "common",
-      "icon": "cloud",
-      "rightIcon": "send"
-    },
-    {
-      "id": "11",
+      "id": "3",
       "title": "LowEndTalk",
-      "desc": "Hosting, VPS, and self-hosting community forum.",
+      "desc": "Budget hosting and VPS discussion community with provider reviews.",
       "url": "https://lowendtalk.com",
-      "category": "servers",
+      "category": "forums",
       "icon": "hard-drive"
     },
     {
-      "id": "12",
+      "id": "4",
       "title": "Linux.do",
       "desc": "Chinese Linux and open-source technology discussion community.",
       "url": "https://linux.do",
@@ -142,7 +78,7 @@
       "icon": "terminal"
     },
     {
-      "id": "13",
+      "id": "5",
       "title": "V2EX",
       "desc": "Chinese community for programmers, startups, and creative professionals.",
       "url": "https://v2ex.com",
@@ -150,232 +86,119 @@
       "icon": "users"
     },
     {
+      "id": "6",
+      "title": "HacksNation",
+      "desc": "Cybersecurity and ethical hacking community forum.",
+      "url": "https://hacksnation.com",
+      "category": "forums",
+      "icon": "shield"
+    },
+    {
+      "id": "7",
+      "title": "OneHack",
+      "desc": "Cybersecurity discussions, tools, and resources community.",
+      "url": "https://onehack.st",
+      "category": "forums",
+      "icon": "terminal"
+    },
+    {
+      "id": "8",
+      "title": "LeakForum",
+      "desc": "Discussion forum for cybersecurity and data breach awareness.",
+      "url": "https://leakforum.io",
+      "category": "forums",
+      "icon": "database"
+    },
+    {
+      "id": "9",
+      "title": "Xreactor",
+      "desc": "Technology and underground discussion community.",
+      "url": "https://xreactor.org",
+      "category": "forums",
+      "icon": "cpu"
+    },
+    {
+      "id": "10",
+      "title": "1Panel.cn",
+      "desc": "Modern Chinese open-source Linux server panel with container support.",
+      "url": "https://1panel.cn",
+      "category": "servers",
+      "icon": "server"
+    },
+    {
+      "id": "11",
+      "title": "HelioHost",
+      "desc": "Free ad-supported web hosting for students and developers.",
+      "url": "https://heliohost.org",
+      "category": "servers",
+      "icon": "server"
+    },
+    {
+      "id": "12",
+      "title": "InfinityFree",
+      "desc": "Free web hosting with unlimited disk space and bandwidth.",
+      "url": "https://www.infinityfree.com",
+      "category": "servers",
+      "icon": "server"
+    },
+    {
+      "id": "13",
+      "title": "Vercel",
+      "desc": "Frontend cloud platform with free hosting and serverless functions.",
+      "url": "https://vercel.com",
+      "category": "servers",
+      "icon": "triangle"
+    },
+    {
       "id": "14",
-      "title": "GitHub",
-      "desc": "Platform for hosting and collaborating on software projects.",
-      "url": "https://github.com",
-      "category": "development",
-      "icon": "code"
+      "title": "Netlify",
+      "desc": "Free hosting and serverless backend for modern web projects.",
+      "url": "https://www.netlify.com",
+      "category": "servers",
+      "icon": "hexagon"
     },
     {
       "id": "15",
-      "title": "Stack Overflow",
-      "desc": "Developer Q&A platform for programming and technical troubleshooting.",
-      "url": "https://stackoverflow.com",
-      "category": "development",
-      "icon": "code"
+      "title": "Cloudflare Pages",
+      "desc": "Free JAMstack platform with Git integration and global CDN.",
+      "url": "https://pages.cloudflare.com",
+      "category": "servers",
+      "icon": "cloud-lightning"
     },
     {
       "id": "16",
-      "title": "Now.CC",
-      "desc": "Free subdomain provider with dynamic DNS support.",
-      "url": "https://www.now.cc/",
-      "category": "domains",
-      "icon": "globe"
+      "title": "Render",
+      "desc": "Cloud platform with free static sites and web services.",
+      "url": "https://render.com",
+      "category": "servers",
+      "icon": "cloud"
     },
     {
       "id": "17",
-      "title": "DigitalPlat Domains",
-      "desc": "Free subdomain and domain allocation platform.",
-      "url": "https://domain.digitalplat.org/",
-      "category": "domains",
-      "icon": "network"
-    },
-    {
-      "id": "18",
-      "title": "EU.org",
-      "desc": "Free domain registration service offering subdomains under eu.org.",
-      "url": "https://nic.eu.org/",
-      "category": "domains",
-      "icon": "badge-check"
-    },
-    {
-      "id": "19",
-      "title": "ISRoot",
-      "desc": "Free subdomain provider for developers and personal projects.",
-      "url": "https://isroot.in/",
-      "category": "domains",
-      "icon": "link"
-    },
-    {
-      "id": "20",
-      "title": "FJ.KG",
-      "desc": "Free subdomain registration platform under fj.kg.",
-      "url": "https://nic.fj.kg/",
-      "category": "domains",
-      "icon": "globe-2"
-    },
-    {
-      "id": "21",
-      "title": "KevSrv",
-      "desc": "Free subdomain service for self-hosted and developer projects.",
-      "url": "https://kevsrv.me/",
-      "category": "domains",
-      "icon": "server-cog"
-    },
-    {
-      "id": "22",
-      "title": "YouTube",
-      "desc": "Global video-sharing platform for tutorials, entertainment, technology, and creators.",
-      "url": "https://youtube.com",
-      "category": "common",
-      "icon": "hd",
-      "rightIcon": "play"
-    },
-    {
-      "id": "23",
-      "title": "Gmail",
-      "desc": "Google email service with integrated productivity tools.",
-      "url": "https://gmail.com",
-      "category": "email",
-      "icon": "mail"
-    },
-    {
-      "id": "24",
-      "title": "Outlook",
-      "desc": "Microsoft email and calendar platform.",
-      "url": "https://outlook.live.com",
-      "category": "email",
-      "icon": "inbox"
-    },
-    {
-      "id": "25",
-      "title": "Tuta",
-      "desc": "Privacy-focused encrypted email service.",
-      "url": "https://tuta.com",
-      "category": "email",
-      "icon": "shield-check"
-    },
-    {
-      "id": "26",
-      "title": "TinkMail",
-      "desc": "Temporary and privacy-oriented email service.",
-      "url": "https://tinkmail.me/",
-      "category": "email",
-      "icon": "mail-plus"
-    },
-    {
-      "id": "27",
-      "title": "Proton Mail",
-      "desc": "Secure encrypted email service focused on privacy.",
-      "url": "https://proton.me/mail",
-      "category": "email",
-      "icon": "lock"
-    },
-    {
-      "id": "28",
-      "title": "YTDLP Online",
-      "desc": "Online media downloader powered by yt-dlp supporting multiple platforms.",
-      "url": "https://ytdlp.online/",
-      "category": "common",
-      "icon": "download"
-    },
-    {
-      "id": "29",
-      "title": "DownloadHD",
-      "desc": "Video downloader for social media and streaming platforms.",
-      "url": "https://downloadhd.net/",
-      "category": "common",
-      "icon": "video"
-    },
-    {
-      "id": "30",
-      "title": "Cobalt",
-      "desc": "Minimal and privacy-friendly media downloader for supported websites.",
-      "url": "https://cobalt.canine.tools/",
-      "category": "common",
-      "icon": "arrow-down-to-line"
-    },
-    {
-      "id": "31",
-      "title": "ChatGPT",
-      "desc": "AI assistant for coding, writing, research, and productivity.",
-      "url": "https://chatgpt.com/",
-      "category": "ai",
-      "icon": "bot"
-    },
-    {
-      "id": "32",
-      "title": "Microsoft Copilot",
-      "desc": "AI-powered assistant integrated with Microsoft services.",
-      "url": "https://copilot.microsoft.com/",
-      "category": "ai",
-      "icon": "sparkles"
-    },
-    {
-      "id": "33",
-      "title": "DeepSeek",
-      "desc": "AI chat and reasoning platform focused on coding and analysis.",
-      "url": "https://chat.deepseek.com/",
-      "category": "ai",
-      "icon": "brain"
-    },
-    {
-      "id": "34",
-      "title": "Gemini",
-      "desc": "Google AI assistant for search, writing, and multimodal tasks.",
-      "url": "https://gemini.google.com/",
-      "category": "ai",
-      "icon": "stars"
-    },
-    {
-      "id": "35",
-      "title": "Z.ai",
-      "desc": "AI chat platform with multilingual assistant capabilities.",
-      "url": "https://chat.z.ai/",
-      "category": "ai",
-      "icon": "messages-square"
-    },
-    {
-      "id": "36",
-      "title": "OAIChat",
-      "desc": "Third-party AI chat aggregation platform.",
-      "url": "https://chat.oaichat.cc/",
-      "category": "ai",
-      "icon": "message-circle"
-    },
-    {
-      "id": "37",
-      "title": "Arena AI",
-      "desc": "AI coding assistant and developer productivity platform.",
-      "url": "https://arena.ai/",
-      "category": "ai",
-      "icon": "code-2"
-    },
-    {
-      "id": "38",
-      "title": "Mistral Chat",
-      "desc": "AI assistant by Mistral focused on fast and open AI models.",
-      "url": "https://chat.mistral.ai/chat",
-      "category": "ai",
-      "icon": "wind"
-    },
-    {
-      "id": "39",
-      "title": "Metaso",
-      "desc": "AI-powered Chinese search and knowledge assistant.",
-      "url": "https://metaso.cn/",
-      "category": "ai",
-      "icon": "search-code"
-    },
-    {
-      "id": "40",
-      "title": "DesignArena AI",
-      "desc": "AI tools platform for design, creativity, and content generation.",
-      "url": "https://www.designarena.ai/",
-      "category": "ai",
-      "icon": "palette"
-    },
-    {
-      "id": "41",
       "title": "FMHY",
-      "desc": "Large collection of free internet tools, resources, and self-hosting links.",
+      "desc": "Curated collection of free internet tools, resources, and self-hosting links.",
       "url": "https://fmhy.net/",
       "category": "resources",
       "icon": "library"
     },
     {
-      "id": "42",
+      "id": "18",
+      "title": "Brian's Job Search",
+      "desc": "Job discovery engine searching ATS systems and recent openings.",
+      "url": "https://briansjobsearch.com",
+      "category": "resources",
+      "icon": "briefcase"
+    },
+    {
+      "id": "19",
+      "title": "Indexer",
+      "desc": "Open-source search engine for discovering content across the web.",
+      "url": "https://indexer.is-an.app",
+      "category": "resources",
+      "icon": "search"
+    },
+    {
+      "id": "20",
       "title": "Prompts Chat",
       "desc": "Collection of AI prompts and prompt engineering resources.",
       "url": "https://prompts.chat/",
@@ -383,7 +206,392 @@
       "icon": "messages-square"
     },
     {
+      "id": "21",
+      "title": "Uncoder",
+      "desc": "Developer-focused platform with coding utilities and technical resources.",
+      "url": "https://uncoder.eu.org",
+      "category": "resources",
+      "icon": "code-xml"
+    },
+    {
+      "id": "22",
+      "title": "SVGOwl",
+      "desc": "Searchable collection of open-source icon libraries for developers.",
+      "url": "https://svgowl.com",
+      "category": "resources",
+      "icon": "file-image"
+    },
+    {
+      "id": "23",
+      "title": "Have I Been Pwned",
+      "desc": "Check if your email or phone appears in known data breaches.",
+      "url": "https://haveibeenpwned.com",
+      "category": "resources",
+      "icon": "shield-check"
+    },
+    {
+      "id": "24",
+      "title": "AlternativeTo",
+      "desc": "Discover free and open-source alternatives to popular software.",
+      "url": "https://alternativeto.net",
+      "category": "resources",
+      "icon": "refresh-cw"
+    },
+    {
+      "id": "25",
+      "title": "Product Hunt",
+      "desc": "Daily discovery of new products, apps, and tech tools.",
+      "url": "https://www.producthunt.com",
+      "category": "resources",
+      "icon": "package"
+    },
+    {
+      "id": "26",
+      "title": "Wayback Machine",
+      "desc": "Digital archive of the web with free access to historical pages.",
+      "url": "https://web.archive.org",
+      "category": "resources",
+      "icon": "archive"
+    },
+    {
+      "id": "27",
+      "title": "GitHub",
+      "desc": "Platform for hosting and collaborating on software projects.",
+      "url": "https://github.com",
+      "category": "development",
+      "icon": "code"
+    },
+    {
+      "id": "28",
+      "title": "GitLab",
+      "desc": "Open-source DevOps platform for code hosting and CI/CD.",
+      "url": "https://gitlab.com",
+      "category": "development",
+      "icon": "git-branch"
+    },
+    {
+      "id": "29",
+      "title": "CodePen",
+      "desc": "Online code editor and community for frontend snippets.",
+      "url": "https://codepen.io",
+      "category": "development",
+      "icon": "pen-tool"
+    },
+    {
+      "id": "30",
+      "title": "Replit",
+      "desc": "Free online IDE and cloud development environment.",
+      "url": "https://replit.com",
+      "category": "development",
+      "icon": "terminal"
+    },
+    {
+      "id": "31",
+      "title": "freeCodeCamp",
+      "desc": "Free interactive coding curriculum and certifications.",
+      "url": "https://www.freecodecamp.org",
+      "category": "development",
+      "icon": "graduation-cap"
+    },
+    {
+      "id": "32",
+      "title": "DevDocs",
+      "desc": "Fast offline-ready documentation browser for developers.",
+      "url": "https://devdocs.io",
+      "category": "development",
+      "icon": "file-code"
+    },
+    {
+      "id": "33",
+      "title": "MDN Web Docs",
+      "desc": "Comprehensive free documentation for web technologies.",
+      "url": "https://developer.mozilla.org",
+      "category": "development",
+      "icon": "book-open"
+    },
+    {
+      "id": "34",
+      "title": "Stack Overflow",
+      "desc": "Developer Q&A for programming and technical troubleshooting.",
+      "url": "https://stackoverflow.com",
+      "category": "development",
+      "icon": "help-circle"
+    },
+    {
+      "id": "35",
+      "title": "ChatGPT",
+      "desc": "AI assistant for coding, writing, research, and productivity.",
+      "url": "https://chatgpt.com/",
+      "category": "ai",
+      "icon": "bot"
+    },
+    {
+      "id": "36",
+      "title": "DeepSeek",
+      "desc": "AI chat and reasoning platform focused on coding and analysis.",
+      "url": "https://chat.deepseek.com/",
+      "category": "ai",
+      "icon": "brain"
+    },
+    {
+      "id": "37",
+      "title": "Mistral Chat",
+      "desc": "AI assistant by Mistral focused on fast and open models.",
+      "url": "https://chat.mistral.ai/chat",
+      "category": "ai",
+      "icon": "wind"
+    },
+    {
+      "id": "38",
+      "title": "Perplexity",
+      "desc": "AI-powered answer engine that searches and cites sources.",
+      "url": "https://www.perplexity.ai",
+      "category": "ai",
+      "icon": "search"
+    },
+    {
+      "id": "39",
+      "title": "Poe",
+      "desc": "Chat with multiple AI models including GPT, Claude, and open-source bots.",
+      "url": "https://poe.com",
+      "category": "ai",
+      "icon": "message-square"
+    },
+    {
+      "id": "40",
+      "title": "Hugging Face",
+      "desc": "Open-source platform hosting thousands of free AI models and datasets.",
+      "url": "https://huggingface.co",
+      "category": "ai",
+      "icon": "bot"
+    },
+    {
+      "id": "41",
+      "title": "You.com",
+      "desc": "AI search engine with summarized answers and multi-model chat.",
+      "url": "https://you.com",
+      "category": "ai",
+      "icon": "globe-2"
+    },
+    {
+      "id": "42",
+      "title": "Metaso",
+      "desc": "AI-powered Chinese search and knowledge assistant.",
+      "url": "https://metaso.cn/",
+      "category": "ai",
+      "icon": "search-code"
+    },
+    {
       "id": "43",
+      "title": "Arena AI",
+      "desc": "AI coding assistant and developer productivity platform.",
+      "url": "https://arena.ai/",
+      "category": "ai",
+      "icon": "code-2"
+    },
+    {
+      "id": "44",
+      "title": "Z.ai",
+      "desc": "AI chat platform with multilingual assistant capabilities.",
+      "url": "https://chat.z.ai/",
+      "category": "ai",
+      "icon": "messages-square"
+    },
+    {
+      "id": "45",
+      "title": "OAIChat",
+      "desc": "Third-party AI chat aggregation platform.",
+      "url": "https://chat.oaichat.cc/",
+      "category": "ai",
+      "icon": "message-circle"
+    },
+    {
+      "id": "46",
+      "title": "Now.CC",
+      "desc": "Free subdomain provider with dynamic DNS support.",
+      "url": "https://www.now.cc/",
+      "category": "domains",
+      "icon": "globe"
+    },
+    {
+      "id": "47",
+      "title": "EU.org",
+      "desc": "Free domain registration service offering subdomains under eu.org.",
+      "url": "https://nic.eu.org/",
+      "category": "domains",
+      "icon": "badge-check"
+    },
+    {
+      "id": "48",
+      "title": "FJ.KG",
+      "desc": "Free subdomain registration platform under fj.kg.",
+      "url": "https://nic.fj.kg/",
+      "category": "domains",
+      "icon": "globe-2"
+    },
+    {
+      "id": "49",
+      "title": "KevSrv",
+      "desc": "Free subdomain service for self-hosted and developer projects.",
+      "url": "https://kevsrv.me/",
+      "category": "domains",
+      "icon": "server-cog"
+    },
+    {
+      "id": "50",
+      "title": "DNSHE",
+      "desc": "Free subdomain registration for developers and open-source enthusiasts.",
+      "url": "https://www.dnshe.com/",
+      "category": "domains",
+      "icon": "globe-2"
+    },
+    {
+      "id": "51",
+      "title": "ISRoot",
+      "desc": "Free subdomain provider for developers and personal projects.",
+      "url": "https://isroot.in/",
+      "category": "domains",
+      "icon": "link"
+    },
+    {
+      "id": "52",
+      "title": "DuckDNS",
+      "desc": "Free dynamic DNS for home servers and self-hosted services.",
+      "url": "https://www.duckdns.org",
+      "category": "domains",
+      "icon": "map-pin"
+    },
+    {
+      "id": "53",
+      "title": "No-IP",
+      "desc": "Free dynamic DNS and managed DNS service.",
+      "url": "https://www.noip.com",
+      "category": "domains",
+      "icon": "map"
+    },
+    {
+      "id": "54",
+      "title": "Tuta",
+      "desc": "Privacy-focused encrypted email service.",
+      "url": "https://tuta.com",
+      "category": "email",
+      "icon": "shield-check"
+    },
+    {
+      "id": "55",
+      "title": "TinkMail",
+      "desc": "Temporary and privacy-oriented email service.",
+      "url": "https://tinkmail.me/",
+      "category": "email",
+      "icon": "mail-plus"
+    },
+    {
+      "id": "56",
+      "title": "Proton Mail",
+      "desc": "Secure encrypted email service focused on privacy.",
+      "url": "https://proton.me/mail",
+      "category": "email",
+      "icon": "lock"
+    },
+    {
+      "id": "57",
+      "title": "Mailfence",
+      "desc": "Free encrypted email with calendar, contacts, and open-source philosophy.",
+      "url": "https://mailfence.com",
+      "category": "email",
+      "icon": "mail"
+    },
+    {
+      "id": "58",
+      "title": "SimpleLogin",
+      "desc": "Open-source email alias service protecting your inbox.",
+      "url": "https://simplelogin.io",
+      "category": "email",
+      "icon": "mail-plus"
+    },
+    {
+      "id": "59",
+      "title": "AnonAddy",
+      "desc": "Free open-source email forwarding with unlimited aliases.",
+      "url": "https://anonaddy.com",
+      "category": "email",
+      "icon": "mail-x"
+    },
+    {
+      "id": "60",
+      "title": "MEGA",
+      "desc": "Free encrypted cloud storage with end-to-end encryption.",
+      "url": "https://mega.nz",
+      "category": "cloud",
+      "icon": "shield"
+    },
+    {
+      "id": "61",
+      "title": "Nextcloud",
+      "desc": "Free open-source self-hosted file storage and collaboration.",
+      "url": "https://nextcloud.com",
+      "category": "cloud",
+      "icon": "hard-drive"
+    },
+    {
+      "id": "62",
+      "title": "Supabase",
+      "desc": "Open-source Firebase alternative with free PostgreSQL and auth.",
+      "url": "https://supabase.com",
+      "category": "cloud",
+      "icon": "database"
+    },
+    {
+      "id": "63",
+      "title": "Cloudflare R2",
+      "desc": "Free S3-compatible object storage without egress fees.",
+      "url": "https://www.cloudflare.com/developer-platform/r2",
+      "category": "cloud",
+      "icon": "cloud"
+    },
+    {
+      "id": "64",
+      "title": "IPFS",
+      "desc": "Peer-to-peer distributed file system for storing and sharing data.",
+      "url": "https://ipfs.io",
+      "category": "cloud",
+      "icon": "network"
+    },
+    {
+      "id": "65",
+      "title": "BiliBili",
+      "desc": "Chinese video platform with tech tutorials and developer content.",
+      "url": "https://bilibili.com",
+      "category": "common",
+      "icon": "tv"
+    },
+    {
+      "id": "66",
+      "title": "Bluesky",
+      "desc": "Decentralized social network for developers and tech enthusiasts.",
+      "url": "https://bsky.app",
+      "category": "common",
+      "icon": "cloud",
+      "rightIcon": "send"
+    },
+    {
+      "id": "67",
+      "title": "YTDLP Online",
+      "desc": "Online media downloader powered by yt-dlp supporting multiple platforms.",
+      "url": "https://ytdlp.online/",
+      "category": "common",
+      "icon": "download"
+    },
+    {
+      "id": "68",
+      "title": "Cobalt",
+      "desc": "Minimal privacy-friendly media downloader for supported websites.",
+      "url": "https://cobalt.canine.tools/",
+      "category": "common",
+      "icon": "arrow-down-to-line"
+    },
+    {
+      "id": "69",
       "title": "DorkSearch",
       "desc": "Search engine for advanced Google dork queries and indexing tools.",
       "url": "https://dorksearch.com/",
@@ -391,7 +599,7 @@
       "icon": "search"
     },
     {
-      "id": "44",
+      "id": "70",
       "title": "Hacker Arsenal",
       "desc": "Collection of cybersecurity and penetration testing tools.",
       "url": "https://hacker-arsenal.tools/",
@@ -399,36 +607,540 @@
       "icon": "wrench"
     },
     {
-      "id": "45",
-      "title": "Uncoder",
-      "desc": "Developer-focused platform with coding, utilities, and technical resources.",
-      "url": "https://uncoder.eu.org",
-      "category": "resources",
-      "icon": "code-xml"
-    },
-    {
-      "id": "46",
-      "title": "SVGOwl",
-      "desc": "Searchable collection of open-source icon libraries for developers and designers.",
-      "url": "https://svgowl.com",
-      "category": "resources",
-      "icon": "file-image"
-    },
-    {
-      "id": "47",
-      "title": "Icones",
-      "desc": "Searchable collection of open-source icon libraries for developers and designers.",
-      "url": "https://icones.js.org",
-      "category": "resources",
-      "icon": "radius"
-    },
-    {
-      "id": "48",
-      "title": "DNSHE",
-      "desc": "Free subdomain registration platform for developers, students, and open-source enthusiasts worldwide.",
-      "url": "https://www.dnshe.com/",
+      "id": "71",
+      "title": "DigitalPlat Domains",
+      "desc": "Free subdomain and domain allocation platform.",
+      "url": "https://domain.digitalplat.org/",
       "category": "domains",
-      "icon": "globe-2"
+      "icon": "network"
+    },
+    {
+      "id": "72",
+      "title": "Gmail",
+      "desc": "Google email service with integrated productivity tools.",
+      "url": "https://gmail.com",
+      "category": "email",
+      "icon": "mail"
+    },
+    {
+      "id": "73",
+      "title": "Outlook",
+      "desc": "Microsoft email and calendar platform.",
+      "url": "https://outlook.live.com",
+      "category": "email",
+      "icon": "inbox"
+    },
+    {
+      "id": "74",
+      "title": "DuckDNS",
+      "desc": "Free dynamic DNS for home servers and self-hosted services.",
+      "url": "https://www.duckdns.org",
+      "category": "domains",
+      "icon": "map-pin"
+    },
+    {
+      "id": "75",
+      "title": "No-IP",
+      "desc": "Free dynamic DNS and managed DNS service.",
+      "url": "https://www.noip.com",
+      "category": "domains",
+      "icon": "map"
+    },
+    {
+      "id": "76",
+      "title": "TechCrunch",
+      "desc": "Technology news, startup coverage, and product reviews.",
+      "url": "https://techcrunch.com",
+      "category": "tech",
+      "icon": "rss"
+    },
+    {
+      "id": "77",
+      "title": "The Verge",
+      "desc": "Technology news, reviews, and science coverage.",
+      "url": "https://www.theverge.com",
+      "category": "tech",
+      "icon": "smartphone"
+    },
+    {
+      "id": "78",
+      "title": "Ars Technica",
+      "desc": "Technology news, analysis, and IT policy coverage.",
+      "url": "https://arstechnica.com",
+      "category": "tech",
+      "icon": "newspaper"
+    },
+    {
+      "id": "79",
+      "title": "Hacker News",
+      "desc": "Social news for tech, startups, and computer science.",
+      "url": "https://news.ycombinator.com",
+      "category": "forums",
+      "icon": "flame"
+    },
+    {
+      "id": "80",
+      "title": "Reddit",
+      "desc": "Network of communities for interests, hobbies, and passions.",
+      "url": "https://www.reddit.com",
+      "category": "forums",
+      "icon": "message-circle"
+    },
+    {
+      "id": "81",
+      "title": "Lemmy",
+      "desc": "Federated, open-source link aggregator and social platform.",
+      "url": "https://lemmy.world",
+      "category": "forums",
+      "icon": "users"
+    },
+    {
+      "id": "82",
+      "title": "Discord",
+      "desc": "Voice, video, and text chat for communities and teams.",
+      "url": "https://discord.com",
+      "category": "forums",
+      "icon": "message-square"
+    },
+    {
+      "id": "83",
+      "title": "Slack",
+      "desc": "Messaging platform for teams and workplace collaboration.",
+      "url": "https://slack.com",
+      "category": "forums",
+      "icon": "hash"
+    },
+    {
+      "id": "84",
+      "title": "Telegram",
+      "desc": "Cloud-based messaging app with focus on speed and privacy.",
+      "url": "https://web.telegram.org",
+      "category": "forums",
+      "icon": "send"
+    },
+    {
+      "id": "85",
+      "title": "Element",
+      "desc": "Open-source, secure messaging based on the Matrix protocol.",
+      "url": "https://element.io",
+      "category": "forums",
+      "icon": "message-circle"
+    },
+    {
+      "id": "86",
+      "title": "Zulip",
+      "desc": "Open-source team chat with threaded conversations.",
+      "url": "https://zulip.com",
+      "category": "forums",
+      "icon": "messages-square"
+    },
+    {
+      "id": "87",
+      "title": "Figma",
+      "desc": "Collaborative interface design tool for teams.",
+      "url": "https://www.figma.com",
+      "category": "development",
+      "icon": "figma"
+    },
+    {
+      "id": "88",
+      "title": "Canva",
+      "desc": "Free online design tool for graphics, presentations, and social media.",
+      "url": "https://www.canva.com",
+      "category": "resources",
+      "icon": "pen-tool"
+    },
+    {
+      "id": "89",
+      "title": "Photopea",
+      "desc": "Free online photo editor supporting PSD, XCF, and Sketch files.",
+      "url": "https://www.photopea.com",
+      "category": "resources",
+      "icon": "image"
+    },
+    {
+      "id": "90",
+      "title": "Remove.bg",
+      "desc": "Free AI-powered background removal for images.",
+      "url": "https://www.remove.bg",
+      "category": "resources",
+      "icon": "scissors"
+    },
+    {
+      "id": "91",
+      "title": "TinyPNG",
+      "desc": "Free smart WebP, PNG and JPEG compression tool.",
+      "url": "https://tinypng.com",
+      "category": "resources",
+      "icon": "file-down"
+    },
+    {
+      "id": "92",
+      "title": "Squoosh",
+      "desc": "Free image compression and format conversion by Google.",
+      "url": "https://squoosh.app",
+      "category": "resources",
+      "icon": "image"
+    },
+    {
+      "id": "93",
+      "title": "Carbon",
+      "desc": "Create and share beautiful images of source code.",
+      "url": "https://carbon.now.sh",
+      "category": "resources",
+      "icon": "code"
+    },
+    {
+      "id": "94",
+      "title": "Ray.so",
+      "desc": "Create beautiful code screenshots with gradients and themes.",
+      "url": "https://ray.so",
+      "category": "resources",
+      "icon": "code-2"
+    },
+    {
+      "id": "95",
+      "title": "Excalidraw",
+      "desc": "Free open-source whiteboard for sketching hand-drawn diagrams.",
+      "url": "https://excalidraw.com",
+      "category": "resources",
+      "icon": "pencil"
+    },
+    {
+      "id": "96",
+      "title": "Miro",
+      "desc": "Free online collaborative whiteboard platform for teams.",
+      "url": "https://miro.com",
+      "category": "resources",
+      "icon": "layout"
+    },
+    {
+      "id": "97",
+      "title": "Notion",
+      "desc": "All-in-one workspace for notes, tasks, wikis, and databases.",
+      "url": "https://www.notion.so",
+      "category": "common",
+      "icon": "file-text"
+    },
+    {
+      "id": "98",
+      "title": "Obsidian",
+      "desc": "Powerful knowledge base that works on local Markdown files.",
+      "url": "https://obsidian.md",
+      "category": "common",
+      "icon": "book-open"
+    },
+    {
+      "id": "99",
+      "title": "AFFiNE",
+      "desc": "Open-source knowledge base and workflow management platform.",
+      "url": "https://affine.pro",
+      "category": "common",
+      "icon": "blocks"
+    },
+    {
+      "id": "100",
+      "title": "Logseq",
+      "desc": "Open-source outliner and knowledge management tool.",
+      "url": "https://logseq.com",
+      "category": "common",
+      "icon": "list"
+    },
+    {
+      "id": "101",
+      "title": "HostLoc",
+      "desc": "Chinese hosting and VPS discussion forum with provider reviews.",
+      "url": "https://www.hostloc.com",
+      "category": "forums",
+      "icon": "message-square"
+    },
+    {
+      "id": "102",
+      "title": "VPSer",
+      "desc": "Chinese VPS and server hosting discussion community.",
+      "url": "https://www.vpser.net",
+      "category": "forums",
+      "icon": "server"
+    },
+    {
+      "id": "103",
+      "title": "91yun",
+      "desc": "Chinese cloud server and VPS evaluation community.",
+      "url": "https://www.91yun.com",
+      "category": "forums",
+      "icon": "cloud"
+    },
+    {
+      "id": "104",
+      "title": "TGFC",
+      "desc": "Chinese technology and hardware discussion forum.",
+      "url": "https://www.tgfcer.com",
+      "category": "forums",
+      "icon": "cpu"
+    },
+    {
+      "id": "105",
+      "title": "Chiphell",
+      "desc": "Chinese hardware enthusiast and technology forum.",
+      "url": "https://www.chiphell.com",
+      "category": "forums",
+      "icon": "cpu"
+    },
+    {
+      "id": "106",
+      "title": "HackThis",
+      "desc": "Ethical hacking challenges and security learning community.",
+      "url": "https://hackthis.co.uk",
+      "category": "forums",
+      "icon": "shield"
+    },
+    {
+      "id": "107",
+      "title": "CTFtime",
+      "desc": "Capture The Flag competition platform and team rankings.",
+      "url": "https://ctftime.org",
+      "category": "forums",
+      "icon": "flag"
+    },
+    {
+      "id": "108",
+      "title": "Null Byte",
+      "desc": "Hacking tutorials, cybersecurity guides, and tech how-tos.",
+      "url": "https://nullbyte.wiki",
+      "category": "forums",
+      "icon": "terminal"
+    },
+    {
+      "id": "109",
+      "title": "BleepingComputer",
+      "desc": "Technology news and computer help community.",
+      "url": "https://www.bleepingcomputer.com",
+      "category": "forums",
+      "icon": "help-circle"
+    },
+    {
+      "id": "110",
+      "title": "MalwareTips",
+      "desc": "Community support for malware removal and computer security.",
+      "url": "https://malwaretips.com",
+      "category": "forums",
+      "icon": "shield-alert"
+    },
+    {
+      "id": "111",
+      "title": "Wilders Security",
+      "desc": "Security software discussion and computer protection forum.",
+      "url": "https://www.wilderssecurity.com",
+      "category": "forums",
+      "icon": "shield"
+    },
+    {
+      "id": "112",
+      "title": "WebHostingTalk",
+      "desc": "Web hosting discussion, provider reviews, and industry news.",
+      "url": "https://www.webhostingtalk.com",
+      "category": "forums",
+      "icon": "hard-drive"
+    },
+    {
+      "id": "113",
+      "title": "LinuxQuestions",
+      "desc": "Active Linux support community and discussion forum.",
+      "url": "https://www.linuxquestions.org",
+      "category": "forums",
+      "icon": "terminal"
+    },
+    {
+      "id": "114",
+      "title": "Arch Linux Forums",
+      "desc": "Official community support and discussion for Arch Linux.",
+      "url": "https://bbs.archlinux.org",
+      "category": "forums",
+      "icon": "terminal"
+    },
+    {
+      "id": "115",
+      "title": "Ubuntu Forums",
+      "desc": "Community support and discussion for Ubuntu Linux users.",
+      "url": "https://ubuntuforums.org",
+      "category": "forums",
+      "icon": "terminal"
+    },
+    {
+      "id": "116",
+      "title": "Dev.to",
+      "desc": "Open-source community of developers sharing articles, tutorials, and career advice.",
+      "url": "https://dev.to",
+      "category": "forums",
+      "icon": "code"
+    },
+    {
+      "id": "117",
+      "title": "Hashnode",
+      "desc": "Developer blogging platform and community for technical articles.",
+      "url": "https://hashnode.com",
+      "category": "forums",
+      "icon": "pen-tool"
+    },
+    {
+      "id": "118",
+      "title": "CodeProject",
+      "desc": "Community for developers sharing source code, tutorials, and technical discussions.",
+      "url": "https://www.codeproject.com",
+      "category": "forums",
+      "icon": "code-2"
+    },
+    {
+      "id": "119",
+      "title": "SitePoint",
+      "desc": "Community for web developers with tutorials, courses, and tech discussions.",
+      "url": "https://www.sitepoint.com",
+      "category": "forums",
+      "icon": "layout"
+    },
+    {
+      "id": "120",
+      "title": "Laracasts",
+      "desc": "Community and screencasts for Laravel PHP developers and web artisans.",
+      "url": "https://laracasts.com",
+      "category": "forums",
+      "icon": "play-circle"
+    },
+    {
+      "id": "121",
+      "title": "DigitalOcean Community",
+      "desc": "Tutorials, Q&A, and community for developers and system administrators.",
+      "url": "https://www.digitalocean.com/community",
+      "category": "forums",
+      "icon": "cloud"
+    },
+    {
+      "id": "122",
+      "title": "Linode Community",
+      "desc": "Q&A forum and tutorials for Linux, cloud, and infrastructure topics.",
+      "url": "https://linode.com/community",
+      "category": "forums",
+      "icon": "server"
+    },
+    {
+      "id": "123",
+      "title": "LeetCode Discuss",
+      "desc": "Community for coding interview preparation and algorithmic problem discussions.",
+      "url": "https://leetcode.com/discuss",
+      "category": "forums",
+      "icon": "help-circle"
+    },
+    {
+      "id": "124",
+      "title": "CodeSignal",
+      "desc": "Coding practice platform with community-driven challenges and assessments.",
+      "url": "https://codesignal.com",
+      "category": "forums",
+      "icon": "terminal"
+    },
+    {
+      "id": "125",
+      "title": "Exercism",
+      "desc": "Open-source coding practice platform with mentor support across dozens of languages.",
+      "url": "https://exercism.org",
+      "category": "forums",
+      "icon": "graduation-cap"
+    },
+    {
+      "id": "126",
+      "title": "Codewars",
+      "desc": "Community-driven coding challenges and kata for skill improvement.",
+      "url": "https://www.codewars.com",
+      "category": "forums",
+      "icon": "swords"
+    },
+    {
+      "id": "127",
+      "title": "Glitch",
+      "desc": "Community for creating and remixing web apps with live previews.",
+      "url": "https://glitch.com",
+      "category": "forums",
+      "icon": "code"
+    },
+    {
+      "id": "128",
+      "title": "JSFiddle",
+      "desc": "Online editor for testing and sharing HTML, CSS, and JavaScript snippets.",
+      "url": "https://jsfiddle.net",
+      "category": "forums",
+      "icon": "file-code"
+    },
+    {
+      "id": "129",
+      "title": "CodeSandbox",
+      "desc": "Online code editor and community for building and sharing web projects.",
+      "url": "https://codesandbox.io",
+      "category": "forums",
+      "icon": "box"
+    },
+    {
+      "id": "130",
+      "title": "StackExchange Super User",
+      "desc": "Q&A for power users and computer enthusiasts.",
+      "url": "https://superuser.com",
+      "category": "forums",
+      "icon": "help-circle"
+    },
+    {
+      "id": "131",
+      "title": "StackExchange Server Fault",
+      "desc": "Q&A for system and network administrators.",
+      "url": "https://serverfault.com",
+      "category": "forums",
+      "icon": "server"
+    },
+    {
+      "id": "132",
+      "title": "StackExchange Security",
+      "desc": "Q&A for information security professionals and enthusiasts.",
+      "url": "https://security.stackexchange.com",
+      "category": "forums",
+      "icon": "shield"
+    },
+    {
+      "id": "133",
+      "title": "DBA StackExchange",
+      "desc": "Q&A for database administrators and data professionals.",
+      "url": "https://dba.stackexchange.com",
+      "category": "forums",
+      "icon": "database"
+    },
+    {
+      "id": "134",
+      "title": "Rust Users Forum",
+      "desc": "Official community forum for Rust programming language users.",
+      "url": "https://users.rust-lang.org",
+      "category": "forums",
+      "icon": "cpu"
+    },
+    {
+      "id": "135",
+      "title": "Python.org Community",
+      "desc": "Official Python community forums, chats, and discussion groups.",
+      "url": "https://www.python.org/community",
+      "category": "forums",
+      "icon": "terminal"
+    },
+    {
+      "id": "136",
+      "title": "Reactiflux",
+      "desc": "Large Discord community for React developers and frontend discussions.",
+      "url": "https://discord.gg/reactiflux",
+      "category": "forums",
+      "icon": "message-square"
+    },
+    {
+      "id": "137",
+      "title": "V2EX",
+      "desc": "Chinese community for programmers, startups, and creative professionals.",
+      "url": "https://v2ex.com",
+      "category": "forums",
+      "icon": "users"
     }
   ]
 }

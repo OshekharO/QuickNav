@@ -1,4 +1,4 @@
-# QuickNav
+# QuickNav - Open Source Directory
 
 QuickNav is an open-source, fast, and customizable navigation directory. It allows users to easily manage, search, and categorize their favorite websites and resources.
 
@@ -9,6 +9,18 @@ QuickNav is an open-source, fast, and customizable navigation directory. It allo
 - Light/Dark mode support
 - Local caching for fast load times
 - Open-source and easily deployable via GitHub Pages
+
+## Categories
+- Common - Popular and frequently used sites
+- Resources - Tools, utilities, and reference materials
+- Forums - Discussion communities and boards
+- Technology - Tech news, Linux, open-source, and infrastructure
+- Development - Coding, documentation, and developer tools
+- Servers - Hosting, VPS, and cloud platforms
+- AI - Artificial intelligence tools and assistants
+- Domains - Free domains, subdomains, and DNS services
+- Email - Encrypted and privacy-focused email providers
+- Cloud Storage - File storage and collaboration platforms
 
 ## Data Structure
 The site uses a simple `public/data.json` file for configuration. Anyone can suggest adding a new site by opening an issue on the GitHub repository.
