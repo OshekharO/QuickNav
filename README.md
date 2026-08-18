@@ -1,9 +1,9 @@
-# QuickNav
+# QuickNav - Open Source Directory
 
 ![QuickNav Banner](https://img.shields.io/badge/QuickNav-Directory-82a4ea?style=for-the-badge) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub issues](https://img.shields.io/github/issues/OshekharO/QuickNav)](https://github.com/OshekharO/QuickNav/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/OshekharO/QuickNav)](https://github.com/OshekharO/QuickNav/pulls)
+[![GitHub issues](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)](https://github.com/OshekharO/QuickNav/issues)
+[![GitHub stars](https://img.shields.io/github/stars/OshekharO/QuickNav?style=social)](https://github.com/OshekharO/QuickNav)
 
 A lightning-fast, highly customizable, and privacy-first start page and web directory. QuickNav is designed to replace your browser's default new tab page with a clean, modern interface that organizes your favorite sites and search engines.
 
@@ -19,9 +19,31 @@ A lightning-fast, highly customizable, and privacy-first start page and web dire
   - Switch between Light and Dark mode.
   - Toggle between a detailed card layout or a sleek Compact View.
   - Open links in the current or a new tab.
-- **Flawless Drag & Drop:** Reorder your sites effortlessly using SortableJS. Fully responsive and supports touch gestures on mobile devices.
+- **Smart Search:** Real-time local site filtering with instant results, plus web search fallback on Enter.
+- **Keyboard Shortcuts:** Press `Cmd/Ctrl + K` to instantly focus the search bar.
+- **Flawless Drag & Drop:** Reorder your sites effortlessly using SortableJS. Fully responsive and supports touch gestures on mobile devices. Your custom order is saved automatically.
+- **Loading Experience:** Smooth skeleton loader while data fetches, with graceful error handling.
 - **Smart Icon Resolution:** Automatically fetches the best icon for a site based on its URL (using Google's S2 favicon service) or falls back to a massive library of built-in vector icons.
 - **GitHub Actions Integration:** Adding or editing a site through the UI automatically generates a perfectly formatted GitHub Issue, triggering an automated Pull Request workflow to update the directory.
+- **Accessibility:** ARIA labels, keyboard navigation, and Escape key support for modals and dropdowns.
+- **Responsive:** Optimized for all screen sizes with mobile-first design.
+
+---
+
+## 📂 Directory Categories
+
+QuickNav includes **108 curated sites** across **10 categories**:
+
+- **Common** - Popular and frequently used sites
+- **#Resources** - Tools, utilities, job search, and reference materials
+- **#Forums** - Discussion communities, developer forums, and boards
+- **#Technology** - Tech news, Linux, open-source, and infrastructure
+- **#Development** - Coding, documentation, and developer tools
+- **#Servers** - Hosting, VPS, and cloud platforms
+- **#Ai** - Artificial intelligence tools and assistants
+- **#Domains** - Free domains, subdomains, and DNS services
+- **#Email** - Encrypted and privacy-focused email providers
+- **#Cloud Storage** - File storage and collaboration platforms
 
 ---
 
@@ -32,16 +54,16 @@ A lightning-fast, highly customizable, and privacy-first start page and web dire
 Because QuickNav is a static frontend application, deploying your own instance is incredibly simple.
 
 1. **Fork or Clone the repository:**
-   ```bash
-   git clone https://github.com/OshekharO/QuickNav.git
-   ```
+    ```bash
+    git clone https://github.com/OshekharO/QuickNav.git
+    ```
 
 2. **Serve the files:**
-   You can serve the directory using any basic web server, or simply open `index.html` in your browser.
-   ```bash
-   npx serve .
-   ```
-   *Or deploy instantly to Vercel, Netlify, or GitHub Pages.*
+    You can serve the directory using any basic web server, or simply open `index.html` in your browser.
+    ```bash
+    npx serve .
+    ```
+    *Or deploy instantly to Vercel, Netlify, or GitHub Pages.*
 
 ---
 
@@ -64,6 +86,9 @@ To manually add a site, edit the `sites` array in `public/data.json`:
 ```
 
 *Note: The `icon` field is optional. If omitted, QuickNav will attempt to automatically resolve the site's favicon.*
+
+### Available Icons
+QuickNav uses [Lucide Icons](https://lucide.dev/). Any icon name from their library can be used in the `icon` field.
 
 ---
 

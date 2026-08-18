@@ -32,17 +32,51 @@
     }
   ],
   "categories": [
-    { "id": "all", "name": "All" },
-    { "id": "common", "name": "Common", "icon": "star" },
-    { "id": "resources", "name": "#Resources" },
-    { "id": "forums", "name": "#Forums" },
-    { "id": "tech", "name": "#Technology" },
-    { "id": "development", "name": "#Development" },
-    { "id": "servers", "name": "#Servers" },
-    { "id": "ai", "name": "#Ai" },
-    { "id": "domains", "name": "#Domains" },
-    { "id": "email", "name": "#Email" },
-    { "id": "cloud", "name": "#Cloud Storage" }
+    {
+      "id": "all",
+      "name": "All"
+    },
+    {
+      "id": "common",
+      "name": "Common",
+      "icon": "star"
+    },
+    {
+      "id": "resources",
+      "name": "#Resources"
+    },
+    {
+      "id": "forums",
+      "name": "#Forums"
+    },
+    {
+      "id": "tech",
+      "name": "#Technology"
+    },
+    {
+      "id": "development",
+      "name": "#Development"
+    },
+    {
+      "id": "servers",
+      "name": "#Servers"
+    },
+    {
+      "id": "ai",
+      "name": "#Ai"
+    },
+    {
+      "id": "domains",
+      "name": "#Domains"
+    },
+    {
+      "id": "email",
+      "name": "#Email"
+    },
+    {
+      "id": "cloud",
+      "name": "#Cloud Storage"
+    }
   ],
   "sites": [
     {
@@ -534,23 +568,7 @@
       "icon": "hard-drive"
     },
     {
-      "id": "62",
-      "title": "Supabase",
-      "desc": "Open-source Firebase alternative with free PostgreSQL and auth.",
-      "url": "https://supabase.com",
-      "category": "cloud",
-      "icon": "database"
-    },
-    {
       "id": "63",
-      "title": "Cloudflare R2",
-      "desc": "Free S3-compatible object storage without egress fees.",
-      "url": "https://www.cloudflare.com/developer-platform/r2",
-      "category": "cloud",
-      "icon": "cloud"
-    },
-    {
-      "id": "64",
       "title": "IPFS",
       "desc": "Peer-to-peer distributed file system for storing and sharing data.",
       "url": "https://ipfs.io",
@@ -558,7 +576,7 @@
       "icon": "network"
     },
     {
-      "id": "65",
+      "id": "64",
       "title": "BiliBili",
       "desc": "Chinese video platform with tech tutorials and developer content.",
       "url": "https://bilibili.com",
@@ -631,22 +649,6 @@
       "icon": "inbox"
     },
     {
-      "id": "74",
-      "title": "DuckDNS",
-      "desc": "Free dynamic DNS for home servers and self-hosted services.",
-      "url": "https://www.duckdns.org",
-      "category": "domains",
-      "icon": "map-pin"
-    },
-    {
-      "id": "75",
-      "title": "No-IP",
-      "desc": "Free dynamic DNS and managed DNS service.",
-      "url": "https://www.noip.com",
-      "category": "domains",
-      "icon": "map"
-    },
-    {
       "id": "76",
       "title": "TechCrunch",
       "desc": "Technology news, startup coverage, and product reviews.",
@@ -693,46 +695,6 @@
       "url": "https://lemmy.world",
       "category": "forums",
       "icon": "users"
-    },
-    {
-      "id": "82",
-      "title": "Discord",
-      "desc": "Voice, video, and text chat for communities and teams.",
-      "url": "https://discord.com",
-      "category": "forums",
-      "icon": "message-square"
-    },
-    {
-      "id": "83",
-      "title": "Slack",
-      "desc": "Messaging platform for teams and workplace collaboration.",
-      "url": "https://slack.com",
-      "category": "forums",
-      "icon": "hash"
-    },
-    {
-      "id": "84",
-      "title": "Telegram",
-      "desc": "Cloud-based messaging app with focus on speed and privacy.",
-      "url": "https://web.telegram.org",
-      "category": "forums",
-      "icon": "send"
-    },
-    {
-      "id": "85",
-      "title": "Element",
-      "desc": "Open-source, secure messaging based on the Matrix protocol.",
-      "url": "https://element.io",
-      "category": "forums",
-      "icon": "message-circle"
-    },
-    {
-      "id": "86",
-      "title": "Zulip",
-      "desc": "Open-source team chat with threaded conversations.",
-      "url": "https://zulip.com",
-      "category": "forums",
-      "icon": "messages-square"
     },
     {
       "id": "87",
@@ -951,22 +913,6 @@
       "icon": "terminal"
     },
     {
-      "id": "114",
-      "title": "Arch Linux Forums",
-      "desc": "Official community support and discussion for Arch Linux.",
-      "url": "https://bbs.archlinux.org",
-      "category": "forums",
-      "icon": "terminal"
-    },
-    {
-      "id": "115",
-      "title": "Ubuntu Forums",
-      "desc": "Community support and discussion for Ubuntu Linux users.",
-      "url": "https://ubuntuforums.org",
-      "category": "forums",
-      "icon": "terminal"
-    },
-    {
       "id": "116",
       "title": "Dev.to",
       "desc": "Open-source community of developers sharing articles, tutorials, and career advice.",
@@ -997,150 +943,6 @@
       "url": "https://www.sitepoint.com",
       "category": "forums",
       "icon": "layout"
-    },
-    {
-      "id": "120",
-      "title": "Laracasts",
-      "desc": "Community and screencasts for Laravel PHP developers and web artisans.",
-      "url": "https://laracasts.com",
-      "category": "forums",
-      "icon": "play-circle"
-    },
-    {
-      "id": "121",
-      "title": "DigitalOcean Community",
-      "desc": "Tutorials, Q&A, and community for developers and system administrators.",
-      "url": "https://www.digitalocean.com/community",
-      "category": "forums",
-      "icon": "cloud"
-    },
-    {
-      "id": "122",
-      "title": "Linode Community",
-      "desc": "Q&A forum and tutorials for Linux, cloud, and infrastructure topics.",
-      "url": "https://linode.com/community",
-      "category": "forums",
-      "icon": "server"
-    },
-    {
-      "id": "123",
-      "title": "LeetCode Discuss",
-      "desc": "Community for coding interview preparation and algorithmic problem discussions.",
-      "url": "https://leetcode.com/discuss",
-      "category": "forums",
-      "icon": "help-circle"
-    },
-    {
-      "id": "124",
-      "title": "CodeSignal",
-      "desc": "Coding practice platform with community-driven challenges and assessments.",
-      "url": "https://codesignal.com",
-      "category": "forums",
-      "icon": "terminal"
-    },
-    {
-      "id": "125",
-      "title": "Exercism",
-      "desc": "Open-source coding practice platform with mentor support across dozens of languages.",
-      "url": "https://exercism.org",
-      "category": "forums",
-      "icon": "graduation-cap"
-    },
-    {
-      "id": "126",
-      "title": "Codewars",
-      "desc": "Community-driven coding challenges and kata for skill improvement.",
-      "url": "https://www.codewars.com",
-      "category": "forums",
-      "icon": "swords"
-    },
-    {
-      "id": "127",
-      "title": "Glitch",
-      "desc": "Community for creating and remixing web apps with live previews.",
-      "url": "https://glitch.com",
-      "category": "forums",
-      "icon": "code"
-    },
-    {
-      "id": "128",
-      "title": "JSFiddle",
-      "desc": "Online editor for testing and sharing HTML, CSS, and JavaScript snippets.",
-      "url": "https://jsfiddle.net",
-      "category": "forums",
-      "icon": "file-code"
-    },
-    {
-      "id": "129",
-      "title": "CodeSandbox",
-      "desc": "Online code editor and community for building and sharing web projects.",
-      "url": "https://codesandbox.io",
-      "category": "forums",
-      "icon": "box"
-    },
-    {
-      "id": "130",
-      "title": "StackExchange Super User",
-      "desc": "Q&A for power users and computer enthusiasts.",
-      "url": "https://superuser.com",
-      "category": "forums",
-      "icon": "help-circle"
-    },
-    {
-      "id": "131",
-      "title": "StackExchange Server Fault",
-      "desc": "Q&A for system and network administrators.",
-      "url": "https://serverfault.com",
-      "category": "forums",
-      "icon": "server"
-    },
-    {
-      "id": "132",
-      "title": "StackExchange Security",
-      "desc": "Q&A for information security professionals and enthusiasts.",
-      "url": "https://security.stackexchange.com",
-      "category": "forums",
-      "icon": "shield"
-    },
-    {
-      "id": "133",
-      "title": "DBA StackExchange",
-      "desc": "Q&A for database administrators and data professionals.",
-      "url": "https://dba.stackexchange.com",
-      "category": "forums",
-      "icon": "database"
-    },
-    {
-      "id": "134",
-      "title": "Rust Users Forum",
-      "desc": "Official community forum for Rust programming language users.",
-      "url": "https://users.rust-lang.org",
-      "category": "forums",
-      "icon": "cpu"
-    },
-    {
-      "id": "135",
-      "title": "Python.org Community",
-      "desc": "Official Python community forums, chats, and discussion groups.",
-      "url": "https://www.python.org/community",
-      "category": "forums",
-      "icon": "terminal"
-    },
-    {
-      "id": "136",
-      "title": "Reactiflux",
-      "desc": "Large Discord community for React developers and frontend discussions.",
-      "url": "https://discord.gg/reactiflux",
-      "category": "forums",
-      "icon": "message-square"
-    },
-    {
-      "id": "137",
-      "title": "V2EX",
-      "desc": "Chinese community for programmers, startups, and creative professionals.",
-      "url": "https://v2ex.com",
-      "category": "forums",
-      "icon": "users"
     }
   ]
 }
