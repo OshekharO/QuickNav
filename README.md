@@ -32,7 +32,7 @@ A lightning-fast, highly customizable, and privacy-first start page and web dire
 
 ## 📂 Directory Categories
 
-QuickNav includes **108 curated sites** across **10 categories**:
+QuickNav includes **110 curated sites** across **10 categories**:
 
 - **Common** - Popular and frequently used sites
 - **#Resources** - Tools, utilities, job search, and reference materials

@@ -561,22 +561,6 @@
     },
     {
       "id": "61",
-      "title": "Nextcloud",
-      "desc": "Free open-source self-hosted file storage and collaboration.",
-      "url": "https://nextcloud.com",
-      "category": "cloud",
-      "icon": "hard-drive"
-    },
-    {
-      "id": "63",
-      "title": "IPFS",
-      "desc": "Peer-to-peer distributed file system for storing and sharing data.",
-      "url": "https://ipfs.io",
-      "category": "cloud",
-      "icon": "network"
-    },
-    {
-      "id": "64",
       "title": "BiliBili",
       "desc": "Chinese video platform with tech tutorials and developer content.",
       "url": "https://bilibili.com",
@@ -584,7 +568,7 @@
       "icon": "tv"
     },
     {
-      "id": "66",
+      "id": "62",
       "title": "Bluesky",
       "desc": "Decentralized social network for developers and tech enthusiasts.",
       "url": "https://bsky.app",
@@ -593,7 +577,7 @@
       "rightIcon": "send"
     },
     {
-      "id": "67",
+      "id": "63",
       "title": "YTDLP Online",
       "desc": "Online media downloader powered by yt-dlp supporting multiple platforms.",
       "url": "https://ytdlp.online/",
@@ -601,7 +585,7 @@
       "icon": "download"
     },
     {
-      "id": "68",
+      "id": "64",
       "title": "Cobalt",
       "desc": "Minimal privacy-friendly media downloader for supported websites.",
       "url": "https://cobalt.canine.tools/",
@@ -609,7 +593,7 @@
       "icon": "arrow-down-to-line"
     },
     {
-      "id": "69",
+      "id": "65",
       "title": "DorkSearch",
       "desc": "Search engine for advanced Google dork queries and indexing tools.",
       "url": "https://dorksearch.com/",
@@ -617,7 +601,7 @@
       "icon": "search"
     },
     {
-      "id": "70",
+      "id": "66",
       "title": "Hacker Arsenal",
       "desc": "Collection of cybersecurity and penetration testing tools.",
       "url": "https://hacker-arsenal.tools/",
@@ -625,7 +609,7 @@
       "icon": "wrench"
     },
     {
-      "id": "71",
+      "id": "67",
       "title": "DigitalPlat Domains",
       "desc": "Free subdomain and domain allocation platform.",
       "url": "https://domain.digitalplat.org/",
@@ -633,7 +617,7 @@
       "icon": "network"
     },
     {
-      "id": "72",
+      "id": "68",
       "title": "Gmail",
       "desc": "Google email service with integrated productivity tools.",
       "url": "https://gmail.com",
@@ -641,7 +625,7 @@
       "icon": "mail"
     },
     {
-      "id": "73",
+      "id": "69",
       "title": "Outlook",
       "desc": "Microsoft email and calendar platform.",
       "url": "https://outlook.live.com",
@@ -649,7 +633,7 @@
       "icon": "inbox"
     },
     {
-      "id": "76",
+      "id": "70",
       "title": "TechCrunch",
       "desc": "Technology news, startup coverage, and product reviews.",
       "url": "https://techcrunch.com",
@@ -657,7 +641,7 @@
       "icon": "rss"
     },
     {
-      "id": "77",
+      "id": "71",
       "title": "The Verge",
       "desc": "Technology news, reviews, and science coverage.",
       "url": "https://www.theverge.com",
@@ -665,7 +649,7 @@
       "icon": "smartphone"
     },
     {
-      "id": "78",
+      "id": "72",
       "title": "Ars Technica",
       "desc": "Technology news, analysis, and IT policy coverage.",
       "url": "https://arstechnica.com",
@@ -673,7 +657,7 @@
       "icon": "newspaper"
     },
     {
-      "id": "79",
+      "id": "73",
       "title": "Hacker News",
       "desc": "Social news for tech, startups, and computer science.",
       "url": "https://news.ycombinator.com",
@@ -681,7 +665,7 @@
       "icon": "flame"
     },
     {
-      "id": "80",
+      "id": "74",
       "title": "Reddit",
       "desc": "Network of communities for interests, hobbies, and passions.",
       "url": "https://www.reddit.com",
@@ -689,15 +673,7 @@
       "icon": "message-circle"
     },
     {
-      "id": "81",
-      "title": "Lemmy",
-      "desc": "Federated, open-source link aggregator and social platform.",
-      "url": "https://lemmy.world",
-      "category": "forums",
-      "icon": "users"
-    },
-    {
-      "id": "87",
+      "id": "75",
       "title": "Figma",
       "desc": "Collaborative interface design tool for teams.",
       "url": "https://www.figma.com",
@@ -705,7 +681,7 @@
       "icon": "figma"
     },
     {
-      "id": "88",
+      "id": "76",
       "title": "Canva",
       "desc": "Free online design tool for graphics, presentations, and social media.",
       "url": "https://www.canva.com",
@@ -713,7 +689,7 @@
       "icon": "pen-tool"
     },
     {
-      "id": "89",
+      "id": "77",
       "title": "Photopea",
       "desc": "Free online photo editor supporting PSD, XCF, and Sketch files.",
       "url": "https://www.photopea.com",
@@ -721,7 +697,7 @@
       "icon": "image"
     },
     {
-      "id": "90",
+      "id": "78",
       "title": "Remove.bg",
       "desc": "Free AI-powered background removal for images.",
       "url": "https://www.remove.bg",
@@ -729,7 +705,7 @@
       "icon": "scissors"
     },
     {
-      "id": "91",
+      "id": "79",
       "title": "TinyPNG",
       "desc": "Free smart WebP, PNG and JPEG compression tool.",
       "url": "https://tinypng.com",
@@ -737,7 +713,7 @@
       "icon": "file-down"
     },
     {
-      "id": "92",
+      "id": "80",
       "title": "Squoosh",
       "desc": "Free image compression and format conversion by Google.",
       "url": "https://squoosh.app",
@@ -745,7 +721,7 @@
       "icon": "image"
     },
     {
-      "id": "93",
+      "id": "81",
       "title": "Carbon",
       "desc": "Create and share beautiful images of source code.",
       "url": "https://carbon.now.sh",
@@ -753,7 +729,7 @@
       "icon": "code"
     },
     {
-      "id": "94",
+      "id": "82",
       "title": "Ray.so",
       "desc": "Create beautiful code screenshots with gradients and themes.",
       "url": "https://ray.so",
@@ -761,7 +737,7 @@
       "icon": "code-2"
     },
     {
-      "id": "95",
+      "id": "83",
       "title": "Excalidraw",
       "desc": "Free open-source whiteboard for sketching hand-drawn diagrams.",
       "url": "https://excalidraw.com",
@@ -769,7 +745,7 @@
       "icon": "pencil"
     },
     {
-      "id": "96",
+      "id": "84",
       "title": "Miro",
       "desc": "Free online collaborative whiteboard platform for teams.",
       "url": "https://miro.com",
@@ -777,7 +753,7 @@
       "icon": "layout"
     },
     {
-      "id": "97",
+      "id": "85",
       "title": "Notion",
       "desc": "All-in-one workspace for notes, tasks, wikis, and databases.",
       "url": "https://www.notion.so",
@@ -785,7 +761,7 @@
       "icon": "file-text"
     },
     {
-      "id": "98",
+      "id": "86",
       "title": "Obsidian",
       "desc": "Powerful knowledge base that works on local Markdown files.",
       "url": "https://obsidian.md",
@@ -793,7 +769,7 @@
       "icon": "book-open"
     },
     {
-      "id": "99",
+      "id": "87",
       "title": "AFFiNE",
       "desc": "Open-source knowledge base and workflow management platform.",
       "url": "https://affine.pro",
@@ -801,7 +777,7 @@
       "icon": "blocks"
     },
     {
-      "id": "100",
+      "id": "88",
       "title": "Logseq",
       "desc": "Open-source outliner and knowledge management tool.",
       "url": "https://logseq.com",
@@ -809,7 +785,7 @@
       "icon": "list"
     },
     {
-      "id": "101",
+      "id": "89",
       "title": "HostLoc",
       "desc": "Chinese hosting and VPS discussion forum with provider reviews.",
       "url": "https://www.hostloc.com",
@@ -817,7 +793,7 @@
       "icon": "message-square"
     },
     {
-      "id": "102",
+      "id": "90",
       "title": "VPSer",
       "desc": "Chinese VPS and server hosting discussion community.",
       "url": "https://www.vpser.net",
@@ -825,7 +801,7 @@
       "icon": "server"
     },
     {
-      "id": "103",
+      "id": "91",
       "title": "91yun",
       "desc": "Chinese cloud server and VPS evaluation community.",
       "url": "https://www.91yun.com",
@@ -833,7 +809,7 @@
       "icon": "cloud"
     },
     {
-      "id": "104",
+      "id": "92",
       "title": "TGFC",
       "desc": "Chinese technology and hardware discussion forum.",
       "url": "https://www.tgfcer.com",
@@ -841,7 +817,7 @@
       "icon": "cpu"
     },
     {
-      "id": "105",
+      "id": "93",
       "title": "Chiphell",
       "desc": "Chinese hardware enthusiast and technology forum.",
       "url": "https://www.chiphell.com",
@@ -849,7 +825,7 @@
       "icon": "cpu"
     },
     {
-      "id": "106",
+      "id": "94",
       "title": "HackThis",
       "desc": "Ethical hacking challenges and security learning community.",
       "url": "https://hackthis.co.uk",
@@ -857,7 +833,7 @@
       "icon": "shield"
     },
     {
-      "id": "107",
+      "id": "95",
       "title": "CTFtime",
       "desc": "Capture The Flag competition platform and team rankings.",
       "url": "https://ctftime.org",
@@ -865,15 +841,7 @@
       "icon": "flag"
     },
     {
-      "id": "108",
-      "title": "Null Byte",
-      "desc": "Hacking tutorials, cybersecurity guides, and tech how-tos.",
-      "url": "https://nullbyte.wiki",
-      "category": "forums",
-      "icon": "terminal"
-    },
-    {
-      "id": "109",
+      "id": "96",
       "title": "BleepingComputer",
       "desc": "Technology news and computer help community.",
       "url": "https://www.bleepingcomputer.com",
@@ -881,7 +849,7 @@
       "icon": "help-circle"
     },
     {
-      "id": "110",
+      "id": "97",
       "title": "MalwareTips",
       "desc": "Community support for malware removal and computer security.",
       "url": "https://malwaretips.com",
@@ -889,7 +857,7 @@
       "icon": "shield-alert"
     },
     {
-      "id": "111",
+      "id": "98",
       "title": "Wilders Security",
       "desc": "Security software discussion and computer protection forum.",
       "url": "https://www.wilderssecurity.com",
@@ -897,7 +865,7 @@
       "icon": "shield"
     },
     {
-      "id": "112",
+      "id": "99",
       "title": "WebHostingTalk",
       "desc": "Web hosting discussion, provider reviews, and industry news.",
       "url": "https://www.webhostingtalk.com",
@@ -905,7 +873,7 @@
       "icon": "hard-drive"
     },
     {
-      "id": "113",
+      "id": "100",
       "title": "LinuxQuestions",
       "desc": "Active Linux support community and discussion forum.",
       "url": "https://www.linuxquestions.org",
@@ -913,7 +881,7 @@
       "icon": "terminal"
     },
     {
-      "id": "116",
+      "id": "101",
       "title": "Dev.to",
       "desc": "Open-source community of developers sharing articles, tutorials, and career advice.",
       "url": "https://dev.to",
@@ -921,7 +889,7 @@
       "icon": "code"
     },
     {
-      "id": "117",
+      "id": "102",
       "title": "Hashnode",
       "desc": "Developer blogging platform and community for technical articles.",
       "url": "https://hashnode.com",
@@ -929,20 +897,68 @@
       "icon": "pen-tool"
     },
     {
-      "id": "118",
-      "title": "CodeProject",
-      "desc": "Community for developers sharing source code, tutorials, and technical discussions.",
-      "url": "https://www.codeproject.com",
-      "category": "forums",
-      "icon": "code-2"
-    },
-    {
-      "id": "119",
+      "id": "103",
       "title": "SitePoint",
       "desc": "Community for web developers with tutorials, courses, and tech discussions.",
       "url": "https://www.sitepoint.com",
       "category": "forums",
       "icon": "layout"
+    },
+    {
+      "id": "104",
+      "title": "Google Drive",
+      "desc": "15 GB free cloud storage with Google account integration.",
+      "url": "https://drive.google.com",
+      "category": "cloud",
+      "icon": "hard-drive"
+    },
+    {
+      "id": "105",
+      "title": "pCloud",
+      "desc": "10 GB free encrypted cloud storage with optional crypto folder.",
+      "url": "https://www.pcloud.com",
+      "category": "cloud",
+      "icon": "cloud"
+    },
+    {
+      "id": "106",
+      "title": "OneDrive",
+      "desc": "5 GB free cloud storage with Microsoft account integration.",
+      "url": "https://onedrive.live.com",
+      "category": "cloud",
+      "icon": "cloud"
+    },
+    {
+      "id": "107",
+      "title": "iCloud",
+      "desc": "5 GB free cloud storage for Apple users with Photos and backup sync.",
+      "url": "https://www.icloud.com",
+      "category": "cloud",
+      "icon": "cloud"
+    },
+    {
+      "id": "108",
+      "title": "Box",
+      "desc": "10 GB free cloud storage for individuals and business collaboration.",
+      "url": "https://www.box.com",
+      "category": "cloud",
+      "icon": "package"
+    },
+    {
+      "id": "109",
+      "title": "MediaFire",
+      "desc": "10 GB free cloud storage with file sharing and syncing.",
+      "url": "https://www.mediafire.com",
+      "category": "cloud",
+      "icon": "hard-drive"
+    },
+    {
+      "id": "110",
+      "title": "Degoo",
+      "desc": "100 GB free cloud storage with backup and photo sync.",
+      "url": "https://degoo.com",
+      "category": "cloud",
+      "icon": "hard-drive"
     }
   ]
 }
