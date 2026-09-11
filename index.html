@@ -79,6 +79,12 @@
             -webkit-font-smoothing: antialiased;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
+
+        /* Improved focus visible style for accessibility */
+        *:focus-visible {
+            outline: 2px solid #82a4ea !important;
+            outline-offset: 2px !important;
+        }
         
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
@@ -179,6 +185,19 @@
         .card-animate {
             animation: fadeInUp 0.3s ease-out forwards;
         }
+
+        /* Respect prefers-reduced-motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .card-animate {
+                animation: none !important;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen flex justify-center pb-6 bg-[#eef1f6] text-gray-800 dark:bg-dark-bg dark:text-dark-text">
@@ -227,11 +246,11 @@
                 
                 <!-- Settings Dropdown Container -->
                 <div class="relative">
-                    <button id="settingsToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 outline-none" title="Settings" aria-label="Settings">
+                    <button id="settingsToggle" class="w-[42px] h-[42px] bg-white dark:bg-dark-card rounded-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.03)] flex items-center justify-center text-[#374151] dark:text-dark-text hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent dark:border-dark-border focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 outline-none" title="Settings" aria-label="Settings" aria-expanded="false" aria-haspopup="true" aria-controls="settingsDropdown">
                         <i data-lucide="sliders-horizontal" class="w-[18px] h-[18px]"></i>
                     </button>
                     <!-- Settings Panel -->
-                    <div id="settingsDropdown" class="hidden absolute top-[52px] right-0 bg-white dark:bg-dark-card rounded-[16px] shadow-xl border border-gray-100 dark:border-dark-border p-3 w-[260px] z-50 transform origin-top-right transition-all">
+                    <div id="settingsDropdown" role="region" aria-label="Preferences menu" class="hidden absolute top-[52px] right-0 bg-white dark:bg-dark-card rounded-[16px] shadow-xl border border-gray-100 dark:border-dark-border p-3 w-[260px] z-50 transform origin-top-right transition-all">
                         <div class="flex items-center gap-2 mb-3 px-1">
                             <i data-lucide="settings" class="w-4 h-4 text-gray-400"></i>
                             <h3 class="text-[13px] font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Preferences</h3>
@@ -288,12 +307,12 @@
 
             <!-- Search Bar -->
             <div class="bg-white dark:bg-dark-card rounded-[16px] shadow-[0_2px_12px_rgba(0,0,0,0.04)] p-1.5 flex items-center gap-2 h-[56px] relative z-20 border border-transparent dark:border-dark-border w-full max-w-[600px]">
-                <button id="searchEngineToggle" class="flex items-center gap-1.5 px-3 py-2 rounded-[12px] hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors h-full outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 shrink-0" aria-label="Select search engine">
+                <button id="searchEngineToggle" class="flex items-center gap-1.5 px-3 py-2 rounded-[12px] hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors h-full outline-none focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 shrink-0" aria-label="Select search engine" aria-expanded="false" aria-haspopup="true" aria-controls="searchEngineDropdown">
                     <!-- Injected via JS -->
                 </button>
                 
                 <!-- Search Engine Dropdown -->
-                <div id="searchEngineDropdown" class="hidden absolute top-[64px] left-0 bg-white dark:bg-dark-card rounded-[14px] shadow-xl border border-gray-100 dark:border-dark-border p-1.5 w-36 z-50 transform origin-top-left transition-all">
+                <div id="searchEngineDropdown" role="listbox" aria-label="Search engines" class="hidden absolute top-[64px] left-0 bg-white dark:bg-dark-card rounded-[14px] shadow-xl border border-gray-100 dark:border-dark-border p-1.5 w-36 z-50 transform origin-top-left transition-all">
                     <!-- Injected via JS -->
                 </div>
                 
@@ -312,16 +331,16 @@
         </div>
 
         <!-- Categories (Redesigned to 2-row horizontal scroll) -->
-        <div class="w-full max-w-[600px] md:max-w-none mx-auto category-wrapper">
-            <div id="categoriesContainer" class="category-grid gap-2.5 px-1 pb-2 hide-scrollbar md:flex md:flex-wrap md:justify-center md:items-center">
+        <nav aria-label="Site categories" class="w-full max-w-[600px] md:max-w-none mx-auto category-wrapper">
+            <div id="categoriesContainer" role="tablist" aria-label="Categories" class="category-grid gap-2.5 px-1 pb-2 hide-scrollbar md:flex md:flex-wrap md:justify-center md:items-center">
                 <!-- Injected via JS -->
             </div>
-        </div>
+        </nav>
 
         <!-- Site List Grid -->
-        <div id="sitesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2 max-w-[600px] md:max-w-none mx-auto w-full flex-1 content-start">
+        <main id="sitesContainer" aria-label="Sites directory" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2 max-w-[600px] md:max-w-none mx-auto w-full flex-1 content-start">
             <!-- Injected via JS -->
-        </div>
+        </main>
 
         <!-- Footer -->
         <footer class="mt-auto pt-8 border-t border-gray-200/60 dark:border-dark-border/60 flex flex-col items-center justify-center pb-2">
@@ -365,25 +384,25 @@
             <form id="siteForm" class="p-5 flex flex-col gap-4">
                 <input type="hidden" id="formSiteId">
                 <div>
-                    <label class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">Title</label>
+                    <label for="formTitle" class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">Title</label>
                     <input type="text" id="formTitle" required placeholder="e.g. GitHub" class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-[#82a4ea] focus:ring-2 focus:ring-[#82a4ea]/20 transition-all text-[14px] dark:text-white">
                 </div>
                 <div>
-                    <label class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">Description</label>
+                    <label for="formDesc" class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">Description</label>
                     <input type="text" id="formDesc" required placeholder="Short description..." class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-[#82a4ea] focus:ring-2 focus:ring-[#82a4ea]/20 transition-all text-[14px] dark:text-white">
                 </div>
                 <div>
-                    <label class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">URL</label>
+                    <label for="formUrl" class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">URL</label>
                     <input type="url" id="formUrl" required placeholder="https://..." class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-[#82a4ea] focus:ring-2 focus:ring-[#82a4ea]/20 transition-all text-[14px] dark:text-white">
                 </div>
                 <div>
-                    <label class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">Category</label>
+                    <label for="formCategory" class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">Category</label>
                     <select id="formCategory" required class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-[#82a4ea] focus:ring-2 focus:ring-[#82a4ea]/20 transition-all text-[14px] dark:text-white appearance-none cursor-pointer">
                         <!-- Injected via JS -->
                     </select>
                 </div>
                 <div>
-                    <label class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">Lucide Icon (Optional)</label>
+                    <label for="formIcon" class="block text-[13px] font-medium text-gray-600 dark:text-gray-400 mb-1.5 ml-1">Lucide Icon (Optional)</label>
                     <input type="text" id="formIcon" placeholder="e.g. github, tv, server" class="w-full px-4 py-2.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[12px] outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-[#82a4ea] focus:ring-2 focus:ring-[#82a4ea]/20 transition-all text-[14px] dark:text-white">
                 </div>
                 <button type="submit" class="w-full py-3 bg-[#24292f] dark:bg-white text-white dark:text-[#24292f] rounded-[14px] font-medium hover:bg-black dark:hover:bg-gray-200 transition-colors shadow-sm mt-2 flex items-center justify-center gap-2">
@@ -394,7 +413,7 @@
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#1f2329] dark:bg-white text-white dark:text-[#1f2329] px-5 py-3.5 rounded-[14px] shadow-xl flex items-center gap-3 transition-transform duration-300 translate-y-[200%] z-[70]">
+    <div id="toast" role="status" aria-live="polite" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#1f2329] dark:bg-white text-white dark:text-[#1f2329] px-5 py-3.5 rounded-[14px] shadow-xl flex items-center gap-3 transition-transform duration-300 translate-y-[200%] z-[70]">
         <i data-lucide="loader-2" class="w-5 h-5 animate-spin hidden text-[#82a4ea]" id="toastSpinner"></i>
         <i data-lucide="check-circle-2" class="w-5 h-5 text-green-400 dark:text-green-600 hidden" id="toastSuccess"></i>
         <span id="toastMsg" class="text-[14px] font-medium tracking-wide">Processing...</span>
@@ -469,7 +488,14 @@
 
         settingsToggleBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            settingsDropdown.classList.toggle('hidden');
+            const isHidden = settingsDropdown.classList.contains('hidden');
+            if (isHidden) {
+                settingsDropdown.classList.remove('hidden');
+                settingsToggleBtn.setAttribute('aria-expanded', 'true');
+            } else {
+                settingsDropdown.classList.add('hidden');
+                settingsToggleBtn.setAttribute('aria-expanded', 'false');
+            }
         });
 
         settingNewTab.addEventListener('change', (e) => {
@@ -687,7 +713,12 @@
             filtered.forEach(site => {
                 const a = document.createElement('a');
                 a.href = site.url;
-                a.target = userSettings.newTab ? '_blank' : '_self';
+                if (userSettings.newTab) {
+                    a.target = '_blank';
+                    a.rel = 'noopener noreferrer';
+                } else {
+                    a.target = '_self';
+                }
                 a.dataset.id = site.id; // Crucial for Sortable logic
                 
                 const dragClasses = userSettings.dragDrop ? 'cursor-grab hover:-translate-y-[2px]' : 'cursor-pointer hover:-translate-y-[2px]';
@@ -816,18 +847,31 @@
         }
 
         const seDropdown = document.getElementById('searchEngineDropdown');
-        document.getElementById('searchEngineToggle').onclick = (e) => {
+        const seToggle = document.getElementById('searchEngineToggle');
+        seToggle.onclick = (e) => {
             e.stopPropagation();
-            if (!settingsDropdown.classList.contains('hidden')) settingsDropdown.classList.add('hidden');
-            seDropdown.classList.toggle('hidden');
+            if (!settingsDropdown.classList.contains('hidden')) {
+                settingsDropdown.classList.add('hidden');
+                settingsToggleBtn.setAttribute('aria-expanded', 'false');
+            }
+            const isHidden = seDropdown.classList.contains('hidden');
+            if (isHidden) {
+                seDropdown.classList.remove('hidden');
+                seToggle.setAttribute('aria-expanded', 'true');
+            } else {
+                seDropdown.classList.add('hidden');
+                seToggle.setAttribute('aria-expanded', 'false');
+            }
         };
         
         document.addEventListener('click', (e) => {
             if (!seDropdown.classList.contains('hidden') && !seDropdown.contains(e.target) && e.target.id !== 'searchEngineToggle') {
                 seDropdown.classList.add('hidden');
+                seToggle.setAttribute('aria-expanded', 'false');
             }
             if (!settingsDropdown.classList.contains('hidden') && !settingsDropdown.contains(e.target) && e.target.id !== 'settingsToggle') {
                 settingsDropdown.classList.add('hidden');
+                settingsToggleBtn.setAttribute('aria-expanded', 'false');
             }
         });
 
@@ -969,13 +1013,22 @@
             lucide.createIcons();
         }
 
-        // Modal Controls
+        // Modal Controls & Focus Management
+        let previousActiveElement = null;
+
         function openModal(id) {
+            previousActiveElement = document.activeElement;
             const modal = document.getElementById(id);
             modal.classList.remove('hidden');
             requestAnimationFrame(() => {
                 modal.firstElementChild.classList.add('scale-100', 'opacity-100');
                 modal.firstElementChild.classList.remove('scale-95', 'opacity-0');
+
+                // Focus first focusable element in modal
+                const focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                if (focusable.length) {
+                    focusable[0].focus();
+                }
             });
         }
 
@@ -987,6 +1040,10 @@
             if (content) {
                 content.classList.remove('scale-100', 'opacity-100');
                 content.classList.add('scale-95', 'opacity-0');
+            }
+            if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
+                previousActiveElement.focus();
+                previousActiveElement = null;
             }
         }
 
