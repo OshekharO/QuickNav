@@ -1,0 +1,4 @@
+## 2025-09-11 - QuickNav Accessibility & Modal Focus Management
+
+**Learning:** Single-page vanilla web directories utilizing Tailwind CSS dynamic DOM updates often lack implicit form-label associations, dynamic ARIA state (`aria-expanded`, `aria-controls`), and modal focus restoration. Native buttons and custom dropdown controls need explicitly defined `:focus-visible` styling to maintain high contrast during keyboard navigation without intruding on mouse interactions.
+**Action:** Associated all modal inputs with explicit `<label for="...">` elements, added `aria-expanded` and `aria-controls` to dropdown toggles, applied global `:focus-visible` ring styles, added `role="status"` `aria-live="polite"` to toast announcements, and wrapped landmark areas with semantic HTML elements (`<nav>`, `<main>`).
