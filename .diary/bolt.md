@@ -1,0 +1,4 @@
+## 2025-09-11 - QuickNav Rendering & Event Hygiene Optimizations
+
+**Learning:** Single-page vanilla web directories that repeatedly query full DOM trees via global icon libraries (`lucide.createIcons()`) or trigger full DOM node re-creations on drag-and-drop (`SortableJS`) introduce avoidable main-thread layout thrashing and animation stutter. Uncleared search debounce timers across state boundaries can lead to stale query executions over newly selected categories.
+**Action:** Memoized site icon resolution with `iconCache`, scoped Lucide icon updates to target container DOM roots (`lucide.createIcons({ root: container })`), removed DOM-destroying re-renders on drag-and-drop end, cleared search debounce timers on state transitions, and safely registered modal backdrop click handlers using `document.addEventListener` instead of overriding `window.onclick`.
